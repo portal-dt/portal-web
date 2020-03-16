@@ -1,0 +1,16 @@
+import React from 'react';
+
+import { ArrowUp, ArrowDown } from 'react-bootstrap-icons';
+
+const CustomerTableHeader = () => (
+  <thead>
+    <tr>
+      <th>Document Name <ArrowUp/></th>
+      <th>Document ID <ArrowDown/></th>
+      <th>Creation Date <ArrowUp/></th>
+      <th><input type="text" placeholder="Search..." /></th>
+    </tr>
+  </thead>
+);
+
+export default CustomerTableHeader;
