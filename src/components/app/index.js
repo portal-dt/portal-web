@@ -11,7 +11,7 @@ import NewPartnerDetails from '../newPartnerDetails';
 import './index.css';
 
 const App = () => (
-  <Container className="app">
+  <Container fluid className="app">
     <Switch>
       <Route path="/admins">
         {/*<AdminDashboard/>*/}

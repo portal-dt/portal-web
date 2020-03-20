@@ -6,6 +6,8 @@ import Footer from '../footer';
 import CustomerTableRow from '../customerTableRow';
 import CustomerTableHeader from '../customerTableHeader';
 
+import './index.css';
+
 const userName = 'CUSTOMER NAME';
 
 const tableData = [

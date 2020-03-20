@@ -1,4 +1,10 @@
 body {
   font-size: 16px;
-  background-image: url('../assets/images/background.png');
+  font-family: "Source Sans Pro", sans-serif;
+  color: rgb(96, 96, 96);
+  /* Do we need background as image? */
+  /* background-image: url('../assets/images/background.png'); */
+  background: linear-gradient(0deg, rgba(222,222,222,1) 0%, rgba(248,248,248,1) 100%);
+  background-size: cover;
+  background-attachment: fixed;
 }
