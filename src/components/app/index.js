@@ -12,7 +12,7 @@ import './index.css';
 
 const App = () => (
     <Switch>
-      <Route path="/">
+      <Route path="/admins">
         {/*<AdminDashboard/>*/}
         <CustomerDashboard />
         {/*<NewPartnerDetails />*/}
@@ -23,7 +23,7 @@ const App = () => (
       <Route path="/new-partner">
         <NewPartnerDetails />
       </Route>
-      <Route exact path="/admins">
+      <Route exact path="/">
         <SignInPage />
       </Route>
     </Switch>
