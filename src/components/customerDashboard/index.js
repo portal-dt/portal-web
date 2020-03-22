@@ -39,7 +39,8 @@ const CustomerDashboard = () => {
   return (
     <>
       <Header userName={userName} />
-      <Container>
+      <Container style={{flex: '1 0 auto'}}>
+        <div className="page-title">Documents</div>
         <Table
           tableData={tableData}
           TableHeader={CustomerTableHeader}

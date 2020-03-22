@@ -2,7 +2,7 @@
   background-color: black !important;
 }
 
-.btn.btn-green {
+.btn.btn-success-custom {
   font-weight: 300;
   background: rgb(114, 187, 83);
   border-radius: 0;
@@ -10,7 +10,7 @@
   padding: 4px 25px;
   color: rgb(255, 255, 255)
 }
-.btn.btn-green:hover { 
+.btn.btn-success-custom:hover { 
   background: rgb(97, 158, 71);
   border: 1px solid rgb(146, 211, 110);
 }

@@ -11,7 +11,6 @@ import NewPartnerDetails from '../newPartnerDetails';
 import './index.css';
 
 const App = () => (
-  <Container fluid className="app">
     <Switch>
       <Route path="/">
         {/*<AdminDashboard/>*/}
@@ -28,7 +27,6 @@ const App = () => (
         <SignInPage />
       </Route>
     </Switch>
-  </Container>
 );
 
 export default App;

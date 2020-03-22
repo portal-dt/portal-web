@@ -8,7 +8,7 @@ const CustomerTableRow = ({ documentName, documentId, creationDate }) => (
     <td style={{fontWeight: "bold"}}>{documentName}</td>
     <td>{documentId}</td>
     <td>{creationDate}</td>
-    <td> <Button text={'View'} classNames={'btn-green'} /> </td>
+    <td> <Button text={'View'} classNames={'btn-success-custom'} /> </td>
   </tr>
 );
 

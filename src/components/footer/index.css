@@ -1,0 +1,18 @@
+footer {
+    background: #ffffff;
+    min-height: 50px;
+    flex-shrink: 0;
+}
+
+.footer-container {
+    display: flex;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    min-height: 50px;
+    justify-content: space-between;
+}
+
+.footer-copyright {
+    font-size: 14px;
+}
