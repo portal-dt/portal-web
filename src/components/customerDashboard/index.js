@@ -5,6 +5,7 @@ import Header from '../header';
 import Footer from '../footer';
 import CustomerTableRow from '../customerTableRow';
 import CustomerTableHeader from '../customerTableHeader';
+import Container from 'react-bootstrap/Container';
 
 import './index.css';
 
@@ -38,11 +39,13 @@ const CustomerDashboard = () => {
   return (
     <>
       <Header userName={userName} />
-      <Table
-        tableData={tableData}
-        TableHeader={CustomerTableHeader}
-        TableRow={CustomerTableRow}
-      />
+      <Container>
+        <Table
+          tableData={tableData}
+          TableHeader={CustomerTableHeader}
+          TableRow={CustomerTableRow}
+        />
+      </Container>
       <Footer />
     </>
   );

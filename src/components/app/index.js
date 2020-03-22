@@ -13,7 +13,7 @@ import './index.css';
 const App = () => (
   <Container fluid className="app">
     <Switch>
-      <Route path="/admins">
+      <Route path="/">
         {/*<AdminDashboard/>*/}
         <CustomerDashboard />
         {/*<NewPartnerDetails />*/}
@@ -24,7 +24,7 @@ const App = () => (
       <Route path="/new-partner">
         <NewPartnerDetails />
       </Route>
-      <Route exact path="/">
+      <Route exact path="/admins">
         <SignInPage />
       </Route>
     </Switch>

@@ -1,3 +1,16 @@
 .btn-1 {
   background-color: black !important;
 }
+
+.btn.btn-green {
+  font-weight: 300;
+  background: rgb(114, 187, 83);
+  border-radius: 0;
+  border: 1px solid rgb(146, 211, 110);
+  padding: 4px 25px;
+  color: rgb(255, 255, 255)
+}
+.btn.btn-green:hover { 
+  background: rgb(97, 158, 71);
+  border: 1px solid rgb(146, 211, 110);
+}

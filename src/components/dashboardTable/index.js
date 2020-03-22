@@ -3,12 +3,14 @@ import React from 'react';
 
 import BootstrapTable from 'react-bootstrap/Table';
 
+import './index.css';
+
 const Table = ({ tableData, TableRow, TableHeader }) => {
   const renderTableData = () => tableData.map(({ ...data }, index) => <TableRow key={index} { ...data } />);
 
   return (
-    <BootstrapTable >
-      <TableHeader />
+    <BootstrapTable className="dashboard-table">
+      <TableHeader/>
       <tbody>
         {renderTableData()}
       </tbody>

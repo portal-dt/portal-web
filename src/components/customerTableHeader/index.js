@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { ArrowUp, ArrowDown } from 'react-bootstrap-icons';
+import { ArrowUp, ArrowDown, Search } from 'react-bootstrap-icons';
 
 const CustomerTableHeader = () => (
-  <thead>
+  <thead className="dashboard-table__header">
     <tr>
       <th>Document Name <ArrowUp/></th>
       <th>Document ID <ArrowDown/></th>
