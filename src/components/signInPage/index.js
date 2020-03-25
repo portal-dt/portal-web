@@ -34,7 +34,7 @@ const SignInPage = () => {
     event.preventDefault();
 
      try {
-       await login(state);
+       // await login(state);
        history.push('/admins');
      } catch (error) {
        console.log('not authorized')

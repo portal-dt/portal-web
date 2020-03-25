@@ -6,8 +6,9 @@ const CustomerTableHeader = () => (
   <thead>
     <tr>
       <th>Document Name <ArrowUp/></th>
-      <th>Document ID <ArrowDown/></th>
-      <th>Creation Date <ArrowUp/></th>
+      <th>Document Type <ArrowDown/></th>
+      <th>Date <ArrowUp/></th>
+      <th>Status <ArrowUp/></th>
       <th><input type="text" placeholder="Search..." /></th>
     </tr>
   </thead>

@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 
 import Button from '../button';
 
-const CustomerTableRow = ({ documentName, documentId, creationDate }) => (
+const CustomerTableRow = ({ documentName, documentType, creationDate, openedStatus }) => (
   <tr>
     <td>{documentName}</td>
-    <td>{documentId}</td>
+    <td>{documentType}</td>
     <td>{creationDate}</td>
+    <td>{openedStatus ? openedStatus: 'Unread'}</td>
     <td> <Button text={'View'} /> </td>
   </tr>
 );
