@@ -11,6 +11,7 @@ import reducers from './reducers';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
+import './styles.less';
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 
