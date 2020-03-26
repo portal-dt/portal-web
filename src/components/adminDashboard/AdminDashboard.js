@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 
 import { getCustomers } from '../../utils';
 
-import ControlBar from '../controlBar';
-import Header from '../header';
-import Footer from '../footer';
-import Table from '../dashboardTable';
-import AdminTableHeader from '../adminTableHeader';
-import AdminTableRow from '../adminTableRow';
+import ControlBar from '../controlBar/ControlBar';
+import Header from '../header/Header';
+import Footer from '../footer/Footer';
+import Table from '../dashboardTable/DashboardTable';
+import AdminTableHeader from '../adminTableHeader/AdminTableHeader';
+import AdminTableRow from '../adminTableRow/AdminTableRow';
 import axios from "axios";
 
 const tableData = [

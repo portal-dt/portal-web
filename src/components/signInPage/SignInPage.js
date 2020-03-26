@@ -8,9 +8,9 @@ import { Person, Lock } from 'react-bootstrap-icons';
 
 import { login } from '../../utils/auth';
 
-import Button from '../button';
+import Button from '../button/Button';
 
-import './index.css';
+import './SignInPage.css';
 
 const companyUrl = '../../../assets/images/company-logo.png'; // todo: move to props
 

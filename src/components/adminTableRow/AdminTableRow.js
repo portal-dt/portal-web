@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { GearFill, EyeFill, EyeSlashFill } from 'react-bootstrap-icons';
 
-import Button from '../button';
+import Button from '../button/Button';
 
 const AdminTableRow = ({ customerName, customerId, creationDate, contacts, status }) => (
   <tr>

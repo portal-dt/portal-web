@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import BootstrapButton from 'react-bootstrap/Button';
 
-import './button.css';
+import './Button.css';
 
 const Button = ({ text = '', backgroundColor = '', classNames, type, onClickHandler }) => {
   return (

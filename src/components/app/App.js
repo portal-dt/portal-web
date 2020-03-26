@@ -3,12 +3,12 @@ import { Switch, Route } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
 
-import SignInPage from '../signInPage';
-import AdminDashboard from '../adminDashboard';
-import CustomerDashboard from '../customerDashboard';
-import NewPartnerDetails from '../newPartnerDetails';
+import SignInPage from '../signInPage/SignInPage';
+import AdminDashboard from '../adminDashboard/AdminDashboard';
+import CustomerDashboard from '../customerDashboard/CustomerDashboard';
+import NewPartnerDetails from '../newPartnerDetails/NewPartnerDetails';
 
-import './index.css';
+import './App.css';
 
 const App = () => (
   <Container className="app">
@@ -25,7 +25,8 @@ const App = () => (
         <NewPartnerDetails />
       </Route>
       <Route exact path="/">
-        <SignInPage />
+        {/*<SignInPage />*/}
+        <CustomerDashboard />
       </Route>
     </Switch>
   </Container>

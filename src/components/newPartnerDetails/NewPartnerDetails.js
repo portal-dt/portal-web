@@ -4,9 +4,9 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
-import Header from '../header';
-import Footer from '../footer';
-import Button from '../button';
+import Header from '../header/Header';
+import Footer from '../footer/Footer';
+import Button from '../button/Button';
 
 const userName = 'USERNAME NAMEUSER';
 

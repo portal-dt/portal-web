@@ -3,7 +3,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Dash, Plus, EyeFill, EyeSlashFill } from 'react-bootstrap-icons';
 
-import ControlBarAction from '../controlBarAction';
+import ControlBarAction from '../controlBarAction/ControlBarAction';
 
 const actionIconSrc = '../../../assets/icons/enable-user.png';
 

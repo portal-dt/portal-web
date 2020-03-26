@@ -5,7 +5,7 @@ import { ArrowUp, ArrowDown } from 'react-bootstrap-icons';
 const CustomerTableHeader = () => (
   <thead>
     <tr>
-      <th>Document Name <ArrowUp/></th>
+      <th>Document Number <ArrowUp/></th>
       <th>Document Type <ArrowDown/></th>
       <th>Date <ArrowUp/></th>
       <th>Status <ArrowUp/></th>

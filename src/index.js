@@ -5,7 +5,7 @@ import ReduxPromise from 'redux-promise';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 
-import App from "./components/app";
+import App from './components/app/App';
 
 import reducers from './reducers';
 
