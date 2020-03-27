@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import BootstrapButton from 'react-bootstrap/Button';
 
-import './Button.css';
+import './Button.less';
 
 const Button = ({ text = '', backgroundColor = '', classNames, type, onClickHandler }) => {
   return (

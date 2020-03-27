@@ -11,25 +11,23 @@ import NewPartnerDetails from '../newPartnerDetails/NewPartnerDetails';
 import './App.css';
 
 const App = () => (
-  <Container className="app">
-    <Switch>
-      <Route path="/admins">
-        {/*<AdminDashboard/>*/}
-        <CustomerDashboard />
-        {/*<NewPartnerDetails />*/}
-      </Route>
-      <Route path="/customers">
-        <CustomerDashboard />
-      </Route>
-      <Route path="/new-partner">
-        <NewPartnerDetails />
-      </Route>
-      <Route exact path="/">
-        {/*<SignInPage />*/}
-        <CustomerDashboard />
-      </Route>
-    </Switch>
-  </Container>
+  <Switch>
+    <Route path="/admins">
+      {/*<AdminDashboard/>*/}
+      <CustomerDashboard />
+      {/*<NewPartnerDetails />*/}
+    </Route>
+    <Route path="/customers">
+      <CustomerDashboard />
+    </Route>
+    <Route path="/new-partner">
+      <NewPartnerDetails />
+    </Route>
+    <Route exact path="/">
+      {/*<SignInPage />*/}
+      <CustomerDashboard />
+    </Route>
+  </Switch>
 );
 
 export default App;

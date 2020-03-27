@@ -3,11 +3,13 @@ import React from 'react';
 
 import BootstrapTable from 'react-bootstrap/Table';
 
+import './DashboardTable.less';
+
 const Table = ({ tableData, TableRow, TableHeader }) => {
   const renderTableData = () => tableData.map(({ ...data }, index) => <TableRow key={index} { ...data } />);
 
   return (
-    <BootstrapTable >
+    <BootstrapTable className="dashboard-table" striped bordered>
       <TableHeader />
       <tbody>
         {renderTableData()}
