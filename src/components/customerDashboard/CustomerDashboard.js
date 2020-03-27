@@ -63,7 +63,6 @@ const CustomerDashboard = () => {
 
   return (
     <>
-
       <Header userName={userName} />
       <Container className="page-content">
         <div className="page-content__title">Dokumenter</div>
