@@ -23,7 +23,7 @@ const CustomerTableRow = ({ documentNumber, documentType, creationDate, openedAt
       <td>{formatDateToLocalString(creationDate)}</td>
       <td>{openedAt ? formatDateToLocalString(openedAt) : 'Unread'}</td>
       <td>
-        <Button text={'View'} onClickHandler={viewDocument} />
+        <Button classNames="theme-btn" text={'View'} onClickHandler={viewDocument} />
       </td>
       {
         isDocumentOpened &&

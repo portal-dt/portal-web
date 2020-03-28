@@ -2,8 +2,10 @@ import React from 'react';
 
 import { ArrowUp, ArrowDown } from 'react-bootstrap-icons';
 
+import './CustomerTableHeader.less';
+
 const CustomerTableHeader = () => (
-  <thead>
+  <thead className="table-header">
     <tr>
       <th>Document Number <ArrowUp/></th>
       <th>Document Type <ArrowDown/></th>

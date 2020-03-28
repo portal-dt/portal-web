@@ -7,32 +7,35 @@ import Footer from '../footer/Footer';
 import CustomerTableRow from '../customerTableRow/CustomerTableRow';
 import CustomerTableHeader from '../customerTableHeader/CustomerTableHeader';
 
+import './CustomerDashboard.less';
+import Container from 'react-bootstrap/Container';
+
 const userName = 'CUSTOMER NAME';
 
 const tableData = [
   {
-    documentName: 'Tax invoice',
+    documentNumber: 1,
     documentType: '1',
     creationDate: '27 December 2020',
-    openedStatus: null
+    openedAt: null
   },
   {
-    documentName: 'Monthly invoice',
+    documentNumber: 2,
     documentType: '2',
     creationDate: '27 December 2020',
-    openedStatus: '27 December 2020'
+    openedAt: '27 December 2020'
   },
   {
-    documentName: 'Document',
+    documentNumber: 3,
     documentType: '3',
     creationDate: '27 December 2020',
-    openedStatus: null
+    openedAt: null
   },
   {
-    documentName: 'Best document ever',
+    documentNumber: 4,
     documentType: '1',
     creationDate: '27 December 2020',
-    openedStatus: '27 December 2020',
+    openedAt: '27 December 2020',
   }
 ];
 
@@ -42,15 +45,15 @@ const CustomerDashboard = () => {
 
   useEffect(() => {
     const fetchDocuments = async () => {
-      const { data: { documents } } = await axios.get('http://127.0.0.1:5000/v3/archive/documents/100005262?content=true');
+      // const { data: { documents } } = await axios.get('http://127.0.0.1:5000/v3/archive/documents/100005262?content=true');
 
-      const tableData = documents.map(({ type, openedAt, invoiceDate, invoiceNumber, file }) => ({
-        documentNumber: invoiceNumber,
-        documentType: type,
-        creationDate: invoiceDate,
-        openedAt: openedAt,
-        document: file
-      }));
+      // const tableData = documents.map(({ type, openedAt, invoiceDate, invoiceNumber, file }) => ({
+      //   documentNumber: invoiceNumber,
+      //   documentType: type,
+      //   creationDate: invoiceDate,
+      //   openedAt: openedAt,
+      //   document: file
+      // }));
 
       setDocument(tableData);
     };
@@ -61,12 +64,15 @@ const CustomerDashboard = () => {
   return (
     <>
       <Header userName={userName} />
-      <Table
-        tableData={documents}
-        TableHeader={CustomerTableHeader}
-        TableRow={CustomerTableRow}
-      />
-      {/*<Footer />*/}
+      <Container className="page-content">
+        <div className="page-content__title">Dokumenter</div>
+        <Table
+          tableData={documents}
+          TableHeader={CustomerTableHeader}
+          TableRow={CustomerTableRow}
+        />
+      </Container>
+      <Footer />
     </>
   );
 };
