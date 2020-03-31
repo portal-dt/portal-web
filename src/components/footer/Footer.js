@@ -11,10 +11,10 @@ const Footer = () => {
     <footer className="footer">
       <Container>
         <Row>
-          <Col xs="3" className="align-self-center">
+          <Col xs="12" md="3" className="align-self-center">
             <img src={companyUrl} alt="company logo" style={{ height: '40px' }} />
           </Col>
-          <Col xs="9" className="align-self-center">
+          <Col xs="12" md="9" className="align-self-center">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>

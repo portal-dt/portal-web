@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { cloneElement } from 'react';
 // import PropTypes from 'prop-types';
 
 import BootstrapTable from 'react-bootstrap/Table';
@@ -9,8 +9,8 @@ const Table = ({ tableData, TableRow, TableHeader }) => {
   const renderTableData = () => tableData.map(({ ...data }, index) => <TableRow key={index} { ...data } />);
 
   return (
-    <BootstrapTable className="dashboard-table" striped bordered>
-      <TableHeader />
+    <BootstrapTable className="dashboard-table" striped bordered responsive>
+      {cloneElement(TableHeader)}
       <tbody>
         {renderTableData()}
       </tbody>

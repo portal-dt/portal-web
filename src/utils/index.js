@@ -1,8 +1,26 @@
-import axios from 'axios';
+export const formatDateToLocalString = (date) => new Date(date).toLocaleString();
 
-export const getCustomers = async () => {
-  const { data: { customers } } = await axios.get('http://127.0.0.1:3000/customers');
-  return customers;
+const sortColumnNumber = (data, column, isAsc) => data.sort((a, b) => isAsc
+  ? a[column] - b[column]
+  : b[column] - a[column]);
+
+const sortColumnStringAsc = (data, column) => data.sort((a, b) => a[column] > b[column] ? 1 : -1);
+const sortColumnStringDesc = (data, column) => data.sort((a, b) => a[column] < b[column] ? 1 : -1);
+const sortColumnString = (data, column, isAsc) => isAsc
+  ? sortColumnStringAsc(data, column)
+  : sortColumnStringDesc(data, column);
+
+const sortColumnDate = (data, column, isAsc) => data.sort((a, b) => isAsc
+    ? new Date(a[column]) - new Date(b[column])
+    : new Date(b[column]) - new Date(a[column]));
+
+export const sortColumn = (data, column, isAsc) => {
+  switch (column) {
+    case 'documentNumber':
+      return sortColumnNumber(data, column, isAsc);
+    case 'documentType':
+      return sortColumnString(data, column, isAsc);
+    case 'creationDate':
+      return sortColumnDate(data, column, isAsc);
+  }
 };
-
-export const formatDateToLocalString = (date) => new Date(date).toLocaleDateString();

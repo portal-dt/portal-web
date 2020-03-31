@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { getCustomers } from '../../utils';
+import { getCustomers } from '../../utils/api';
 
 import ControlBar from '../controlBar/ControlBar';
 import Header from '../header/Header';

@@ -4,14 +4,26 @@ import { ArrowUp, ArrowDown } from 'react-bootstrap-icons';
 
 import './CustomerTableHeader.less';
 
-const CustomerTableHeader = () => (
+const getSortArrow = isAsc => isAsc ? <ArrowUp/> : <ArrowDown/>;
+
+const CustomerTableHeader = ({ onInputChange, sort, sortState }) => (
   <thead className="table-header">
     <tr>
-      <th>Document Number <ArrowUp/></th>
-      <th>Document Type <ArrowDown/></th>
-      <th>Date <ArrowUp/></th>
-      <th>Status <ArrowUp/></th>
-      <th><input type="text" placeholder="Search..." /></th>
+      <th id="documentNumber" onClick={sort}>
+        Document Number {getSortArrow(sortState['documentNumber'].isAsc)}
+      </th>
+      <th id="documentType" onClick={sort}>
+        Document Type {getSortArrow(sortState['documentType'].isAsc)}
+      </th>
+      <th id="creationDate" onClick={sort}>
+        Date {getSortArrow(sortState['creationDate'].isAsc)}
+      </th>
+      <th id="openedAt">
+        Status
+      </th>
+      <th>
+        <input type="text" placeholder="Filter by Status" onChange={onInputChange} />
+      </th>
     </tr>
   </thead>
 );

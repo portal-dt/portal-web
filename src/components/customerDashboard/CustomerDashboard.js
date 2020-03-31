@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, useReducer } from 'react';
+
+import { getDocumentsByCustomerId } from '../../utils/api';
+import { sortColumn } from '../../utils';
 
 import Table from '../dashboardTable/DashboardTable';
 import Header from '../header/Header';
@@ -10,65 +12,89 @@ import CustomerTableHeader from '../customerTableHeader/CustomerTableHeader';
 import './CustomerDashboard.less';
 import Container from 'react-bootstrap/Container';
 
-const userName = 'CUSTOMER NAME';
+const userName = 'Customer Name';
 
-const tableData = [
-  {
-    documentNumber: 1,
-    documentType: '1',
-    creationDate: '27 December 2020',
-    openedAt: null
-  },
-  {
-    documentNumber: 2,
-    documentType: '2',
-    creationDate: '27 December 2020',
-    openedAt: '27 December 2020'
-  },
-  {
-    documentNumber: 3,
-    documentType: '3',
-    creationDate: '27 December 2020',
-    openedAt: null
-  },
-  {
-    documentNumber: 4,
-    documentType: '1',
-    creationDate: '27 December 2020',
-    openedAt: '27 December 2020',
-  }
-];
+// const tableData = [
+//   {
+//     documentNumber: 1,
+//     documentType: '1',
+//     creationDate: '27 December 2020',
+//     openedAt: null
+//   },
+//   {
+//     documentNumber: 2,
+//     documentType: '2',
+//     creationDate: '27 December 2020',
+//     openedAt: '27 December 2020'
+//   },
+//   {
+//     documentNumber: 3,
+//     documentType: '3',
+//     creationDate: '27 December 2020',
+//     openedAt: null
+//   },
+//   {
+//     documentNumber: 4,
+//     documentType: '1',
+//     creationDate: '27 December 2020',
+//     openedAt: '27 December 2020',
+//   }
+// ];
+
+const initialState = {
+  documentNumber: { isAsc: true },
+  documentType: { isAsc: false },
+  creationDate: { isAsc: false },
+};
+
+const reducer = (state, { field }) => ({
+  ...state,
+  [field]: { isAsc: !state[field].isAsc }
+});
 
 
 const CustomerDashboard = () => {
-  const [documents, setDocument] = useState([]);
+  const [sortState, dispatch] = useReducer(reducer, initialState);
+  const [documents, setDocuments] = useState([]);
+  const [filteredDocuments, setFilteredDocuments] = useState([]);
 
   useEffect(() => {
     const fetchDocuments = async () => {
-      // const { data: { documents } } = await axios.get('http://127.0.0.1:5000/v3/archive/documents/100005262?content=true');
-
-      // const tableData = documents.map(({ type, openedAt, invoiceDate, invoiceNumber, file }) => ({
-      //   documentNumber: invoiceNumber,
-      //   documentType: type,
-      //   creationDate: invoiceDate,
-      //   openedAt: openedAt,
-      //   document: file
-      // }));
-
-      setDocument(tableData);
+      const customerDocuments = await getDocumentsByCustomerId();
+      setDocuments(customerDocuments);
     };
-
     fetchDocuments();
   }, []);
+
+  const filterByStatus = ({ target = {} }) => {
+    let filteredDocuments = [];
+    if (target.value !== '') {
+      filteredDocuments = documents.filter(({ documentType }) => {
+        const filter = target.value.toLowerCase().trim();
+        return documentType.includes(filter);
+      });
+    }
+    setFilteredDocuments(filteredDocuments.length ? filteredDocuments : documents);
+  };
+
+  const tableData = filteredDocuments.length ? filteredDocuments : documents;
+
+  const sort = ({ target = {} }) => {
+    const tableDataSorted = sortColumn(tableData, target.id, sortState[target.id].isAsc);
+    dispatch({ field: target.id });
+    setFilteredDocuments(tableDataSorted);
+  };
+
+  const TableHeader = <CustomerTableHeader onInputChange={filterByStatus} sort={sort} sortState={sortState} />;
 
   return (
     <>
       <Header userName={userName} />
       <Container className="page-content">
-        <div className="page-content__title">Dokumenter</div>
+        <div className="page-content__title">Documents</div>
         <Table
-          tableData={documents}
-          TableHeader={CustomerTableHeader}
+          tableData={tableData}
+          TableHeader={TableHeader}
           TableRow={CustomerTableRow}
         />
       </Container>

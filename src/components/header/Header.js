@@ -9,7 +9,6 @@ import './Header.less';
 import Container from 'react-bootstrap/Container';
 
 const companyUrl = '../../../assets/images/company-logo.png'; // todo: move to props
-const userName = 'ACCOUNT DETAILS';
 
 const Header = ({userName}) => {
   return (
@@ -21,13 +20,14 @@ const Header = ({userName}) => {
                 src={companyUrl}
                 alt="company logo"
                 height="25"
-                className="d-inline-block align-top"/>
+                className="d-inline-block align-top"
+            />
           </Navbar.Brand>
 
           <Nav className="mr-auto">
-            <Nav.Link href="#meldinger" className="header__link">Meldinger</Nav.Link>
+            <Nav.Link href="#" className="header__link">Hi, {userName}</Nav.Link>
           </Nav>
-          <Button variant="link" className="header__link"><BoxArrowRight size={45}/>Logg ut</Button>
+          <Button variant="link" className="header__link"><BoxArrowRight size={45}/>Log out</Button>
         </Navbar>
       </Container>  
     </header>

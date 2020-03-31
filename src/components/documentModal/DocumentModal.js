@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './DocumentModal.css';
+import Modal from 'react-bootstrap/Modal';
+
+import './DocumentModal.less';
 
 const DocumentModal = ({ isActive, children, onClose }) => (
-  isActive &&
-  <div className="asdasdas">
-    <button onClick={onClose}>Close Document</button>
+  <Modal show={isActive} onHide={onClose}>
     {children}
-  </div>
+  </Modal>
 );
 
 DocumentModal.propTypes = {
