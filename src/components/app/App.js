@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container';
 
 import SignInPage from '../signInPage/SignInPage';
 import AdminDashboard from '../adminDashboard/AdminDashboard';
+import CustomerDocuments from '../customerDocuments/CustomerDocuments';
 import CustomerDashboard from '../customerDashboard/CustomerDashboard';
 import NewPartnerDetails from '../newPartnerDetails/NewPartnerDetails';
 
@@ -14,11 +15,11 @@ const App = () => (
   <Switch>
     <Route path="/admins">
       {/*<AdminDashboard/>*/}
-      <CustomerDashboard />
+      <CustomerDocuments />
       {/*<NewPartnerDetails />*/}
     </Route>
     <Route path="/customers">
-      <CustomerDashboard />
+      <CustomerDocuments />
     </Route>
     <Route path="/new-partner">
       <NewPartnerDetails />

@@ -12,7 +12,7 @@ import { updateViewedDocument } from '../../utils/api';
 import './CustomerTableRow.less';
 
 
-const CustomerTableRow = ({ documentNumber, documentType, creationDate, openedAt, document, id }) => {
+const CustomerTableRow = ({ documentNumber, documentType, creationDate, openedAt, document }) => {
   const [pageNumber, setPageNumber] = useState(1);
   const [isDocumentOpened, setIsDocumentOpened] = useState(false);
 
@@ -26,6 +26,16 @@ const CustomerTableRow = ({ documentNumber, documentType, creationDate, openedAt
 
   const openedAtClassName = classNames(`table-row__column--${openedAt ? 'green' : 'red'}`);
 
+  const renderPdfModal = () => (
+    <DocumentModal isActive={isDocumentOpened} onClose={closeDocument}>
+      <Document file={document} onLoadSuccess={onDocumentLoadSuccess}>
+        <Page pageNumber={pageNumber} />
+      </Document>
+    </DocumentModal>
+  );
+
+  const getPdfName = () => `${documentType} ${new Date(creationDate).toLocaleString('default', { month: 'long' })} ${new Date(creationDate).getUTCFullYear()}`;
+
   return (
     <tr>
       <td>{documentNumber}</td>
@@ -34,17 +44,9 @@ const CustomerTableRow = ({ documentNumber, documentType, creationDate, openedAt
       <td className={openedAtClassName}>{openedAt ? formatDateToLocalString(openedAt) : 'Unread'}</td>
       <td>
         <Button classNames="theme-btn" text="View" onClickHandler={onViewClickHandler} />
+        <a href={document} download={getPdfName()}>Save</a>
       </td>
-      <td>
-        <Button classNames="theme-btn" text="Save" onClickHandler={onViewClickHandler} />
-      </td>
-      {
-        <DocumentModal isActive={isDocumentOpened} onClose={closeDocument}>
-          <Document file={document} onLoadSuccess={onDocumentLoadSuccess}>
-            <Page pageNumber={pageNumber} />
-          </Document>
-        </DocumentModal>
-      }
+      {renderPdfModal()}
     </tr>
   );
 };
