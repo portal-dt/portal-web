@@ -1,8 +1,10 @@
 import axios from 'axios';
 
+const BASE_URL = 'http://127.0.0.1:5000/v3/archive';
+
 export const getDocumentsByCustomerId = async () => {
   try {
-    const { data: { documents } } = await axios.get('http://127.0.0.1:5000/v3/archive/documents/100005262?content=true');
+    const { data: { documents } } = await axios.get(`${BASE_URL}/documents/19096226325?content=true`);
 
     return documents.map(({ type, openedAt, invoiceDate, invoiceNumber, file }) => ({
       documentNumber: invoiceNumber,
@@ -10,6 +12,22 @@ export const getDocumentsByCustomerId = async () => {
       creationDate: invoiceDate,
       openedAt: openedAt,
       document: file
+    }));
+  } catch (e) {
+    console.log(e); // todo
+    return [];
+  }
+};
+
+export const getLatestDocumentsByCustomerId = async () => {
+  try {
+    const { data: { documents } } = await axios.get(`${BASE_URL}/documents/latest/19096226325`);
+
+    return documents.map(({ type, openedAt, invoiceDate, dueDate }) => ({
+      documentName: `${type} ${new Date(invoiceDate).toLocaleString('default', { month: 'long' })} ${new Date(invoiceDate).getUTCFullYear()}`,
+      creationDate: invoiceDate,
+      openedAt: openedAt,
+      dueDate
     }));
   } catch (e) {
     console.log(e); // todo
@@ -30,7 +48,7 @@ export const getCustomers = async () => {
 export const updateViewedDocument = async (documentId) => {
   try {
     await axios.post(
-      'http://127.0.0.1:5000/v3/archive/document',
+      `${BASE_URL}/document`,
       { documentId, openedAt: new Date() }
     );
   } catch (e) {

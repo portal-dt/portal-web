@@ -5,7 +5,7 @@ import BootstrapTable from 'react-bootstrap/Table';
 
 import './DashboardTable.less';
 
-const Table = ({ tableData, TableRow, TableHeader }) => {
+const Table = ({ tableData = [], TableRow, TableHeader }) => {
   const renderTableData = () => tableData.map(({ ...data }, index) => <TableRow key={index} { ...data } />);
 
   return (

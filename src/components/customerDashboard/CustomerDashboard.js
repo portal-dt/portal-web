@@ -1,26 +1,65 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
+import { getLatestDocumentsByCustomerId } from '../../utils/api';
+import { formatDateToLocalString } from '../../utils';
 
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
 import Card from '../card/Card';
+import Table from '../dashboardTable/DashboardTable';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+
+const renderTableHeader = () => (
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Creation Date</th>
+      <th>Due Date</th>
+      <th>Last Opened</th>
+    </tr>
+  </thead>
+);
+
+const renderTableRow = ({ documentName, creationDate, openedAt, dueDate }) => (
+  <tr>
+    <td>{documentName}</td>
+    <td>{formatDateToLocalString(creationDate)}</td>
+    <td>{formatDateToLocalString(dueDate)}</td>
+    <td>{openedAt ? formatDateToLocalString(openedAt) : 'Unread'}</td>
+  </tr>
+);
+
 const CustomerDashboard = () => {
+  const [documents, setDocuments] = useState([]);
+
+  useEffect(() => {
+    const fetchLatestDocuments = async () => {
+      const latestDocuments = await getLatestDocumentsByCustomerId();
+
+      setDocuments(latestDocuments);
+    };
+
+    fetchLatestDocuments();
+  },[]);
+
   return (
     <>
       <Header />
       <Container className="page-content" >
         <Row>
           <Col xs="12" sm="6">
-            <Card cardHeaderText="Documents" cardText="Here you can see your documents" />
+            <Card cardHeaderText="This month's invoice" cardText="This month's invoice" />
           </Col>
           <Col xs="12" sm="6">
             <Card cardHeaderText="Messages" cardText="Start sending messages" />
           </Col>
           <Col xs="12" sm="6">
-            <Card cardHeaderText="Last documents" cardText="Here you can see your documents" />
+            <Card cardHeaderText="Last documents">
+              <Table tableData={documents} TableHeader={renderTableHeader()}  TableRow={renderTableRow} />
+            </Card>
           </Col>
         </Row>
       </Container>

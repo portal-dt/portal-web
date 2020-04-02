@@ -1,4 +1,4 @@
-export const formatDateToLocalString = (date) => new Date(date).toLocaleString();
+export const formatDateToLocalString = (date) => new Date(date).toLocaleDateString('no-NO', { timeZone: 'UTC' });
 
 const sortColumnNumber = (data, column, isAsc) => data.sort((a, b) => isAsc
   ? a[column] - b[column]
