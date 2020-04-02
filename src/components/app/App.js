@@ -9,26 +9,34 @@ import CustomerDocuments from '../customerDocuments/CustomerDocuments';
 import CustomerDashboard from '../customerDashboard/CustomerDashboard';
 import NewPartnerDetails from '../newPartnerDetails/NewPartnerDetails';
 
-import './App.css';
+import './App.less';
+import Header from "../header/Header";
+import Footer from '../footer/Footer';
 
 const App = () => (
-  <Switch>
-    <Route path="/admins">
-      {/*<AdminDashboard/>*/}
-      <CustomerDocuments />
-      {/*<NewPartnerDetails />*/}
-    </Route>
-    <Route path="/customers">
-      <CustomerDocuments />
-    </Route>
-    <Route path="/new-partner">
-      <NewPartnerDetails />
-    </Route>
-    <Route exact path="/">
-      {/*<SignInPage />*/}
-      <CustomerDashboard />
-    </Route>
-  </Switch>
+  <>
+    <Header />
+      <Container className="page-content" >
+        <Switch>
+          <Route path="/admins">
+            {/*<AdminDashboard/>*/}
+            <CustomerDocuments />
+            {/*<NewPartnerDetails />*/}
+          </Route>
+          <Route path="/customers">
+            <CustomerDocuments />
+          </Route>
+          <Route path="/new-partner">
+            <NewPartnerDetails />
+          </Route>
+          <Route exact path="/">
+            {/*<SignInPage />*/}
+            <CustomerDashboard />
+          </Route>
+        </Switch>
+      </Container>
+    <Footer />
+  </>
 );
 
 export default App;

@@ -47,23 +47,19 @@ const CustomerDashboard = () => {
 
   return (
     <>
-      <Header />
-      <Container className="page-content" >
-        <Row>
-          <Col xs="12" sm="6">
-            <Card cardHeaderText="This month's invoice" cardText="This month's invoice" />
-          </Col>
-          <Col xs="12" sm="6">
-            <Card cardHeaderText="Messages" cardText="Start sending messages" />
-          </Col>
-          <Col xs="12" sm="6">
-            <Card cardHeaderText="Last documents">
-              <Table tableData={documents} TableHeader={renderTableHeader()}  TableRow={renderTableRow} />
-            </Card>
-          </Col>
-        </Row>
-      </Container>
-      <Footer />
+      <Row>
+        <Col xs="12" sm="6">
+          <Card cardHeaderText="This month's invoice" cardText="This month's invoice" />
+        </Col>
+        <Col xs="12" sm="6">
+          <Card cardHeaderText="Messages" cardText="Start sending messages" />
+        </Col>
+        <Col xs="12" sm="6">
+          <Card cardHeaderText="Last documents">
+            <Table tableData={documents} TableHeader={renderTableHeader()}  TableRow={renderTableRow} />
+          </Card>
+        </Col>
+      </Row>
     </>
   );
 };
