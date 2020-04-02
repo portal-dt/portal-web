@@ -12,7 +12,7 @@ const Footer = () => {
       <Container>
         <Row>
           <Col xs="12" md="6" className="align-self-center">
-            <span>&copy; <a href="/">Kraft Bank</a>, {(new Date().getFullYear())}</span>
+            <span>&copy; <a href="/">Kraft Bank</a>, {(new Date().getFullYear())} </span>
           </Col>
           <Col xs="12" md="6" className="align-self-center text-right">
             <span>Kraft Bank er medlem av Bankenes Sikringsfond</span>
