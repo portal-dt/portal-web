@@ -11,13 +11,11 @@ const Footer = () => {
     <footer className="footer">
       <Container>
         <Row>
-          <Col xs="12" md="3" className="align-self-center">
-            <img src={companyUrl} alt="company logo" style={{ height: '40px' }} />
+          <Col xs="12" md="6" className="align-self-center">
+            <span>&copy; <a href="/">Kraft Bank</a>, {(new Date().getFullYear())} </span>
           </Col>
-          <Col xs="12" md="9" className="align-self-center">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <Col xs="12" md="6" className="align-self-center text-right">
+            <span>Kraft Bank er medlem av Bankenes Sikringsfond</span>
           </Col>
         </Row>
       </Container>

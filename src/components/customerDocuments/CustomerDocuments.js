@@ -89,16 +89,12 @@ const CustomerDocuments = () => {
 
   return (
     <>
-      <Header userName={userName} />
-      <Container className="page-content">
-        <div className="page-content__title">Documents</div>
-        <Table
-          tableData={tableData}
-          TableHeader={TableHeader}
-          TableRow={CustomerTableRow}
-        />
-      </Container>
-      <Footer />
+      <div className="page-content__title">Documents</div>
+      <Table
+        tableData={tableData}
+        TableHeader={TableHeader}
+        TableRow={CustomerTableRow}
+      />
     </>
   );
 };

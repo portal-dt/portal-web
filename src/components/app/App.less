@@ -1,0 +1,27 @@
+@import '../../styles/vars.less';
+
+#app {
+    height: 100%;
+    margin: 0!important;
+    padding: 0!important;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-content {
+    flex: 1 0 auto;
+
+    &__title {
+        padding: 1.25rem .75rem;
+        font-size: 18px;
+        color: @theme-color;
+        font-weight: bold;
+    }
+}
+
+.footer {
+    background-color: #e6e6e6;
+    padding: 1.5rem 0;
+    min-height: 50px;
+    flex-shrink: 0;
+}
