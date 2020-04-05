@@ -1,5 +1,8 @@
 {
   "signInUsername": "Användarnamn",
   "signInPassword": "Lösenord",
-  "singInButton": "Logga in"
+  "singInButton": "Logga in",
+  "headerDocumentsLink": "Dokument",
+  "headerLogOutButton": "Logga ut",
+  "headerAccountSettings": "Kontoinställningar"
 }

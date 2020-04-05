@@ -1,17 +1,20 @@
 import React from 'react';
-
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
-import Button from 'react-bootstrap/Button';
-import { BoxArrowRight } from 'react-bootstrap-icons';
 import { NavLink } from 'react-router-dom';
+import { useIntl } from 'react-intl';
+import { messages } from './messages';
+
+import { BoxArrowRight } from 'react-bootstrap-icons';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
 
 import './Header.less';
-import Container from 'react-bootstrap/Container';
 
 const companyUrl = '../../../assets/images/company-logo.png'; // todo: move to props
 
 const Header = ({ userName }) => {
+  const { formatMessage } = useIntl();
   return (
     <header className="header">
       <Container>
@@ -29,10 +32,10 @@ const Header = ({ userName }) => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <NavLink to="/documents" className="nav-link header__link">Documenter</NavLink>
-              <NavLink to="/dashboard" className="nav-link header__link">Users</NavLink>
+              <NavLink to="/documents" className="nav-link header__link">{formatMessage(messages.documentsLink)}</NavLink>
+              <NavLink to="/dashboard" className="nav-link header__link">{formatMessage(messages.accountSettings)}</NavLink>
             </Nav>
-            <Button variant="link" className="header__link"><BoxArrowRight size={45}/>Log out</Button>
+            <Button variant="link" className="header__link"><BoxArrowRight size={45}/>{formatMessage(messages.logOut)}</Button>
           </Navbar.Collapse>
         </Navbar>
       </Container>  

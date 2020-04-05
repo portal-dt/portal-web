@@ -1,5 +1,8 @@
 {
   "signInUsername": "Username",
   "signInPassword": "Password",
-  "singInButton": "Sign In"
+  "singInButton": "Sign In",
+  "headerDocumentsLink": "Documents",
+  "headerLogOutButton": "Log Out",
+  "headerAccountSettings": "Account Settings"
 }
