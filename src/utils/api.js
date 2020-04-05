@@ -21,13 +21,14 @@ export const getDocumentsByCustomerId = async () => {
 
 export const getLatestDocumentsByCustomerId = async () => {
   try {
-    const { data: { documents } } = await axios.get(`${BASE_URL}/documents/latest/19096226325`);
+    const { data: { documents } } = await axios.get(`${BASE_URL}/documents/latest/19096226325?content=true`);
 
-    return documents.map(({ type, openedAt, invoiceDate, dueDate }) => ({
+    return documents.map(({ type, openedAt, invoiceDate, dueDate, file }) => ({
       documentName: `${type} ${new Date(invoiceDate).toLocaleString('default', { month: 'long' })} ${new Date(invoiceDate).getUTCFullYear()}`,
       creationDate: invoiceDate,
       openedAt: openedAt,
-      dueDate
+      dueDate,
+      document: file
     }));
   } catch (e) {
     console.log(e); // todo

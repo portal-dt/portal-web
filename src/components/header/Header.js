@@ -11,13 +11,13 @@ import Container from 'react-bootstrap/Container';
 
 const companyUrl = '../../../assets/images/company-logo.png'; // todo: move to props
 
-const Header = ({userName}) => {
+const Header = ({ userName }) => {
   return (
     <header className="header">
       <Container>
         <Navbar collapseOnSelect expand="lg">
           <Navbar.Brand href="#home" className="header__logo">
-          <NavLink to="/">
+          <NavLink to="/dashboard">
             <img 
                 src={companyUrl}
                 alt="company logo"
@@ -29,8 +29,8 @@ const Header = ({userName}) => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <NavLink to="/admins" className="nav-link header__link">Documenter</NavLink>
-              <NavLink to="/" className="nav-link header__link">Users</NavLink>
+              <NavLink to="/documents" className="nav-link header__link">Documenter</NavLink>
+              <NavLink to="/dashboard" className="nav-link header__link">Users</NavLink>
             </Nav>
             <Button variant="link" className="header__link"><BoxArrowRight size={45}/>Log out</Button>
           </Navbar.Collapse>
@@ -38,7 +38,6 @@ const Header = ({userName}) => {
       </Container>  
     </header>
   );
-
 };
 
 export default Header;

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Document, Page } from 'react-pdf/dist/entry.webpack';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -13,26 +12,16 @@ import './CustomerTableRow.less';
 
 
 const CustomerTableRow = ({ documentNumber, documentType, creationDate, openedAt, document }) => {
-  const [pageNumber, setPageNumber] = useState(1);
   const [isDocumentOpened, setIsDocumentOpened] = useState(false);
 
   const viewDocument = () => setIsDocumentOpened(true);
   const closeDocument = () => setIsDocumentOpened(false);
-  const onDocumentLoadSuccess = ({ numPages }) => setPageNumber(numPages);
   const onViewClickHandler = async () => {
    await updateViewedDocument(documentNumber);
    viewDocument();
   };
 
   const openedAtClassName = classNames(`table-row__column--${openedAt ? 'green' : 'red'}`);
-
-  const renderPdfModal = () => (
-    <DocumentModal isActive={isDocumentOpened} onClose={closeDocument}>
-      <Document file={document} onLoadSuccess={onDocumentLoadSuccess}>
-        <Page pageNumber={pageNumber} />
-      </Document>
-    </DocumentModal>
-  );
 
   const getPdfName = () => `${documentType} ${new Date(creationDate).toLocaleString('default', { month: 'long' })} ${new Date(creationDate).getUTCFullYear()}`;
 
@@ -46,7 +35,11 @@ const CustomerTableRow = ({ documentNumber, documentType, creationDate, openedAt
         <Button classNames="theme-btn" text="View" onClickHandler={onViewClickHandler} />
         <a href={document} download={getPdfName()}>Save</a>
       </td>
-      {renderPdfModal()}
+      <DocumentModal
+        isActive={isDocumentOpened}
+        onClose={closeDocument}
+        document={document}
+      />
     </tr>
   );
 };

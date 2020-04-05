@@ -18,20 +18,17 @@ const App = () => (
     <Header />
       <Container className="page-content" >
         <Switch>
-          <Route path="/admins">
-            {/*<AdminDashboard/>*/}
+          <Route path="/documents">
             <CustomerDocuments />
-            {/*<NewPartnerDetails />*/}
           </Route>
-          <Route path="/customers">
-            <CustomerDocuments />
+          <Route path="/dashboard">
+            <CustomerDashboard />
           </Route>
           <Route path="/new-partner">
             <NewPartnerDetails />
           </Route>
           <Route exact path="/">
-            {/*<SignInPage />*/}
-            <CustomerDashboard />
+            <SignInPage />
           </Route>
         </Switch>
       </Container>

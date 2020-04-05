@@ -3,11 +3,10 @@ import React, { useState, useEffect } from 'react';
 import { getLatestDocumentsByCustomerId } from '../../utils/api';
 import { formatDateToLocalString } from '../../utils';
 
-import Header from '../header/Header';
-import Footer from '../footer/Footer';
 import Card from '../card/Card';
 import Table from '../dashboardTable/DashboardTable';
-import Container from 'react-bootstrap/Container';
+import DocumentModal from '../documentModal/DocumentModal';
+import Button from '../button/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
@@ -23,7 +22,7 @@ const renderTableHeader = () => (
   </thead>
 );
 
-const renderTableRow = ({ documentName, creationDate, openedAt, dueDate }) => (
+const renderTableRow = ({ documentName, creationDate, openedAt, dueDate, document }) => (
   <tr>
     <td>{documentName}</td>
     <td>{formatDateToLocalString(creationDate)}</td>
