@@ -1,4 +1,7 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
+
+import { messages } from './messages';
 
 import { ArrowUp, ArrowDown } from 'react-bootstrap-icons';
 
@@ -6,26 +9,33 @@ import './CustomerTableHeader.less';
 
 const getSortArrow = isAsc => isAsc ? <ArrowUp/> : <ArrowDown/>;
 
-const CustomerTableHeader = ({ onInputChange, sort, sortState }) => (
-  <thead className="table-header">
+const CustomerTableHeader = ({ onInputChange, sort, sortState }) => {
+  const { formatMessage } = useIntl();
+  return (
+    <thead className="table-header">
     <tr>
       <th id="documentNumber" onClick={sort}>
-        Document Number {getSortArrow(sortState['documentNumber'].isAsc)}
+        {formatMessage(messages.columnDocumentName)} {getSortArrow(sortState['documentNumber'].isAsc)}
       </th>
       <th id="documentType" onClick={sort}>
-        Document Type {getSortArrow(sortState['documentType'].isAsc)}
+        {formatMessage(messages.columnDocumentType)} {getSortArrow(sortState['documentType'].isAsc)}
       </th>
       <th id="creationDate" onClick={sort}>
-        Date {getSortArrow(sortState['creationDate'].isAsc)}
+        {formatMessage(messages.columnCreationDate)} {getSortArrow(sortState['creationDate'].isAsc)}
       </th>
       <th id="openedAt">
-        Status
+        {formatMessage(messages.columnLastOpened)}
       </th>
       <th>
-        <input type="text" placeholder="Filter by Status" onChange={onInputChange} />
+        <input
+          type="text"
+          placeholder={formatMessage(messages.filterLastRead)}
+          onChange={onInputChange}
+        />
       </th>
     </tr>
-  </thead>
-);
+    </thead>
+  );
+};
 
 export default CustomerTableHeader;

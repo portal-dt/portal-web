@@ -19,7 +19,7 @@ import './styles.less';
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 
 // const language = navigator.language.split(/[-_]/)[0];  // language without region code
-const language = 'no';
+const language = 'en';
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>

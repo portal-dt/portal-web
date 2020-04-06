@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useIntl } from 'react-intl';
 
+import { messages } from './messages';
 import { getLatestDocumentsByCustomerId } from '../../utils/api';
 import { formatDateToLocalString } from '../../utils';
 
@@ -11,16 +13,20 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 
-const renderTableHeader = () => (
-  <thead>
+const renderTableHeader = () => {
+  const { formatMessage } = useIntl();
+
+  return (
+    <thead>
     <tr>
-      <th>Name</th>
-      <th>Creation Date</th>
-      <th>Due Date</th>
-      <th>Last Opened</th>
+      <th>{formatMessage(messages.columnName)}</th>
+      <th>{formatMessage(messages.columnCreationDate)}</th>
+      <th>{formatMessage(messages.columnDueDate)}</th>
+      <th>{formatMessage(messages.columnLastOpened)}</th>
     </tr>
-  </thead>
-);
+    </thead>
+  );
+};
 
 const renderTableRow = ({ documentName, creationDate, openedAt, dueDate, document }) => (
   <tr>
@@ -33,6 +39,7 @@ const renderTableRow = ({ documentName, creationDate, openedAt, dueDate, documen
 
 const CustomerDashboard = () => {
   const [documents, setDocuments] = useState([]);
+  const { formatMessage } = useIntl();
 
   useEffect(() => {
     const fetchLatestDocuments = async () => {
@@ -48,13 +55,13 @@ const CustomerDashboard = () => {
     <>
       <Row>
         <Col xs="12" sm="6">
-          <Card cardHeaderText="This month's invoice" cardText="This month's invoice" />
+          <Card cardHeaderText={formatMessage(messages.monthlyInvoiceTitle)} />
         </Col>
         <Col xs="12" sm="6">
-          <Card cardHeaderText="Messages" cardText="Start sending messages" />
+          <Card cardHeaderText={formatMessage(messages.messagesTitle)} />
         </Col>
         <Col xs="12" sm="6">
-          <Card cardHeaderText="Last documents">
+          <Card cardHeaderText={formatMessage(messages.tableCardTitle)}>
             <Table tableData={documents} TableHeader={renderTableHeader()}  TableRow={renderTableRow} />
           </Card>
         </Col>

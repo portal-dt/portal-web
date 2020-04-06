@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useReducer } from 'react';
+import { useIntl } from 'react-intl';
 
 import { getDocumentsByCustomerId } from '../../utils/api';
 import { sortColumn } from '../../utils';
+import { messages } from './messages';
 
 import Table from '../dashboardTable/DashboardTable';
 import Header from '../header/Header';
@@ -57,6 +59,7 @@ const CustomerDocuments = () => {
   const [sortState, dispatch] = useReducer(reducer, initialState);
   const [documents, setDocuments] = useState([]);
   const [filteredDocuments, setFilteredDocuments] = useState([]);
+  const { formatMessage } = useIntl();
 
   useEffect(() => {
     const fetchDocuments = async () => {
@@ -89,7 +92,7 @@ const CustomerDocuments = () => {
 
   return (
     <>
-      <div className="page-content__title">Documents</div>
+      <div className="page-content__title">{formatMessage(messages.documents)}</div>
       <Table
         tableData={tableData}
         TableHeader={TableHeader}

@@ -2,7 +2,7 @@ import { defineMessages } from 'react-intl';
 
 export const messages = defineMessages({
   documentsLink: {
-    id: 'headerDocumentsLink',
+    id: 'documents',
     description: 'Link to Documents Page',
     defaultMessage: 'Documents',
   },

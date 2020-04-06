@@ -2,7 +2,20 @@
   "signInUsername": "Username",
   "signInPassword": "Password",
   "singInButton": "Sign In",
-  "headerDocumentsLink": "Documents",
+  "documents": "Documents",
   "headerLogOutButton": "Log Out",
-  "headerAccountSettings": "Account Settings"
+  "headerAccountSettings": "Account Settings",
+  "customerDashboardTableTitle": "Latest Documents",
+  "customerDashboardMonthlyTitle": "This month's invoice",
+  "customerDashboardMessagesTitle": "Messages",
+  "tableColumnName": "Name",
+  "tableColumnDueDate": "Due Date",
+  "tableColumnLastOpened": "Last Opened",
+  "tableColumnCreationDate": "Creation Date",
+  "tableColumnDocumentNumber": "Document Number",
+  "tableColumnDocumentType": "Document Type",
+  "filterByLastOpened": "Filter by Last Opened",
+  "saveButton": "Save",
+  "unread": "Unread",
+  "viewButton": "View"
 }

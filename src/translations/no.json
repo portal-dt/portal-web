@@ -2,7 +2,20 @@
   "signInUsername": "Brukernavn",
   "signInPassword": "Passord",
   "singInButton": "Logg inn",
-  "headerDocumentsLink": "Dokumenter",
+  "documents": "Dokumenter",
   "headerLogOutButton": "Logg ut",
-  "headerAccountSettings": "Kontoinnstillinger"
+  "headerAccountSettings": "Kontoinnstillinger",
+  "customerDashboardTableTitle": "Siste dokumenter",
+  "customerDashboardMonthlyTitle": "Denne månedens faktura",
+  "customerDashboardMessagesTitle": "Meldinger",
+  "tableColumnName": "Navn",
+  "tableColumnDueDate": "Tidsfrist",
+  "tableColumnLastOpened": "Sist åpnet",
+  "tableColumnCreationDate": "Opprettelsesdato",
+  "tableColumnDocumentNumber": "Dokumentnummer",
+  "tableColumnDocumentType": "Dokumenttype",
+  "filterByLastOpened": "Filtrer etter sist åpnet",
+  "saveButton": "Lagre",
+  "unread": "Ulest",
+  "viewButton": "Utsikt"
 }

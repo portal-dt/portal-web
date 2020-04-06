@@ -2,7 +2,20 @@
   "signInUsername": "Användarnamn",
   "signInPassword": "Lösenord",
   "singInButton": "Logga in",
-  "headerDocumentsLink": "Dokument",
+  "documents": "Dokument",
   "headerLogOutButton": "Logga ut",
-  "headerAccountSettings": "Kontoinställningar"
+  "headerAccountSettings": "Kontoinställningar",
+  "customerDashboardTableTitle": "Senaste dokument",
+  "customerDashboardMonthlyTitle": "Denna månads faktura",
+  "customerDashboardMessagesTitle": "Meddelanden",
+  "tableColumnName": "Namn",
+  "tableColumnDueDate": "Förfallodatum",
+  "tableColumnLastOpened": "Senast öppnad",
+  "tableColumnCreationDate": "Skapelsedagen",
+  "tableColumnDocumentNumber": "Dokumentnummer",
+  "tableColumnDocumentType": "Dokumenttyp",
+  "filterByLastOpened": "Filtrera efter att sist öppnats",
+  "saveButton": "Spara",
+  "unread": "Oläst",
+  "viewButton": "Se"
 }
