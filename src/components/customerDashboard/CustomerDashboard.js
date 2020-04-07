@@ -11,6 +11,7 @@ import DocumentModal from '../documentModal/DocumentModal';
 import Button from '../button/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import classNames from 'classnames';
 
 
 const renderTableHeader = () => {
@@ -55,13 +56,13 @@ const CustomerDashboard = () => {
     <>
       <Row>
         <Col xs="12" sm="6">
-          <Card cardHeaderText={formatMessage(messages.monthlyInvoiceTitle)} />
+          <Card cardHeaderText={formatMessage(messages.monthlyInvoiceTitle)} classNames="text-center dashboard-card card-messages"/>
         </Col>
         <Col xs="12" sm="6">
-          <Card cardHeaderText={formatMessage(messages.messagesTitle)} />
+          <Card cardHeaderText={formatMessage(messages.messagesTitle)} classNames="text-center dashboard-card card-invoice"/>
         </Col>
         <Col xs="12" sm="6">
-          <Card cardHeaderText={formatMessage(messages.tableCardTitle)}>
+          <Card cardHeaderText={formatMessage(messages.tableCardTitle)} classNames="text-center dashboard-card card-documents">
             <Table tableData={documents} TableHeader={renderTableHeader()}  TableRow={renderTableRow} />
           </Card>
         </Col>
