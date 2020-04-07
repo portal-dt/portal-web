@@ -3,8 +3,8 @@ import BootstrapCard from 'react-bootstrap/Card';
 
 import './Card.less';
 
-const Card = ({ cardHeaderText, children }) => (
-  <BootstrapCard className="text-center dashboard-card" >
+const Card = ({ cardHeaderText, children, classNames}) => (
+  <BootstrapCard className={classNames} >
     <BootstrapCard.Header>{cardHeaderText}</BootstrapCard.Header>
     <BootstrapCard.Body>
       {children}
