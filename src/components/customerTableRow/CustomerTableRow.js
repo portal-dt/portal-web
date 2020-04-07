@@ -9,6 +9,7 @@ import DocumentModal from '../documentModal/DocumentModal';
 import { formatDateToLocalString } from '../../utils';
 import { updateViewedDocument } from '../../utils/api';
 import { messages } from './messages';
+import { NavLink } from 'react-router-dom';
 
 import './CustomerTableRow.less';
 
@@ -41,7 +42,7 @@ const CustomerTableRow = ({ documentNumber, documentType, creationDate, openedAt
           text={formatMessage(messages.view)}
           onClickHandler={onViewClickHandler}
         />
-        <a href={document} download={getPdfName()}>{formatMessage(messages.save)}</a>
+        <a href={document} className="primary-btn btn" download={getPdfName()}>{formatMessage(messages.save)}</a>
       </td>
       <DocumentModal
         isActive={isDocumentOpened}

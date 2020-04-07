@@ -25,11 +25,6 @@ const Footer = (props) => {
               <option value="sv">Svenska</option>
               <option value="no">Norsk</option>
             </select>
-            {/* <DropdownButton id="language-dropdown" title="Select Language" variant="secondary" size="sm">
-              <DropdownItem as="button">English</DropdownItem>
-              <DropdownItem as="button">Norsk</DropdownItem>
-              <DropdownItem as="button">Svenska</DropdownItem>
-            </DropdownButton> */}
           </Col>
         </Row>
       </Container>

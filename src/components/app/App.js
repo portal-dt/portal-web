@@ -2,7 +2,6 @@ import React from "react";
 import { Switch, Route } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
-import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import SignInPage from '../signInPage/SignInPage';
@@ -29,8 +28,7 @@ const App = (props) => (
         </Route>
         <Route path="/">
           <Header />
-            <Container className="page-content" >
-              <NavLink to="/login">go</NavLink>
+            <Container className="page-content">
               <Route path="/documents">
                 <CustomerDocuments />
               </Route>
