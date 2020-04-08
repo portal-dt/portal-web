@@ -3,11 +3,10 @@ import React from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import DropdownItem from 'react-bootstrap/DropdownItem';
 
 import { connect } from 'react-redux';
 import { changeLang } from '../../actions/actions';
+import { selectedLangSelector } from '../../selectors/selectors';
 
 const companyUrl = '../../../assets/images/company-logo.png'; // todo: move to props
 
@@ -35,7 +34,7 @@ const Footer = (props) => {
 
 function mapStateToProps(state) {
   return {
-    language: state.configs.language
+    language: selectedLangSelector(state)
   }
 }
 
