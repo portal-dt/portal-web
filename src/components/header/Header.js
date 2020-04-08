@@ -19,15 +19,15 @@ const Header = ({ userName }) => {
     <header className="header">
       <Container>
         <Navbar collapseOnSelect expand="lg">
-          <Navbar.Brand href="#home" className="header__logo">
-          <NavLink to="/dashboard">
-            <img 
-                src={companyUrl}
-                alt="company logo"
-                height="25"
-                className="d-inline-block align-top"
-            />
-          </NavLink>
+          <Navbar.Brand className="header__logo">
+            <NavLink to="/dashboard">
+              <img 
+                  src={companyUrl}
+                  alt="company logo"
+                  height="25"
+                  className="d-inline-block align-top"
+              />
+            </NavLink>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">

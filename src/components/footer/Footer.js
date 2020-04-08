@@ -7,6 +7,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import DropdownItem from 'react-bootstrap/DropdownItem';
 
 import { connect } from 'react-redux';
+import { changeLang } from '../../actions/actions';
 
 const companyUrl = '../../../assets/images/company-logo.png'; // todo: move to props
 
@@ -40,7 +41,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onChange: event => dispatch({type: 'CHANGE_LANG', payload: event.target.value})
+    onChange: event => dispatch(changeLang(event.target.value))
   }
 }
 
