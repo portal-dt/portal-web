@@ -33,7 +33,7 @@ const Header = ({ userName }) => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
               <NavLink to="/documents" className="nav-link header__link">{formatMessage(messages.documentsLink)}</NavLink>
-              <NavLink to="/dashboard" className="nav-link header__link">{formatMessage(messages.accountSettings)}</NavLink>
+              <NavLink to="/account-settings" className="nav-link header__link">{formatMessage(messages.accountSettings)}</NavLink>
             </Nav>
             <Button variant="link" className="header__link"><BoxArrowRight size={45}/>{formatMessage(messages.logOut)}</Button>
           </Navbar.Collapse>

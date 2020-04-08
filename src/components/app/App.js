@@ -8,6 +8,7 @@ import SignInPage from '../signInPage/SignInPage';
 import AdminDashboard from '../adminDashboard/AdminDashboard';
 import CustomerDocuments from '../customerDocuments/CustomerDocuments';
 import CustomerDashboard from '../customerDashboard/CustomerDashboard';
+import AccountSettings from '../accountSettings/AccountSettings';
 import NewPartnerDetails from '../newPartnerDetails/NewPartnerDetails';
 
 import './App.less';
@@ -31,6 +32,9 @@ const App = (props) => (
             <Container className="page-content">
               <Route path="/documents">
                 <CustomerDocuments />
+              </Route>
+              <Route path="/account-settings">
+                <AccountSettings />
               </Route>
               <Route path="/dashboard">
                 <CustomerDashboard />
