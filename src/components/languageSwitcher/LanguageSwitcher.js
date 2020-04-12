@@ -14,15 +14,19 @@ const languages = [
 ];
 
 const LanguageSwitcher = () => {
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
   const { formatMessage } = useIntl();
   const renderOptions = languages.map((language, index) => <option className="language-select__option" key={index} value={language.code}>{language.label}</option>);
+
+  const handleChange = (event) => {
+    dispatch(changeLang(event.target.value));
+  };
 
   return (
     <div className="language-select">
       <span className="language-select__label">{formatMessage(messages.languages)}:</span>
-      <select onChange={() => dispatch(changeLang(event.target.value))} className="language-select__dropdown">
+      <select onChange={handleChange} className="language-select__dropdown">
         {renderOptions}
       </select>
     </div>
