@@ -16,6 +16,7 @@ import Header from "../header/Header";
 import Footer from '../footer/Footer';
 import { IntlProvider } from 'react-intl';
 import { messages } from '../../translations';
+import CustomerMessages from "../customerMessages/CustomerMessages";
 
 
 // const language = navigator.language.split(/[-_]/)[0];  // language without region code
@@ -41,6 +42,9 @@ const App = (props) => (
               </Route>
               <Route path="/new-partner">
                 <NewPartnerDetails />
+              </Route>
+              <Route path="/messages">
+                <CustomerMessages />
               </Route>
             </Container>
           <Footer />

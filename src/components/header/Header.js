@@ -34,8 +34,13 @@ const Header = ({ userName }) => {
             <Nav className="mr-auto">
               <NavLink to="/documents" className="nav-link header__link">{formatMessage(messages.documentsLink)}</NavLink>
               <NavLink to="/account-settings" className="nav-link header__link">{formatMessage(messages.accountSettings)}</NavLink>
+              <NavLink to="/messages" className="nav-link header__link">{formatMessage(messages.messagesLink)}</NavLink>
             </Nav>
-            <Button variant="link" className="header__link"><BoxArrowRight size={45}/>{formatMessage(messages.logOut)}</Button>
+            {/* TODO: Delete NavLink */}
+            <Button variant="link" className="header__link">
+              <BoxArrowRight size={45}/>
+              <NavLink to="/" style={{color: '#fff'}}>{formatMessage(messages.logOut)}</NavLink>
+            </Button>
           </Navbar.Collapse>
         </Navbar>
       </Container>  
