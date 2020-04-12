@@ -19,21 +19,21 @@ const Header = ({ userName }) => {
     <header className="header">
       <Container>
         <Navbar collapseOnSelect expand="lg">
-          <Navbar.Brand href="#home" className="header__logo">
-          <NavLink to="/dashboard">
-            <img 
-                src={companyUrl}
-                alt="company logo"
-                height="25"
-                className="d-inline-block align-top"
-            />
-          </NavLink>
+          <Navbar.Brand className="header__logo">
+            <NavLink to="/dashboard">
+              <img 
+                  src={companyUrl}
+                  alt="company logo"
+                  height="25"
+                  className="d-inline-block align-top"
+              />
+            </NavLink>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
               <NavLink to="/documents" className="nav-link header__link">{formatMessage(messages.documentsLink)}</NavLink>
-              <NavLink to="/dashboard" className="nav-link header__link">{formatMessage(messages.accountSettings)}</NavLink>
+              <NavLink to="/account-settings" className="nav-link header__link">{formatMessage(messages.accountSettings)}</NavLink>
             </Nav>
             <Button variant="link" className="header__link"><BoxArrowRight size={45}/>{formatMessage(messages.logOut)}</Button>
           </Navbar.Collapse>
