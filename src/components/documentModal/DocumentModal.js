@@ -7,13 +7,21 @@ import './DocumentModal.less';
 
 const DocumentModal = ({ isActive, onClose, document }) => {
   const [pageNumber, setPageNumber] = useState(1);
-
-  const onDocumentLoadSuccess = ({ numPages }) => setPageNumber(numPages);
+  // const [pagessNumber, setPagesssNumber] = useState('');
+  //
+  // const onDocumentLoadSuccess = ({ numPages }) => setPageNumber(numPages);
+  //
+  // const onRender = (data) => {
+  //   const a = window.document.querySelector('.react-pdf__Page canvas');
+  //   const b = a.toDataURL();
+  //   setPagesssNumber(b);
+  //   console.log(b)
+  // };
 
   return (
     <Modal show={isActive} onHide={onClose}>
       <Document file={document} onLoadSuccess={onDocumentLoadSuccess}>
-        <Page pageNumber={pageNumber} />
+        <Page pageNumber={pageNumber}  onRenderSuccess={onRender} />
       </Document>
     </Modal>
   );

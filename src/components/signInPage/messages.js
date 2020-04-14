@@ -1,10 +1,10 @@
 import { defineMessages } from 'react-intl';
 
 export const messages = defineMessages({
-  username: {
-    id: 'signInUsername',
-    description: 'User name placeholder in Sign In Page',
-    defaultMessage: 'Username',
+  email: {
+    id: 'signInEmail',
+    description: 'Email placeholder in Sign In Page',
+    defaultMessage: 'Email',
   },
   password: {
     id: 'signInPassword',

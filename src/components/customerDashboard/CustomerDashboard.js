@@ -13,6 +13,9 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import classNames from 'classnames';
 
+import { Document, Page } from 'react-pdf/dist/entry.webpack';
+import './CustomerDashboard.less';
+
 
 const renderTableHeader = () => {
   const { formatMessage } = useIntl();
@@ -52,11 +55,29 @@ const CustomerDashboard = () => {
     fetchLatestDocuments();
   },[]);
 
+  // const [pageNumber, setPageNumber] = useState(1);
+
+  // const onDocumentLoadSuccess = ({ numPages }) => setPageNumber(numPages);
+  const [isDocumentOpened, setIsDocumentOpened] = useState(false);
+
+  const viewDocument = () => setIsDocumentOpened(true);
+  const closeDocument = () => setIsDocumentOpened(false);
+
+
   return (
     <>
       <Row>
         <Col xs="12" sm="6">
-          <Card cardHeaderText={formatMessage(messages.monthlyInvoiceTitle)} classNames="text-center dashboard-card card-messages"/>
+          <Card cardHeaderText={formatMessage(messages.monthlyInvoiceTitle)} classNames="text-center dashboard-card card-messages">
+            <Col xs="6" className="invoice-preview">
+              <img
+                className="invoice-preview__image"
+                src="../../../assets/images/pdf_preview.png"
+                alt="pdf-preview"
+                onClick={viewDocument}
+              />
+            </Col>
+          </Card>
         </Col>
         <Col xs="12" sm="6">
           <Card cardHeaderText={formatMessage(messages.messagesTitle)} classNames="text-center dashboard-card card-invoice"/>
@@ -66,6 +87,11 @@ const CustomerDashboard = () => {
             <Table tableData={documents} TableHeader={renderTableHeader()}  TableRow={renderTableRow} />
           </Card>
         </Col>
+        <DocumentModal
+          isActive={isDocumentOpened}
+          document={documents.length && documents[0].document}
+          onClose={closeDocument}
+        />
       </Row>
     </>
   );

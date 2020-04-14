@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import { testReducer } from './testReducer';
 import { configsReducer } from './configsReducer';
+import { userReducer } from './userReducer';
 
 const rootReducer = combineReducers({
-  test: testReducer,
-  configs: configsReducer
+  configs: configsReducer,
+  user: userReducer
 });
 
 export default rootReducer;

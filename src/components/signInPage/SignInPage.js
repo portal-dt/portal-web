@@ -1,9 +1,11 @@
 import React, { useReducer } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { useIntl } from 'react-intl';
 
 import { messages } from './messages';
 import { login } from '../../utils/auth';
+import { loginAction } from '../../actions/actions';
 
 import Button from '../button/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -21,23 +23,25 @@ const initialState = {
   password: ''
 };
 
-const reducer = (state, { field, value }) => ({
+const handleInputChangesReducer = (state, { field, value }) => ({
   ...state,
   [field]: value
 });
 
 const SignInPage = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const history = useHistory();
   const { formatMessage } = useIntl();
+  const [signInFields, changeField] = useReducer(handleInputChangesReducer, initialState);
+  const history = useHistory();
+  const dispatch = useDispatch();
 
-  const handleInputChange = ({ target }) => dispatch({ field: target.name, value: target.value });
+  const handleInputChange = ({ target }) => changeField({ field: target.name, value: target.value });
 
   const handleSignIn = async (event) => {
     event.preventDefault();
 
      try {
-       // await login(state);
+       const user = await login(signInFields);
+       dispatch(loginAction(user));
        history.push('/dashboard');
      } catch (error) {
        console.log('not authorized')
@@ -61,9 +65,9 @@ const SignInPage = () => {
                 </InputGroup.Text>
               </InputGroup.Prepend>
               <Form.Control
-                type="text"
-                name="userName"
-                placeholder={formatMessage(messages.username)}
+                type="email"
+                name="email"
+                placeholder={formatMessage(messages.email)}
                 onChange={handleInputChange}
               />
             </InputGroup>

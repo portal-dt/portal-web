@@ -1,7 +1,12 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { useIntl } from 'react-intl';
 import { messages } from './messages';
+
+import { logout } from '../../utils/auth';
+import { logoutAction } from '../../actions/actions';
+import { userNameSelector } from '../../selectors';
 
 import { BoxArrowRight } from 'react-bootstrap-icons';
 import Nav from 'react-bootstrap/Nav';
@@ -13,8 +18,17 @@ import './Header.less';
 
 const companyUrl = '../../../assets/images/company-logo.png'; // todo: move to props
 
-const Header = ({ userName }) => {
+const Header = () => {
+  const history = useHistory();
   const { formatMessage } = useIntl();
+  const userName = useSelector(userNameSelector);
+
+  const handleLogOut = () => {
+    logout();
+    logoutAction();
+    history.push('/login');
+  };
+
   return (
     <header className="header">
       <Container>
@@ -35,7 +49,10 @@ const Header = ({ userName }) => {
               <NavLink to="/documents" className="nav-link header__link">{formatMessage(messages.documentsLink)}</NavLink>
               <NavLink to="/account-settings" className="nav-link header__link">{formatMessage(messages.accountSettings)}</NavLink>
             </Nav>
-            <Button variant="link" className="header__link"><BoxArrowRight size={45}/>{formatMessage(messages.logOut)}</Button>
+            <span>Hi, {userName}</span>
+            <Button variant="link" className="header__link" onClick={handleLogOut}>
+              <BoxArrowRight size={45}/>{formatMessage(messages.logOut)}
+            </Button>
           </Navbar.Collapse>
         </Navbar>
       </Container>  

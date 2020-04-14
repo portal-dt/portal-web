@@ -1,5 +1,5 @@
 {
-  "signInUsername": "Användarnamn",
+  "signInEmail": "E-post",
   "signInPassword": "Lösenord",
   "singInButton": "Logga in",
   "documents": "Dokument",
