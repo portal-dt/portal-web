@@ -19,7 +19,7 @@ import './SignInPage.css';
 const companyUrl = '../../../assets/images/company-logo.png'; // todo: move to props
 
 const initialState = {
-  userName: '',
+  email: '',
   password: ''
 };
 
