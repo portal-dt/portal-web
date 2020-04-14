@@ -9,7 +9,7 @@ const DocumentModal = ({ isActive, onClose, document }) => {
   const [pageNumber, setPageNumber] = useState(1);
   // const [pagessNumber, setPagesssNumber] = useState('');
   //
-  // const onDocumentLoadSuccess = ({ numPages }) => setPageNumber(numPages);
+  const onDocumentLoadSuccess = ({ numPages }) => setPageNumber(numPages);
   //
   // const onRender = (data) => {
   //   const a = window.document.querySelector('.react-pdf__Page canvas');
@@ -21,7 +21,7 @@ const DocumentModal = ({ isActive, onClose, document }) => {
   return (
     <Modal show={isActive} onHide={onClose}>
       <Document file={document} onLoadSuccess={onDocumentLoadSuccess}>
-        <Page pageNumber={pageNumber}  onRenderSuccess={onRender} />
+        <Page pageNumber={pageNumber} />
       </Document>
     </Modal>
   );
