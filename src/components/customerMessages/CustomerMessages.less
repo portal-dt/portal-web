@@ -1,0 +1,38 @@
+@import '../../styles/vars.less';
+
+.title-action {
+  display: flex;
+  justify-content: space-between;
+}
+
+.messages-page {
+
+  &__send-btn{
+    float: right;
+    margin-bottom: 20px;
+  }
+}
+
+// seperate component + BEM
+.messages-table.table {
+  margin-bottom: 3rem;
+}
+
+.messages-table.table thead {
+  background-color: @theme-color;
+  color: #fff;
+}
+
+.messages-table.table thead th {
+  vertical-align: middle;
+  padding: .45rem .75rem;
+  font-size: 16px;
+  font-style: normal;
+}
+
+.messages-table.table tbody td {
+  vertical-align: middle;
+  color: #111;
+  font-size: 16px;
+  font-weight: 400;
+}
