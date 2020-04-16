@@ -16,6 +16,7 @@ import Footer from '../footer/Footer';
 
 import { languageSelector, isAuthenticatedSelector } from '../../selectors';
 import { messages } from '../../translations';
+import CustomerMessages from "../customerMessages/CustomerMessages";
 
 import './App.less';
 
@@ -52,6 +53,9 @@ const App = () => {
               </Route>
               <Route path="/new-partner">
                 <NewPartnerDetails />
+              </Route>
+              <Route path="/messages">
+                <CustomerMessages />
               </Route>
             </Container>
             <Footer />

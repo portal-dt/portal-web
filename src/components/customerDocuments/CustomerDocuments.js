@@ -6,11 +6,8 @@ import { sortColumn } from '../../utils';
 import { messages } from './messages';
 
 import Table from '../dashboardTable/DashboardTable';
-import Header from '../header/Header';
-import Footer from '../footer/Footer';
 import CustomerTableRow from '../customerTableRow/CustomerTableRow';
 import CustomerTableHeader from '../customerTableHeader/CustomerTableHeader';
-import Container from 'react-bootstrap/Container';
 
 import './CustomerDocuments.less';
 

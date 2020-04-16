@@ -48,6 +48,7 @@ const Header = () => {
             <Nav className="mr-auto">
               <NavLink to="/documents" className="nav-link header__link">{formatMessage(messages.documentsLink)}</NavLink>
               <NavLink to="/account-settings" className="nav-link header__link">{formatMessage(messages.accountSettings)}</NavLink>
+              <NavLink to="/messages" className="nav-link header__link">{formatMessage(messages.messagesLink)}</NavLink>
             </Nav>
             <span>Hi, {userName}</span>
             <Button variant="link" className="header__link" onClick={handleLogOut}>

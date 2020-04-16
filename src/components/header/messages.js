@@ -15,5 +15,10 @@ export const messages = defineMessages({
     id: 'headerAccountSettings',
     description: 'Link to Account Settings Page',
     defaultMessage: 'Account Settings',
+  },
+  messagesLink: {
+    id: 'customerDashboardMessagesTitle',
+    description: 'Link to Messages Page',
+    defaultMessage: 'Messages',
   }
 });

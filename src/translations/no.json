@@ -18,5 +18,10 @@
   "saveButton": "Lagre",
   "unread": "Ulest",
   "viewButton": "Utsikt",
-  "selectLanguage": "Velg språk"
+  "selectLanguage": "Velg språk",
+  "sendEmail": "Send el melding",
+  "subject": "Emne",
+  "messageAuthor": "Avsender",
+  "date": "Dato",
+  "status": "Status"
 }

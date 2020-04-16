@@ -18,5 +18,10 @@
   "saveButton": "Spara",
   "unread": "Oläst",
   "viewButton": "Se",
-  "selectLanguage": "Välj språk"
+  "selectLanguage": "Välj språk",
+  "sendEmail": "Skicka eller meddela",
+  "subject": "Ämne",
+  "messageAuthor": "Avsändare",
+  "date": "Datum",
+  "status": "Status"
 }
