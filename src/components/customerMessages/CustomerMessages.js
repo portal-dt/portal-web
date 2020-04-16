@@ -10,31 +10,32 @@ import { useIntl } from 'react-intl';
 
 import './CustomerMessages.less';
 import MessageModal from '../messageModal/MessageModal';
+import MessagesTableHeader from '../messagesTableHeader/messagesTableHeader';
 
-const inboxData = [
+const inboxTableData = [
     {
         subject: 'test inbox subject',
         name: 'Michael',
         date: '15 April 2020',
         status: 'new',
-        message: 'lorem ipsum dolor.'
+        // message: 'lorem ipsum dolor.'
     },
     {
         subject: 'another inbox subject',
         name: 'John',
         date: '14 April 2020',
         status: 'read',
-        message: 'Dolor sit amet.'
+        // message: 'Dolor sit amet.'
     }
 ];
 
-const outboxData = [
+const outboxTableData = [
     {
         subject: 'outbox subject',
         name: 'Mark',
         date: '16 April 2020',
         status: 'sent',
-        message: 'lorem ipsum dolor sit amet.'
+        // message: 'lorem ipsum dolor sit amet.'
     }
 ];
 
@@ -45,6 +46,19 @@ const CustomerMessages = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    const TableHeader = <MessagesTableHeader />
+
+    const TableRow = () => {
+        return (
+            <tr>
+                <td>Answer</td>
+                <td>Mark</td>
+                <td>11.04.2020</td>
+                <td>sent</td>
+            </tr>
+        );
+    };
+
     return (
         <>
             <div className="page-content__title title-action">
@@ -52,13 +66,17 @@ const CustomerMessages = () => {
                 <Button classNames="theme-btn" text="Send Email" onClickHandler={handleShow} />
             </div>
             <div className="messages-page">
-            <MessageModal
-                isActive={show}
-                onClose={handleClose}
-            />
+                <MessageModal
+                    isActive={show}
+                    onClose={handleClose}
+                />
                 <Tabs defaultActiveKey="inbox" id="uncontrolled-tab-example">
                     <Tab eventKey="inbox" title="Inbox">
-                        
+                        <Table
+                            tableData={inboxTableData}
+                            TableHeader={TableHeader}
+                            TableRow={TableRow}
+                        />
                     </Tab>
                     <Tab eventKey="sent" title="Sent">
                         <BootstrapTable className="messages-table" striped bordered responsive>
