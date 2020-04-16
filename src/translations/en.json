@@ -18,5 +18,10 @@
   "saveButton": "Save",
   "unread": "Unread",
   "viewButton": "View",
-  "selectLanguage": "Select language"
+  "selectLanguage": "Select language",
+  "sendEmail": "Send or message",
+  "subject": "Subject",
+  "messageAuthor": "Sender",
+  "date": "Date",
+  "status": "Status"
 }

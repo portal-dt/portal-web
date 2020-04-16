@@ -5,5 +5,10 @@ export const messages = defineMessages({
         id: 'customerDashboardMessagesTitle',
         description: 'Messages page title',
         defaultMessage: 'Messages',
+    },
+    sendEmail: {
+        id: 'sendEmail',
+        description: 'Send email',
+        defaultMessage: 'Send or message',
     }
 });

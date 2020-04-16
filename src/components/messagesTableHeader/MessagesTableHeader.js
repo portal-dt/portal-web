@@ -12,10 +12,10 @@ const MessagesTableHeader = () => {
   return (
     <thead className="table-header">
       <tr>
-        <th>Subject</th>
-        <th>Name</th>
-        <th>Date</th>
-        <th>Status</th>
+        <th>{formatMessage(messages.subject)}</th>
+        <th>{formatMessage(messages.sender)}</th>
+        <th>{formatMessage(messages.date)}</th>
+        <th>{formatMessage(messages.status)}</th>
       </tr>
     </thead>
   );

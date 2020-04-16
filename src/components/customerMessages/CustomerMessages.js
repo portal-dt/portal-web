@@ -18,14 +18,14 @@ const inboxTableData = [
         name: 'Michael',
         date: '15 April 2020',
         status: 'new',
-        // message: 'lorem ipsum dolor.'
+        message: 'lorem ipsum dolor.'
     },
     {
         subject: 'another inbox subject',
         name: 'John',
         date: '14 April 2020',
         status: 'read',
-        // message: 'Dolor sit amet.'
+        message: 'Dolor sit amet.'
     }
 ];
 
@@ -35,7 +35,7 @@ const outboxTableData = [
         name: 'Mark',
         date: '16 April 2020',
         status: 'sent',
-        // message: 'lorem ipsum dolor sit amet.'
+        message: 'lorem ipsum dolor sit amet.'
     }
 ];
 
@@ -48,13 +48,13 @@ const CustomerMessages = () => {
 
     const TableHeader = <MessagesTableHeader />
 
-    const TableRow = () => {
+    const TableRow = ({subject, name, date, status, message}) => {
         return (
             <tr>
-                <td>Answer</td>
-                <td>Mark</td>
-                <td>11.04.2020</td>
-                <td>sent</td>
+                <td>{subject}</td>
+                <td>{name}</td>
+                <td>{date}</td>
+                <td>{status}</td>
             </tr>
         );
     };
@@ -63,14 +63,14 @@ const CustomerMessages = () => {
         <>
             <div className="page-content__title title-action">
                 {formatMessage(messages.messagesTitle)}
-                <Button classNames="theme-btn" text="Send Email" onClickHandler={handleShow} />
+                <Button classNames="theme-btn" text={formatMessage(messages.sendEmail)} onClickHandler={handleShow} />
             </div>
             <div className="messages-page">
                 <MessageModal
                     isActive={show}
                     onClose={handleClose}
                 />
-                <Tabs defaultActiveKey="inbox" id="uncontrolled-tab-example">
+                <Tabs className="messages-page__tabs" defaultActiveKey="inbox" id="uncontrolled-tab-example">
                     <Tab eventKey="inbox" title="Inbox">
                         <Table
                             tableData={inboxTableData}
@@ -79,24 +79,11 @@ const CustomerMessages = () => {
                         />
                     </Tab>
                     <Tab eventKey="sent" title="Sent">
-                        <BootstrapTable className="messages-table" striped bordered responsive>
-                            <thead>
-                                <tr>
-                                    <th>Subject</th>
-                                    <th>Name</th>
-                                    <th>Date</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Answer</td>
-                                    <td>Mark</td>
-                                    <td>11.04.2020</td>
-                                    <td>sent</td>
-                                </tr>
-                            </tbody>
-                        </BootstrapTable>
+                        <Table
+                            tableData={outboxTableData}
+                            TableHeader={TableHeader}
+                            TableRow={TableRow}
+                        />
                     </Tab>
                 </Tabs>
             </div>            
