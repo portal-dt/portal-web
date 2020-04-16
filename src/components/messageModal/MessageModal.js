@@ -41,6 +41,7 @@ const MessageModal = ({ isActive, onClose }) => {
 
 MessageModal.propTypes = {
     isActive: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired
 };
 
 export default MessageModal;

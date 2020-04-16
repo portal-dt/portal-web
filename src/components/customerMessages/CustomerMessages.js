@@ -41,10 +41,10 @@ const outboxTableData = [
 
 const CustomerMessages = () => {
     const { formatMessage } = useIntl();
-    const [show, setShow] = useState(false);
+    const [showMessageModal, setShowMessageModal] = useState(false);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleClose = () => setShowMessageModal(false);
+    const handleShow = () => setShowMessageModal(true);
 
     const TableHeader = <MessagesTableHeader />
 
@@ -67,7 +67,7 @@ const CustomerMessages = () => {
             </div>
             <div className="messages-page">
                 <MessageModal
-                    isActive={show}
+                    isActive={showMessageModal}
                     onClose={handleClose}
                 />
                 <Tabs className="messages-page__tabs" defaultActiveKey="inbox" id="uncontrolled-tab-example">
