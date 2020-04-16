@@ -16,3 +16,8 @@ export const userNameSelector = createSelector(
   state => state.user.user.lastName,
   (firstName, lastName) => `${firstName} ${lastName}`
 );
+
+export const userSelector = createSelector(
+  state => state.user.user,
+  user => user
+);
