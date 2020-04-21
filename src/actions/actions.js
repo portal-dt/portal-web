@@ -1,4 +1,4 @@
-import { CHANGE_LANG, LOGIN, LOGOUT } from '../constants';
+import { CHANGE_LANG, LOGIN, LOGOUT, UPDATE_USER } from '../constants';
 
 export const changeLang = (language) => ({
   type: CHANGE_LANG,
@@ -12,4 +12,9 @@ export const loginAction = (userData) => ({
 
 export const logoutAction = () => ({
   type: LOGOUT
+});
+
+export const updateUserAction = (userData) => ({
+  type: UPDATE_USER,
+  payload: userData
 });

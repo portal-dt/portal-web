@@ -15,7 +15,6 @@ import Form from 'react-bootstrap/Form';
 import { Person, Lock } from 'react-bootstrap-icons';
 
 import './SignInPage.css';
-import { CurrentUserContext } from '../../contexts/currentUser';
 
 const companyUrl = '../../../assets/images/company-logo.png'; // todo: move to props
 
@@ -32,11 +31,8 @@ const handleInputChangesReducer = (state, { field, value }) => ({
 const SignInPage = () => {
   const { formatMessage } = useIntl();
   const [signInFields, changeField] = useReducer(handleInputChangesReducer, initialState);
-  const [currentUserState, setCurrentUserState] = useContext(CurrentUserContext);
   const history = useHistory();
   const dispatch = useDispatch();
-
-  console.log('current user', currentUserState);
   
 
   const handleInputChange = ({ target }) => changeField({ field: target.name, value: target.value });
@@ -47,12 +43,6 @@ const SignInPage = () => {
     try {
       const user = await login(signInFields);
       dispatch(loginAction(user));
-      setCurrentUserState(state => ({
-        ...state,
-        isLoggedIn: true,
-        isLoading: false,
-        currentUser: user.user
-      }));
       history.push('/dashboard');
     } catch (error) {
       console.log('not authorized')

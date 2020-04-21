@@ -1,72 +1,39 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState} from 'react';
 import ReactFlagsSelect from 'react-flags-select';
 import { useIntl } from 'react-intl';
-import { useSelector } from 'react-redux';
-import { userSelector} from '../../selectors';
 
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Col from 'react-bootstrap/Col';
-import Alert from 'react-bootstrap/Alert';
 import Button from '../button/Button';
 
 
 import { messages } from './messages';
-import { CurrentUserContext } from '../../contexts/currentUser';
 import './SettingsForm.less';
 
 
-const initialState = {
-  email: '',
-  password: '',
-  language: '',
-  format: '',
-  mobile: ''
-};
-
 const SettingsForm = ({onSubmit, errors, initialValues}) => {
-  const { formatMessage } = useIntl();
-  const [currentUserState] = useContext(CurrentUserContext);
+  const { formatMessage } = useIntl();  
 
-  const [email, setEmail] = useState('');
-  const [password, setPasword] = useState('');
-  const [mobile, setMobile] = useState('');
-  const [language, setLanguage] = useState('');
-  const [format, setFormat] = useState(new Date());
+  const [email, setEmail] = useState(initialValues.email || '');
+  const [password, setPasword] = useState(undefined);
+  const [mobile, setMobile] = useState(initialValues.mobile || '');
+  const [language, setLanguage] = useState(initialValues.language || '');
+  const [format, setFormat] = useState(initialValues.format || '');
  
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(event);
     onSubmit({
-      // ...currentUserState.currentUser,
       email,
       password,
       mobile,
       language,
-      // format
+      format
     });
   }
 
-  useEffect(() => {
-    if (!currentUserState.currentUser) {
-      return
-    }
-
-    setEmail(currentUserState.currentUser.email);
-    setMobile(currentUserState.currentUser.mobile);
-    setLanguage(currentUserState.currentUser.locale);
-    setFormat(currentUserState.currentUser.format || '');
-  }, [currentUserState.currentUser]);
-
   return (
     <>
-      <Alert variant="danger">
-        This is a error alert—check it out!
-      </Alert>
-      <Alert variant="success">
-        This is a success alert—check it out!
-      </Alert>
-
       <Form onSubmit={handleSubmit} autoComplete="off" className="settings-form">
         <Form.Row>
           <Form.Group as={Col} controlId="formGridEmail">
@@ -96,6 +63,7 @@ const SettingsForm = ({onSubmit, errors, initialValues}) => {
           <Form.Group as={Col} controlId="validationCustomUsername">
             <Form.Label>Mobile</Form.Label>
             <InputGroup>
+              {/* TODO: Add flags */}
               {/* <InputGroup.Prepend>
                 <ReactFlagsSelect
                   // countries={["GB", "SE", "NO"]}
@@ -108,7 +76,6 @@ const SettingsForm = ({onSubmit, errors, initialValues}) => {
               <Form.Control
                 autoComplete="off"
                 type="text"
-                placeholder={initialValues.mobile}
                 aria-describedby="inputGroupPrepend"
                 value={mobile}
                 onChange={e => setMobile(e.target.value)}
@@ -139,13 +106,14 @@ const SettingsForm = ({onSubmit, errors, initialValues}) => {
             <Form.Label>Format</Form.Label>
             <InputGroup>
               <Form.Control
-                type="date"
-                placeholder="Format"
-                aria-describedby="inputGroupPrepend2"
+                as="select"
                 value={format}
                 onChange={e => setFormat(e.target.value)}
                 required
-              />
+              >
+                <option value="en-GB">English</option>
+                <option value="sv-SE">Swedish</option>
+              </Form.Control>
             </InputGroup>
           </Form.Group>
         </Form.Row>

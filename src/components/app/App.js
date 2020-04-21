@@ -16,7 +16,6 @@ import Footer from '../footer/Footer';
 
 import { languageSelector, isAuthenticatedSelector } from '../../selectors';
 import { messages } from '../../translations';
-import { CurrentUserProvider } from '../../contexts/currentUser';
 import CustomerMessages from "../customerMessages/CustomerMessages";
 
 import './App.less';
@@ -31,7 +30,6 @@ const App = () => {
 
   return (
     <IntlProvider locale={language} messages={messages[language]} defaultLocale="en-gb">
-      <CurrentUserProvider>
         <Switch>
           <Route path="/login">
             <SignInPage />
@@ -65,7 +63,6 @@ const App = () => {
             <Redirect from={pathname} to="/login" />
           }
         </Switch>
-      </CurrentUserProvider>
     </IntlProvider>
   );
 };

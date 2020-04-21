@@ -6,9 +6,8 @@ export const isAuthenticatedSelector = createSelector(
 );
 
 export const languageSelector = createSelector(
-  state => state.user.user.locale,
-  state => state.configs.language,
-  (language, configsLanguage) => language || configsLanguage
+  state => state.user.user.language,
+  (language) => language
 );
 
 export const userNameSelector = createSelector(

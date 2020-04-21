@@ -53,18 +53,11 @@ export const getCustomers = async () => {
 
 export const updateUser = async (userId, userData) => {
   try {
-    await axios.put(`http://127.0.0.1:5000/v3/users/${userId}`, userData, axiosConfig)
-      .then(res => {
-        console.log('res', res);
-        
-      })
-      .catch(err => {
-        console.log('err',err.response);
-        
-      });
+    const responseData = await axios.put(`http://127.0.0.1:5000/v3/users/${userId}`, userData, axiosConfig);
+    return responseData;
   } catch (e) {
-    console.log(e); // todo
-    return [];
+    console.log(e.response); // todo
+    return e.response;
   }
 };
 
