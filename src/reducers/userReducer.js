@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT, UPDATE_USER } from '../constants';
+import { LOGIN, LOGOUT, UPDATE_USER, SET_USER } from '../constants';
 
 const initialState = {
   user: {},
@@ -23,6 +23,12 @@ export const userReducer = (state = initialState, { type, payload }) => {
           ...state.user,
           ...payload
         }
+      };
+    case SET_USER:
+      return {
+        ...state,
+        user: payload,
+        isAuthenticated: true
       };
     default:
       return state;

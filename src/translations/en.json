@@ -23,5 +23,18 @@
   "subject": "Subject",
   "messageAuthor": "Sender",
   "date": "Date",
-  "status": "Status"
+  "status": "Status",
+  "invoice": "Invoice",
+  "january": "January",
+  "february": "February",
+  "march": "March",
+  "april": "April",
+  "may": "May",
+  "june": "June",
+  "july": "July",
+  "august": "August",
+  "september": "September",
+  "october": "October",
+  "november": "November",
+  "december": "December"
 }

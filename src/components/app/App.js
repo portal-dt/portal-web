@@ -1,32 +1,47 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { IntlProvider } from 'react-intl';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 // import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import SignInPage from '../signInPage/SignInPage';
-import AdminDashboard from '../adminDashboard/AdminDashboard';
 import CustomerDocuments from '../customerDocuments/CustomerDocuments';
 import CustomerDashboard from '../customerDashboard/CustomerDashboard';
 import AccountSettings from '../accountSettings/AccountSettings';
 import NewPartnerDetails from '../newPartnerDetails/NewPartnerDetails';
+import CustomerMessages from '../customerMessages/CustomerMessages';
 import Container from 'react-bootstrap/Container';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
 
 import { languageSelector, isAuthenticatedSelector } from '../../selectors';
+import { setUserAction } from '../../actions/actions';
+import { authenticateViaBankId } from '../../utils/auth';
+import { getUser } from '../../utils/api';
 import { messages } from '../../translations';
-import CustomerMessages from "../customerMessages/CustomerMessages";
 
 import './App.less';
 
 
-// const language = navigator.language.split(/[-_]/)[0];  // language without region code
-
 const App = () => {
+  const dispatch = useDispatch();
+  const { pathname, search = '' } = useLocation();
   const language = useSelector(languageSelector);
-  const isAuthenticated = useSelector(isAuthenticatedSelector) || localStorage.getItem('token');
-  const { pathname } = useLocation();
+  const searchParams = new URLSearchParams(search);
+  const transactionId = searchParams.get('transaction_id');
+  const isAuthenticatedViaBankId = searchParams.get('success') === 'true';
+  const isAuthenticated = useSelector(isAuthenticatedSelector) || localStorage.getItem('token') || isAuthenticatedViaBankId;
+
+
+  const setUser = async () => {
+    isAuthenticatedViaBankId && await authenticateViaBankId(transactionId);
+    const user = await getUser(isAuthenticatedViaBankId);
+    dispatch(setUserAction(user));
+  };
+
+  useEffect(() => {
+    isAuthenticated && setUser();
+  });
 
   return (
     <IntlProvider locale={language} messages={messages[language]} defaultLocale="en-gb">

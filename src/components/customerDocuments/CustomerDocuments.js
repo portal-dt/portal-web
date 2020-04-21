@@ -1,44 +1,17 @@
 import React, { useState, useEffect, useReducer } from 'react';
+import { useSelector } from 'react-redux';
 import { useIntl } from 'react-intl';
 
-import { getDocumentsByCustomerId } from '../../utils/api';
+import { getDocuments, getDocumentsByCustomerId } from '../../utils/api';
 import { sortColumn } from '../../utils';
 import { messages } from './messages';
+import { userSelector } from '../../selectors';
 
 import Table from '../dashboardTable/DashboardTable';
 import CustomerTableRow from '../customerTableRow/CustomerTableRow';
 import CustomerTableHeader from '../customerTableHeader/CustomerTableHeader';
 
 import './CustomerDocuments.less';
-
-const userName = 'Customer Name';
-
-// const tableData = [
-//   {
-//     documentNumber: 1,
-//     documentType: '1',
-//     creationDate: '27 December 2020',
-//     openedAt: null
-//   },
-//   {
-//     documentNumber: 2,
-//     documentType: '2',
-//     creationDate: '27 December 2020',
-//     openedAt: '27 December 2020'
-//   },
-//   {
-//     documentNumber: 3,
-//     documentType: '3',
-//     creationDate: '27 December 2020',
-//     openedAt: null
-//   },
-//   {
-//     documentNumber: 4,
-//     documentType: '1',
-//     creationDate: '27 December 2020',
-//     openedAt: '27 December 2020',
-//   }
-// ];
 
 const initialState = {
   documentNumber: { isAsc: true },
@@ -56,11 +29,13 @@ const CustomerDocuments = () => {
   const [sortState, dispatch] = useReducer(reducer, initialState);
   const [documents, setDocuments] = useState([]);
   const [filteredDocuments, setFilteredDocuments] = useState([]);
+  const { firstName } = useSelector(userSelector);
   const { formatMessage } = useIntl();
 
   useEffect(() => {
     const fetchDocuments = async () => {
-      const customerDocuments = await getDocumentsByCustomerId();
+      const customerId = localStorage.getItem('userId');
+      const customerDocuments = await (firstName === 'Admin' ? getDocuments() : getDocumentsByCustomerId(customerId));
       setDocuments(customerDocuments);
     };
     fetchDocuments();

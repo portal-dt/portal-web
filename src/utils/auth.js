@@ -11,6 +11,7 @@ export const login = async (userData) => {
 
     if (status === 200 && accessToken) {
       localStorage.setItem('token', accessToken);
+      localStorage.setItem('userId', user.id);
       return {
         user,
         isAuthenticated: auth
@@ -21,4 +22,33 @@ export const login = async (userData) => {
   }
 };
 
-export const logout = () => localStorage.removeItem('token');
+export const logout = () => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('userId');
+};
+
+export const authenticateViaBankId = async (transactionId) => {
+  try {
+    const {
+      data: {
+        providerInfo: {
+          noBankIDAuth: {
+            completionData
+          }
+        }
+      }
+    } = await axios.get(
+      `https://testbed-eid.scrive.com/api/v1/transaction/${transactionId}`,
+      {
+        headers: {
+          'Authorization': 'Bearer aa1c2854-6627-48b5-8efb-74ff0bfc5d3d.0440cdff-9602-43b6-9706-a9cb54b9614c'
+        }
+      }
+    );
+
+    localStorage.setItem('userId', completionData.ssn);
+
+  } catch (e) {
+    console.log(e) //todo
+  }
+};

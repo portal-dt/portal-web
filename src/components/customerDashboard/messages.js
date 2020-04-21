@@ -36,4 +36,19 @@ export const messages = defineMessages({
     description: 'Latest documents table column text',
     defaultMessage: 'Creation Date',
   },
+  unread: {
+    id: 'unread',
+    description: 'Text that appear if document was never opened',
+    defaultMessage: 'Unread',
+  },
+  invoice: {
+    id: 'invoice',
+    description: 'Document type invoice',
+    defaultMessage: 'Invoice',
+  },
+  march: {
+    id: 'march',
+    description: 'March month',
+    defaultMessage: 'March',
+  }
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useIntl } from 'react-intl';
 import { messages } from './messages';
 
@@ -16,16 +16,17 @@ import Container from 'react-bootstrap/Container';
 
 import './Header.less';
 
-const companyUrl = '../../../assets/images/company-logo.png'; // todo: move to props
+const companyUrl = '../../../assets/images/kraft-logo.jpeg'; // todo: move to props
 
 const Header = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const { formatMessage } = useIntl();
   const userName = useSelector(userNameSelector);
 
   const handleLogOut = () => {
     logout();
-    logoutAction();
+    dispatch(logoutAction());
     history.push('/login');
   };
 
@@ -38,7 +39,7 @@ const Header = () => {
               <img 
                   src={companyUrl}
                   alt="company logo"
-                  height="25"
+                  height="38"
                   className="d-inline-block align-top"
               />
             </NavLink>

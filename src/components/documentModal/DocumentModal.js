@@ -5,23 +5,15 @@ import Modal from 'react-bootstrap/Modal';
 
 import './DocumentModal.less';
 
-const DocumentModal = ({ isActive, onClose, document }) => {
+const DocumentModal = ({ isActive, onClose, document, onRender }) => {
   const [pageNumber, setPageNumber] = useState(1);
-  // const [pagessNumber, setPagesssNumber] = useState('');
-  //
+
   const onDocumentLoadSuccess = ({ numPages }) => setPageNumber(numPages);
-  //
-  // const onRender = (data) => {
-  //   const a = window.document.querySelector('.react-pdf__Page canvas');
-  //   const b = a.toDataURL();
-  //   setPagesssNumber(b);
-  //   console.log(b)
-  // };
 
   return (
     <Modal show={isActive} onHide={onClose}>
-      <Document file={document} onLoadSuccess={onDocumentLoadSuccess}>
-        <Page pageNumber={pageNumber} />
+      <Document file={document} onLoadSuccess={onDocumentLoadSuccess} onRenderSuccess={onRender}>
+        <Page className="pdf-page" pageNumber={pageNumber} onRenderSuccess={onRender}/>
       </Document>
     </Modal>
   );
