@@ -1,7 +1,11 @@
 import { CHANGE_LANG } from '../constants';
 
 const initialState = {
-  language: 'en'
+  email: '',
+  password: '',
+  language: 'en',
+  format: '',
+  mobile: ''
 };
 
 export const configsReducer = (state = initialState, action) => {

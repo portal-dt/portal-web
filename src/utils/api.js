@@ -51,6 +51,23 @@ export const getCustomers = async () => {
   }
 };
 
+export const updateUser = async (userId, userData) => {
+  try {
+    await axios.put(`http://127.0.0.1:5000/v3/users/${userId}`, userData, axiosConfig)
+      .then(res => {
+        console.log('res', res);
+        
+      })
+      .catch(err => {
+        console.log('err',err.response);
+        
+      });
+  } catch (e) {
+    console.log(e); // todo
+    return [];
+  }
+};
+
 export const updateViewedDocument = async (documentId) => {
   try {
     await axios.post(
