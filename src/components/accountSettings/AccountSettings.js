@@ -19,7 +19,6 @@ const AccountSettings = () => {
   const user = useSelector(userSelector);
   const dispatch = useDispatch();
 
-
   const errors = {};
   const initialValues = {...user};
   const handleSubmit = async (data) => {      

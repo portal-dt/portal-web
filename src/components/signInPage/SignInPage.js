@@ -33,7 +33,6 @@ const SignInPage = () => {
   const [signInFields, changeField] = useReducer(handleInputChangesReducer, initialState);
   const history = useHistory();
   const dispatch = useDispatch();
-  
 
   const handleInputChange = ({ target }) => changeField({ field: target.name, value: target.value });
 

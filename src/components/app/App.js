@@ -30,39 +30,39 @@ const App = () => {
 
   return (
     <IntlProvider locale={language} messages={messages[language]} defaultLocale="en-gb">
-        <Switch>
-          <Route path="/login">
-            <SignInPage />
-          </Route>
-          <Route exact path="/">
-            {isAuthenticated ? <Redirect to="/dashboard" /> : <SignInPage />}
-          </Route>
-          {
-            isAuthenticated ?
-            <>
-              <Header />
-              <Container className="page-content">
-                <Route path="/documents">
-                  <CustomerDocuments />
-                </Route>
-                <Route path="/account-settings">
-                  <AccountSettings />
-                </Route>
-                <Route path="/dashboard">
-                  <CustomerDashboard />
-                </Route>
-                <Route path="/new-partner">
-                  <NewPartnerDetails />
-                </Route>
-                <Route path="/messages">
-                  <CustomerMessages />
-                </Route>
-              </Container>
-              <Footer />
-            </> :
-            <Redirect from={pathname} to="/login" />
-          }
-        </Switch>
+      <Switch>
+        <Route path="/login">
+          <SignInPage />
+        </Route>
+        <Route exact path="/">
+          {isAuthenticated ? <Redirect to="/dashboard" /> : <SignInPage />}
+        </Route>
+        {
+          isAuthenticated ?
+          <>
+            <Header />
+            <Container className="page-content">
+              <Route path="/documents">
+                <CustomerDocuments />
+              </Route>
+              <Route path="/account-settings">
+                <AccountSettings />
+              </Route>
+              <Route path="/dashboard">
+                <CustomerDashboard />
+              </Route>
+              <Route path="/new-partner">
+                <NewPartnerDetails />
+              </Route>
+              <Route path="/messages">
+                <CustomerMessages />
+              </Route>
+            </Container>
+            <Footer />
+          </> :
+          <Redirect from={pathname} to="/login" />
+        }
+      </Switch>
     </IntlProvider>
   );
 };
