@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT } from '../constants';
+import { LOGIN, LOGOUT, UPDATE_USER } from '../constants';
 
 const initialState = {
   user: {},
@@ -16,6 +16,14 @@ export const userReducer = (state = initialState, { type, payload }) => {
       };
     case LOGOUT:
       return initialState;
+    case UPDATE_USER:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          ...payload
+        }
+      };
     default:
       return state;
   }

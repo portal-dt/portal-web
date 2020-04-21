@@ -8,7 +8,7 @@ import { logout } from '../../utils/auth';
 import { logoutAction } from '../../actions/actions';
 import { userNameSelector } from '../../selectors';
 
-import { BoxArrowRight } from 'react-bootstrap-icons';
+import { BoxArrowRight, GearFill } from 'react-bootstrap-icons';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
@@ -47,13 +47,20 @@ const Header = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
               <NavLink to="/documents" className="nav-link header__link">{formatMessage(messages.documentsLink)}</NavLink>
-              <NavLink to="/account-settings" className="nav-link header__link">{formatMessage(messages.accountSettings)}</NavLink>
               <NavLink to="/messages" className="nav-link header__link">{formatMessage(messages.messagesLink)}</NavLink>
             </Nav>
-            <span>Hi, {userName}</span>
-            <Button variant="link" className="header__link" onClick={handleLogOut}>
-              <BoxArrowRight size={45}/>{formatMessage(messages.logOut)}
-            </Button>
+            <Nav>
+              <div className="header__user-settings">
+                <span>Hi, {userName}</span>
+                <NavLink to="/account-settings" className="nav-link header__link">
+                  {formatMessage(messages.accountSettings)}
+                  <GearFill size={20}/>
+                </NavLink>
+              </div>
+              <Button variant="link" className="header__link" onClick={handleLogOut}>
+                <BoxArrowRight size={45}/>{formatMessage(messages.logOut)}
+              </Button>
+            </Nav>
           </Navbar.Collapse>
         </Navbar>
       </Container>  

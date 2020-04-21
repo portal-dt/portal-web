@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useIntl } from 'react-intl';
@@ -39,13 +39,13 @@ const SignInPage = () => {
   const handleSignIn = async (event) => {
     event.preventDefault();
 
-     try {
-       const user = await login(signInFields);
-       dispatch(loginAction(user));
-       history.push('/dashboard');
-     } catch (error) {
-       console.log('not authorized')
-     }
+    try {
+      const user = await login(signInFields);
+      dispatch(loginAction(user));
+      history.push('/dashboard');
+    } catch (error) {
+      console.log('not authorized')
+    }
   };
 
   return (

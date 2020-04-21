@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 // import PropTypes from 'prop-types';

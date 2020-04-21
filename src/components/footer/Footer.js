@@ -18,7 +18,6 @@ const Footer = () => {
           </Col>
           <Col xs="12" md="6" className="align-self-center text-right">
             <span>Kraft Bank er medlem av Bankenes Sikringsfond</span>
-            <LanguageSwitcher/>
           </Col>
         </Row>
       </Container>
