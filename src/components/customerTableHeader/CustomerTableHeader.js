@@ -9,7 +9,7 @@ import './CustomerTableHeader.less';
 
 const getSortArrow = isAsc => isAsc ? <ArrowUp/> : <ArrowDown/>;
 
-const CustomerTableHeader = ({ onInputChange, sort, sortState }) => {
+const CustomerTableHeader = ({ onInputChange, sort, sortState, isAdmin }) => {
   const { formatMessage } = useIntl();
   return (
     <thead className="table-header">
@@ -17,6 +17,11 @@ const CustomerTableHeader = ({ onInputChange, sort, sortState }) => {
       <th id="documentNumber" onClick={sort}>
         {formatMessage(messages.columnDocumentName)} {getSortArrow(sortState['documentNumber'].isAsc)}
       </th>
+      {
+        isAdmin && (<th id="customerName" onClick={sort}>
+          Customer Name {getSortArrow(sortState['customerName'].isAsc)}
+        </th>)
+      }
       <th id="documentType" onClick={sort}>
         {formatMessage(messages.columnDocumentType)} {getSortArrow(sortState['documentType'].isAsc)}
       </th>

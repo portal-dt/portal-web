@@ -19,7 +19,8 @@ export const sortColumn = (data, column, isAsc) => {
     case 'documentNumber':
       return sortColumnNumber(data, column, isAsc);
     case 'documentType':
-      return sortColumnString(data, column, isAsc);
+    case 'customerName':
+      return sortColumnString(data, column, isAsc);§
     case 'creationDate':
       return sortColumnDate(data, column, isAsc);
   }

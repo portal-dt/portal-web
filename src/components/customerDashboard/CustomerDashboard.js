@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useIntl } from 'react-intl';
 
 import { messages } from './messages';
 import { getLatestDocumentsByCustomerId } from '../../utils/api';
+import { userSelector } from '../../selectors';
 
 import Card from '../card/Card';
 import Table from '../dashboardTable/DashboardTable';
@@ -54,6 +56,7 @@ const CustomerDashboard = () => {
   const [documents, setDocuments] = useState([]);
   const [pdfPreview, setPdfPreview] = useState('');
   const [isDocumentOpened, setIsDocumentOpened] = useState(false);
+  const { firstName } = useSelector(userSelector);
   const { formatMessage,  } = useIntl();
 
   useEffect(() => {
@@ -87,43 +90,53 @@ const CustomerDashboard = () => {
     setPdfPreview(pdfImage);
   };
 
+  const isAdmin = firstName === 'Admin';
+
 
   return (
     <>
       <Row>
         <Col xs="12" sm="6">
-          <Card
-            cardHeaderText={formatMessage(messages.monthlyInvoiceTitle)}
-            classNames="text-center dashboard-card card-messages"
-          >
-            <Col xs="6" className="invoice-preview">
-              {/*{documents.length && getMonthlyDocumentData().documentName}*/}
-              <img
-                className="invoice-preview__image"
-                src="../../../assets/images/pdf_preview.png"
-                alt="pdf-preview"
-                onClick={viewDocument}
-              />
-            </Col>
-          </Card>
+          {
+            !isAdmin && (
+              <Card
+                cardHeaderText={formatMessage(messages.monthlyInvoiceTitle)}
+                classNames="text-center dashboard-card card-messages"
+              >
+                <Col xs="6" className="invoice-preview">
+                  {/*{documents.length && getMonthlyDocumentData().documentName}*/}
+                  <img
+                    className="invoice-preview__image"
+                    src="../../../assets/images/pdf_preview.png"
+                    alt="pdf-preview"
+                    onClick={viewDocument}
+                  />
+                </Col>
+              </Card>
+            )
+          }
         </Col>
-        <Col xs="12" sm="6">
+        <Col xs="12" sm={!isAdmin ? 6 : 12} >
           <Card
             cardHeaderText={formatMessage(messages.messagesTitle)}
             classNames="text-center dashboard-card card-invoice"
           />
         </Col>
         <Col xs="12" sm="6">
-          <Card
-            cardHeaderText={formatMessage(messages.tableCardTitle)}
-            classNames="text-center dashboard-card card-documents"
-          >
-            <Table
-              tableData={documents}
-              TableHeader={renderTableHeader()}
-              TableRow={renderTableRow}
-            />
-          </Card>
+          {
+            !isAdmin && (
+              <Card
+                cardHeaderText={formatMessage(messages.tableCardTitle)}
+                classNames="text-center dashboard-card card-documents"
+              >
+                <Table
+                  tableData={documents}
+                  TableHeader={renderTableHeader()}
+                  TableRow={renderTableRow}
+                />
+              </Card>
+            )
+          }
         </Col>
         <DocumentModal
           isActive={isDocumentOpened}

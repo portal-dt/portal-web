@@ -15,6 +15,7 @@ import './CustomerDocuments.less';
 
 const initialState = {
   documentNumber: { isAsc: true },
+  customerName: { isAsc: false },
   documentType: { isAsc: false },
   creationDate: { isAsc: false },
 };
@@ -31,6 +32,7 @@ const CustomerDocuments = () => {
   const [filteredDocuments, setFilteredDocuments] = useState([]);
   const { firstName } = useSelector(userSelector);
   const { formatMessage } = useIntl();
+  const isAdmin = firstName === 'Admin';
 
   useEffect(() => {
     const fetchDocuments = async () => {
@@ -60,7 +62,7 @@ const CustomerDocuments = () => {
     setFilteredDocuments(tableDataSorted);
   };
 
-  const TableHeader = <CustomerTableHeader onInputChange={filterByStatus} sort={sort} sortState={sortState} />;
+  const TableHeader = <CustomerTableHeader onInputChange={filterByStatus} sort={sort} sortState={sortState} isAdmin={isAdmin} />;
 
   return (
     <>
