@@ -38,9 +38,9 @@ const renderTableHeader = () => {
 
 const renderTableRow = ({ documentType, creationDate, openedAt, dueDate }) => {
   const { formatMessage, formatDate } = useIntl();
-  const month = new Date(creationDate).toLocaleString('default', { month: 'long' }).toLowerCase();
+  // const month = new Date(creationDate).toLocaleString('default', { month: 'long' }).toLowerCase();
   const year = new Date(creationDate).getUTCFullYear();
-  const documentName = `${formatMessage(messages[documentType])} ${formatMessage(messages[month])} ${year}`;
+  const documentName = `${formatMessage(messages.invoice)} ${formatMessage(messages.march)} ${year}`;
 
   return (
     <tr>
