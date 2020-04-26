@@ -12,6 +12,7 @@ import CustomerTableRow from '../customerTableRow/CustomerTableRow';
 import CustomerTableHeader from '../customerTableHeader/CustomerTableHeader';
 
 import './CustomerDocuments.less';
+import TablePagination from '../tablePagination/TablePagination';
 
 const initialState = {
   documentNumber: { isAsc: true },
@@ -29,6 +30,9 @@ const reducer = (state, { field }) => ({
 const CustomerDocuments = () => {
   const [sortState, dispatch] = useReducer(reducer, initialState);
   const [documents, setDocuments] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage] = useState(2);
   const [filteredDocuments, setFilteredDocuments] = useState([]);
   const { firstName } = useSelector(userSelector);
   const { formatMessage } = useIntl();
@@ -37,7 +41,9 @@ const CustomerDocuments = () => {
   useEffect(() => {
     const fetchDocuments = async () => {
       const customerId = localStorage.getItem('userId');
+      setLoading(true);
       const customerDocuments = await (firstName === 'Admin' ? getDocuments() : getDocumentsByCustomerId(customerId));
+      setLoading(false)
       setDocuments(customerDocuments);
     };
     fetchDocuments();
@@ -62,15 +68,27 @@ const CustomerDocuments = () => {
     setFilteredDocuments(tableDataSorted);
   };
 
+  const indexOfLastRow = currentPage * rowsPerPage;
+  const indexOfFirstRow = indexOfLastRow - rowsPerPage;
+  const currentRows = tableData.slice(indexOfFirstRow, indexOfLastRow);
+
+  const paginate = pageNumber => setCurrentPage(pageNumber);
+
   const TableHeader = <CustomerTableHeader onInputChange={filterByStatus} sort={sort} sortState={sortState} isAdmin={isAdmin} />;
 
   return (
     <>
       <div className="page-content__title">{formatMessage(messages.documents)}</div>
       <Table
-        tableData={tableData}
+        loading={loading}
+        tableData={currentRows}
         TableHeader={TableHeader}
         TableRow={CustomerTableRow}
+      />
+      <TablePagination 
+        rowsPerPage={rowsPerPage}
+        totalRows={tableData.length}
+        paginate={paginate}
       />
     </>
   );
