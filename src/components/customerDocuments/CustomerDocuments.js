@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import { useSelector } from 'react-redux';
 import { useIntl } from 'react-intl';
+import Spinner from 'react-bootstrap/Spinner';
 
 import { getDocuments, getDocumentsByCustomerId } from '../../utils/api';
 import { sortColumn } from '../../utils';
@@ -10,9 +11,9 @@ import { userSelector } from '../../selectors';
 import Table from '../dashboardTable/DashboardTable';
 import CustomerTableRow from '../customerTableRow/CustomerTableRow';
 import CustomerTableHeader from '../customerTableHeader/CustomerTableHeader';
+import TablePagination from '../tablePagination/TablePagination';
 
 import './CustomerDocuments.less';
-import TablePagination from '../tablePagination/TablePagination';
 
 const initialState = {
   documentNumber: { isAsc: true },
@@ -32,7 +33,7 @@ const CustomerDocuments = () => {
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage] = useState(2);
+  const [rowsPerPage] = useState(4);
   const [filteredDocuments, setFilteredDocuments] = useState([]);
   const { firstName } = useSelector(userSelector);
   const { formatMessage } = useIntl();
@@ -43,7 +44,7 @@ const CustomerDocuments = () => {
       const customerId = localStorage.getItem('userId');
       setLoading(true);
       const customerDocuments = await (firstName === 'Admin' ? getDocuments() : getDocumentsByCustomerId(customerId));
-      setLoading(false)
+      setLoading(false);
       setDocuments(customerDocuments);
     };
     fetchDocuments();
@@ -75,22 +76,28 @@ const CustomerDocuments = () => {
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
   const TableHeader = <CustomerTableHeader onInputChange={filterByStatus} sort={sort} sortState={sortState} isAdmin={isAdmin} />;
-
+  
   return (
     <>
       <div className="page-content__title">{formatMessage(messages.documents)}</div>
-      <Table
-        loading={loading}
-        tableData={currentRows}
-        TableHeader={TableHeader}
-        TableRow={CustomerTableRow}
-      />
-      <TablePagination 
-        rowsPerPage={rowsPerPage}
-        totalRows={tableData.length}
-        paginate={paginate}
-        currentNumber={currentPage}
-      />
+      {loading ?
+        <div className="page-content__spinner">
+          <Spinner variant="primary" animation="border" /> 
+        </div> :
+        <>
+          <Table
+            tableData={currentRows}
+            TableHeader={TableHeader}
+            TableRow={CustomerTableRow}
+          />
+          <TablePagination 
+            rowsPerPage={rowsPerPage}
+            totalRows={tableData.length}
+            paginate={paginate}
+            currentNumber={currentPage}
+          />
+        </>
+      }
     </>
   );
 };
