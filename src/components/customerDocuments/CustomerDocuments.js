@@ -33,10 +33,10 @@ const CustomerDocuments = () => {
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage] = useState(4);
   const [filteredDocuments, setFilteredDocuments] = useState([]);
   const { firstName } = useSelector(userSelector);
   const { formatMessage } = useIntl();
+  const rowsPerPage = 5;
   const isAdmin = firstName === 'Admin';
 
   useEffect(() => {
