@@ -89,6 +89,7 @@ const CustomerDocuments = () => {
         rowsPerPage={rowsPerPage}
         totalRows={tableData.length}
         paginate={paginate}
+        currentNumber={currentPage}
       />
     </>
   );

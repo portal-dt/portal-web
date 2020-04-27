@@ -1,8 +1,9 @@
 import React from 'react';
-
 import Pagination from 'react-bootstrap/Pagination'
 
-const TablePagination = ({ rowsPerPage, totalRows, paginate }) => {  
+import './TablePagination.less';
+
+const TablePagination = ({ rowsPerPage, totalRows, currentNumber, paginate }) => {  
   let pageNumbers = [];
 
   for(let i = 1; i <= Math.ceil(totalRows / rowsPerPage); i++) {
@@ -10,15 +11,18 @@ const TablePagination = ({ rowsPerPage, totalRows, paginate }) => {
   }
   
   return (
-    <Pagination>
+    <Pagination className="table-pagination">
       <Pagination.First onClick={() => paginate(1)} />
-      <Pagination.Prev />
+      <Pagination.Prev onClick={() => paginate(currentNumber > 1 ? currentNumber - 1 : currentNumber)}/>
       {pageNumbers.map(number => (
-        <Pagination.Item onClick={() => paginate(number)} key={number}>{number}</Pagination.Item>
+        <Pagination.Item 
+          active={currentNumber === number}
+          onClick={() => paginate(number)} key={number}
+        >{number}</Pagination.Item>
       ))}
       
-      <Pagination.Next />
-      <Pagination.Last />
+      <Pagination.Next onClick={() => paginate(currentNumber < pageNumbers.length ? currentNumber + 1 : currentNumber)}/>
+      <Pagination.Last onClick={() => paginate(pageNumbers.length)}/>
     </Pagination>
   );
 };
