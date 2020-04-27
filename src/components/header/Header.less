@@ -9,16 +9,22 @@
         height: 50px;
     }
 
-    &__link {
+    &__link, &__link--logout {
         color: #ffffff!important;
     }
-    &__link:hover, &__link.active {
+    &__link:hover, &__link.active, &__link--logout:hover, &__link--logout.active {
         color: rgba(255,255,255,.5) !important;
+    }
+
+    &__link--logout {
+        display: flex!important;
+        align-items: center;
     }
 
     &__user-settings {
         display: flex;
         flex-direction: column;
+        justify-content: center;
 
         .nav-link {
             padding: 0!important; 

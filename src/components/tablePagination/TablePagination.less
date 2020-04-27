@@ -1,0 +1,19 @@
+@import '../../styles/vars.less';
+
+.table-pagination {
+  display: flex;
+  justify-content: center;
+
+  .page-link {
+    color: @theme-color;
+  }
+
+  .page-item.active .page-link {
+    background-color: @theme-color;
+    border-color: @theme-color;
+  }
+
+  .page-link:hover {
+    color: @theme-color;
+  }
+}
