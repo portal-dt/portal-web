@@ -20,8 +20,10 @@ export const sortColumn = (data, column, isAsc) => {
       return sortColumnNumber(data, column, isAsc);
     case 'documentType':
     case 'customerName':
+    case 'email':
       return sortColumnString(data, column, isAsc);
     case 'creationDate':
+    case 'openedAt':
       return sortColumnDate(data, column, isAsc);
   }
 };

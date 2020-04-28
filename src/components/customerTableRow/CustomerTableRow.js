@@ -14,7 +14,7 @@ import { NavLink } from 'react-router-dom';
 import './CustomerTableRow.less';
 
 
-const CustomerTableRow = ({ documentNumber, documentType, creationDate, openedAt, document, customerName }) => {
+const CustomerTableRow = ({ documentNumber, documentType, creationDate, openedAt, document, customerName, email }) => {
   const [isDocumentOpened, setIsDocumentOpened] = useState(false);
   const { formatMessage } = useIntl();
 
@@ -34,6 +34,7 @@ const CustomerTableRow = ({ documentNumber, documentType, creationDate, openedAt
     <tr>
       <td>{documentNumber}</td>
       {customerName && <td>{customerName}</td>}
+      {email && <td>{email}</td>}
       <td>{documentType}</td>
       <td>{formatDateToLocalString(creationDate)}</td>
       <td className={openedAtClassName}>{lastOpenedAtText}</td>

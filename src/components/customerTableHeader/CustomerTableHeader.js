@@ -15,12 +15,21 @@ const CustomerTableHeader = ({ onInputChange, sort, sortState, isAdmin }) => {
     <thead className="table-header">
     <tr>
       <th id="documentNumber" onClick={sort}>
-        {formatMessage(messages.columnDocumentName)} {getSortArrow(sortState['documentNumber'].isAsc)}
+        {formatMessage(messages.columnDocumentNumber)} {getSortArrow(sortState['documentNumber'].isAsc)}
       </th>
       {
-        isAdmin && (<th id="customerName" onClick={sort}>
-          Customer Name {getSortArrow(sortState['customerName'].isAsc)}
-        </th>)
+        isAdmin && (
+          <th id="customerName" onClick={sort}>
+            Customer Name {getSortArrow(sortState['customerName'].isAsc)}
+          </th>
+        )
+      }
+      {
+        isAdmin && (
+          <th id="email" onClick={sort}>
+            Email {getSortArrow(sortState['email'].isAsc)}
+          </th>
+        )
       }
       <th id="documentType" onClick={sort}>
         {formatMessage(messages.columnDocumentType)} {getSortArrow(sortState['documentType'].isAsc)}
@@ -28,8 +37,8 @@ const CustomerTableHeader = ({ onInputChange, sort, sortState, isAdmin }) => {
       <th id="creationDate" onClick={sort}>
         {formatMessage(messages.columnCreationDate)} {getSortArrow(sortState['creationDate'].isAsc)}
       </th>
-      <th id="openedAt">
-        {formatMessage(messages.columnLastOpened)}
+      <th id="openedAt" onClick={sort}>
+        {formatMessage(messages.columnLastOpened)} {getSortArrow(sortState['openedAt'].isAsc)}
       </th>
       <th>
         <input

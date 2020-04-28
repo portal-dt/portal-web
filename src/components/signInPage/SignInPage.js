@@ -1,6 +1,6 @@
 import React, { useReducer, useState, useEffect } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useIntl } from 'react-intl';
 
@@ -32,8 +32,11 @@ const SignInPage = () => {
   const [signInFields, changeField] = useReducer(handleInputChangesReducer, initialState);
   const [isSignInAsEmail, setIsSignInAsEmail] = useState(false);
   const [bankIdUrl, setBankIdUrl] = useState('');
-  const history = useHistory();
   const dispatch = useDispatch();
+  const history = useHistory();
+  const { search } = useLocation();
+  const searchParams = new URLSearchParams(search);
+  const isAdmin = searchParams.get('adminAccess') === 'true';
 
   useEffect(() => {
     const getBankIdUrl = async () => {
@@ -69,7 +72,7 @@ const SignInPage = () => {
     }
   };
 
-  const handleEmailForm = () => setIsSignInAsEmail(true);
+  const handleEmailForm = () => isAdmin ? setIsSignInAsEmail(true) : window.location.replace(bankIdUrl);
 
   const renderLoginForm = () => (
     <>
@@ -132,16 +135,22 @@ const SignInPage = () => {
   const renderWelcomePage = () => (
     <div>
       <Row className="justify-content-center welcome-page__title">
-        <Col xs="5">
-          Please, choose Sign In Options:
+        <Col xs="6">
+          {isAdmin ? 'Welcome to dtPortal' : 'Welcome to your documents'}
         </Col>
       </Row>
       <Row className="justify-content-center">
-        <Col xs="2">
-          <Button text="Username" onClickHandler={handleEmailForm} />
-        </Col>
-        <Col xs="2">
-          <a className="btn btn-success" href={bankIdUrl}>bankID</a>
+        <Col xs="6">
+          <Button
+            text={
+              <>
+                <img src="../../../assets/images/kraft-bank-logo-small.png" alt=""/>
+                <span>Continue to login</span>
+              </>
+            }
+            classNames="welcome-page__button"
+            onClickHandler={handleEmailForm}
+          />
         </Col>
       </Row>
     </div>

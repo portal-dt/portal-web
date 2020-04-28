@@ -1,10 +1,10 @@
 import { defineMessages } from 'react-intl';
 
 export const messages = defineMessages({
-  columnDocumentName: {
+  columnDocumentNumber: {
     id: 'tableColumnDocumentNumber',
     description: 'Documents column number text',
-    defaultMessage: 'Document Number',
+    defaultMessage: 'Document',
   },
   columnDocumentType: {
     id: 'tableColumnDocumentType',
@@ -22,8 +22,8 @@ export const messages = defineMessages({
     defaultMessage: 'Creation Date',
   },
   filterLastRead: {
-    id: 'filterByLastOpened',
+    id: 'filter',
     description: 'Documents filter placeholder',
-    defaultMessage: 'Filter by Last Opened',
+    defaultMessage: 'Filter',
   }
 });

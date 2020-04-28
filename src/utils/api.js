@@ -45,13 +45,14 @@ export const getDocuments = async () => {
   try {
     const { data: { documents } } = await axios.get(`${BASE_URL}/archive/documents?content=true`, axiosConfig);
 
-    return documents.map(({ type, openedAt, invoiceDate, invoiceNumber, file, userName }) => ({
+    return documents.map(({ type, openedAt, invoiceDate, invoiceNumber, file, userName, email }) => ({
       documentNumber: invoiceNumber,
       documentType: type,
       creationDate: invoiceDate,
       openedAt: openedAt,
       document: file,
-      customerName: userName
+      customerName: userName,
+      email
     }));
   } catch (e) {
     console.log(e); // todo

@@ -18,7 +18,7 @@ import './Header.less';
 
 const companyUrl = '../../../assets/images/kraft-logo.jpeg'; // todo: move to props
 
-const Header = () => {
+const Header = ({ isAuthenticated }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { formatMessage } = useIntl();
@@ -44,25 +44,29 @@ const Header = () => {
               />
             </NavLink>
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
-              <NavLink to="/documents" className="nav-link header__link">{formatMessage(messages.documentsLink)}</NavLink>
-              <NavLink to="/messages" className="nav-link header__link">{formatMessage(messages.messagesLink)}</NavLink>
-            </Nav>
-            <Nav>
-              <div className="header__user-settings">
-                <span>Hi, {userName}</span>
-                <NavLink to="/account-settings" className="nav-link header__link">
-                  {formatMessage(messages.accountSettings)}
-                  <GearFill size={20}/>
-                </NavLink>
-              </div>
-              <Button variant="link" className="header__link" onClick={handleLogOut}>
-                <BoxArrowRight size={45}/>{formatMessage(messages.logOut)}
-              </Button>
-            </Nav>
-          </Navbar.Collapse>
+          {isAuthenticated && <Navbar.Toggle aria-controls="basic-navbar-nav" />}
+          {
+            isAuthenticated && (
+              <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className="mr-auto">
+                  <NavLink to="/documents" className="nav-link header__link">{formatMessage(messages.documentsLink)}</NavLink>
+                  <NavLink to="/messages" className="nav-link header__link">{formatMessage(messages.messagesLink)}</NavLink>
+                </Nav>
+                <Nav>
+                  <div className="header__user-settings">
+                    <span>Hi, {userName}</span>
+                    <NavLink to="/account-settings" className="nav-link header__link">
+                      {formatMessage(messages.accountSettings)}
+                      <GearFill size={20}/>
+                    </NavLink>
+                  </div>
+                  <Button variant="link" className="header__link" onClick={handleLogOut}>
+                    <BoxArrowRight size={45}/>{formatMessage(messages.logOut)}
+                  </Button>
+                </Nav>
+              </Navbar.Collapse>
+            )
+          }
         </Navbar>
       </Container>  
     </header>

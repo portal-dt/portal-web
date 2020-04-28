@@ -57,18 +57,18 @@ const CustomerDashboard = () => {
   const [pdfPreview, setPdfPreview] = useState('');
   const [isDocumentOpened, setIsDocumentOpened] = useState(false);
   const { firstName } = useSelector(userSelector);
-  const { formatMessage,  } = useIntl();
+  const { formatMessage } = useIntl();
 
   useEffect(() => {
     const fetchLatestDocuments = async () => {
       const customerId = localStorage.getItem('userId');
-      const latestDocuments = await getLatestDocumentsByCustomerId(customerId);
+      const latestDocuments = customerId && await getLatestDocumentsByCustomerId(customerId) || [];
 
       setDocuments(latestDocuments);
     };
 
     fetchLatestDocuments();
-  },[]);
+  },[localStorage.getItem('userId')]);
 
   const viewDocument = () => setIsDocumentOpened(true);
   const closeDocument = () => setIsDocumentOpened(false);
@@ -115,12 +115,6 @@ const CustomerDashboard = () => {
               </Card>
             )
           }
-        </Col>
-        <Col xs="12" sm={!isAdmin ? 6 : 12} >
-          <Card
-            cardHeaderText={formatMessage(messages.messagesTitle)}
-            classNames="text-center dashboard-card card-invoice"
-          />
         </Col>
         <Col xs="12" sm="6">
           {
