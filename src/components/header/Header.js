@@ -55,10 +55,6 @@ const Header = ({ isAuthenticated }) => {
                 <Nav>
                   <div className="header__user-settings">
                     <span>Hi, {userName}</span>
-                    <NavLink to="/account-settings" className="nav-link header__link">
-                      {formatMessage(messages.accountSettings)}
-                      <GearFill size={20}/>
-                    </NavLink>
                   </div>
                   <Button variant="link" className="header__link" onClick={handleLogOut}>
                     <BoxArrowRight size={45}/>{formatMessage(messages.logOut)}
