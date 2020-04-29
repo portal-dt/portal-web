@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useReducer } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useIntl } from 'react-intl';
 import { NavLink, useHistory } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
@@ -10,6 +11,7 @@ import Table from '../dashboardTable/DashboardTable';
 import TablePagination from '../tablePagination/TablePagination';
 import CustomersListTableHeader from '../customersListTableHeader/CustomersListTableHeader';
 
+import { getCustomersAction } from '../../actions/actions';
 import BootstrapTable from 'react-bootstrap/Table';
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
@@ -20,6 +22,7 @@ import Button from 'react-bootstrap/Button';
 import './CustomersList.less';
 
 const CustomersList = () => {
+  const dispatch = useDispatch();
   const [customers, setCustomers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,6 +35,7 @@ const CustomersList = () => {
       const customerId = localStorage.getItem('userId');
       setLoading(true);
       const customersList = await getCustomers();
+      dispatch(getCustomersAction(customersList));
       setLoading(false);
       setCustomers(customersList);
     };
@@ -46,9 +50,7 @@ const CustomersList = () => {
 
   const TableHeader = <CustomersListTableHeader />;
 
-  const TableRow = ({customerName, accountNumbers, email, lastLogin, id}) => {
-    console.log(accountNumbers);
-    
+  const TableRow = ({customerName, accountNumbers, email, lastLogin, id}) => {    
     return (
       <tr>
         <td>{customerName}</td>
@@ -58,11 +60,11 @@ const CustomersList = () => {
             placement='left'
             overlay={
               <Tooltip id={`tooltip-left`}>
-                {accountNumbers.map(number => <p><strong>{number}</strong></p>)}
+                {accountNumbers.map((number, i) => <p key={i}><strong>{number}</strong></p>)}
               </Tooltip>
             }
           >
-            <Button variant="secondary">Numbrers list</Button>
+            <Button variant="secondary">Numbers list</Button>
           </OverlayTrigger>
         </td>
         <td>{lastLogin || 'none'}</td>

@@ -14,8 +14,7 @@ import CustomerTableHeader from '../customerTableHeader/CustomerTableHeader';
 import TablePagination from '../tablePagination/TablePagination';
 
 import {
-  useParams,
-  useRouteMatch
+  useParams
 } from "react-router-dom";
 import './CustomerDocuments.less';
 
@@ -44,12 +43,9 @@ const CustomerDocuments = () => {
   const { formatMessage } = useIntl();
   const rowsPerPage = 5;
   const isAdmin = firstName === 'Admin';
-
   let { id } = useParams();
-  let match = useRouteMatch("/customers/:id");
 
   useEffect(() => {
-    console.log(id, match);
     
     const fetchDocuments = async () => {
       let customerDocuments = [];

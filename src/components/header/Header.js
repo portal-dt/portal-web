@@ -7,6 +7,7 @@ import { messages } from './messages';
 import { logout } from '../../utils/auth';
 import { logoutAction } from '../../actions/actions';
 import { userNameSelector } from '../../selectors';
+import { userSelector } from '../../selectors';
 
 import { BoxArrowRight, GearFill } from 'react-bootstrap-icons';
 import Nav from 'react-bootstrap/Nav';
@@ -23,6 +24,9 @@ const Header = ({ isAuthenticated }) => {
   const dispatch = useDispatch();
   const { formatMessage } = useIntl();
   const userName = useSelector(userNameSelector);
+  const { firstName } = useSelector(userSelector);
+  const isAdmin = firstName === 'Admin';
+
 
   const handleLogOut = () => {
     logout();
@@ -51,8 +55,7 @@ const Header = ({ isAuthenticated }) => {
                 <Nav className="mr-auto">
                   <NavLink to="/dashboard" className="nav-link header__link">Home</NavLink>
                   <NavLink to="/documents" className="nav-link header__link">{formatMessage(messages.documentsLink)}</NavLink>
-                  <NavLink to="/customers" className="nav-link header__link">Customers</NavLink>
-
+                  { isAdmin ? <NavLink to="/customers" className="nav-link header__link">Customers</NavLink> : null }
                 </Nav>
                 <Nav>
                   <div className="header__user-settings">
