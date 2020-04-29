@@ -8,9 +8,9 @@ const CustomersListTableHeader = () => {
   return (
     <thead className="table-header">
       <tr>
-        <th>Account number</th>
         <th>Customer name</th>
         <th>Email</th>
+        <th>Account number</th>
         <th>Last login</th>
         <th>Action</th>
       </tr>

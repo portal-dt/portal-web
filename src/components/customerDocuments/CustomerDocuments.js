@@ -13,6 +13,10 @@ import CustomerTableRow from '../customerTableRow/CustomerTableRow';
 import CustomerTableHeader from '../customerTableHeader/CustomerTableHeader';
 import TablePagination from '../tablePagination/TablePagination';
 
+import {
+  useParams,
+  useRouteMatch
+} from "react-router-dom";
 import './CustomerDocuments.less';
 
 const initialState = {
@@ -31,6 +35,8 @@ const reducer = (state, { field }) => ({
 
 
 const CustomerDocuments = () => {
+  console.log();
+  
   const [sortState, dispatch] = useReducer(reducer, initialState);
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -41,11 +47,24 @@ const CustomerDocuments = () => {
   const rowsPerPage = 5;
   const isAdmin = firstName === 'Admin';
 
+  let { id } = useParams();
+  let match = useRouteMatch("/customers/:id");
+
   useEffect(() => {
+    console.log(id, match);
+    
     const fetchDocuments = async () => {
+      let customerDocuments = [];
       const customerId = localStorage.getItem('userId');
       setLoading(true);
-      const customerDocuments = await (firstName === 'Admin' ? getDocuments() : getDocumentsByCustomerId(customerId));
+      // const customerDocuments = await (firstName === 'Admin'  ? getDocuments() : getDocumentsByCustomerId(customerId));
+      if (id) {
+        customerDocuments = await getDocumentsByCustomerId(id);
+      } else if (firstName === 'Admin') {
+        customerDocuments = await getDocuments();
+      } else {
+        customerDocuments = await getDocumentsByCustomerId(customerId);
+      }
       setLoading(false);
       setDocuments(customerDocuments);
     };
@@ -85,7 +104,7 @@ const CustomerDocuments = () => {
 
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
-  const TableHeader = <CustomerTableHeader onInputChange={filterTable} sort={sort} sortState={sortState} isAdmin={isAdmin} />;
+  const TableHeader = <CustomerTableHeader onInputChange={filterTable} sort={sort} sortState={sortState} isAdmin={isAdmin && !id} />;
 
   return (
     <>
