@@ -158,8 +158,7 @@ const SignInPage = () => {
 
   return (
     <div className="sign-in-page">
-      {/* {isSignInAsEmail ? renderLoginForm() : renderWelcomePage()} */}
-      {renderLoginForm()}
+       {isSignInAsEmail ? renderLoginForm() : renderWelcomePage()}
     </div>
   );
 };
