@@ -33,7 +33,7 @@ const reducer = (state, { field }) => ({
 });
 
 
-const CustomerDocuments = () => {  
+const CustomerDocuments = () => {
   const [sortState, dispatch] = useReducer(reducer, initialState);
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(false);
