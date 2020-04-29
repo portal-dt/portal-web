@@ -35,8 +35,6 @@ const reducer = (state, { field }) => ({
 
 
 const CustomerDocuments = () => {
-  console.log();
-  
   const [sortState, dispatch] = useReducer(reducer, initialState);
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(false);
