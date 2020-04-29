@@ -22,7 +22,7 @@ const CustomerTableRow = ({ documentId, documentNumber, documentType, creationDa
   const viewDocument = () => setIsDocumentOpened(true);
   const closeDocument = () => setIsDocumentOpened(false);
   const onViewClickHandler = async () => {
-    if (customerName && email) {
+    if (!customerName && !email) {
       const { openedAt } = await updateViewedDocument(documentId);
       setOpenedAt(openedAt);
     }
