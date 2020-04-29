@@ -14,15 +14,17 @@ import { NavLink } from 'react-router-dom';
 import './CustomerTableRow.less';
 
 
-const CustomerTableRow = ({ documentNumber, documentType, creationDate, openedAt, document, customerName, email }) => {
+const CustomerTableRow = ({ documentId, documentNumber, documentType, creationDate, openedAt: documentOpenedAt, document, customerName, email }) => {
   const [isDocumentOpened, setIsDocumentOpened] = useState(false);
+  const [openedAt, setOpenedAt] = useState(documentOpenedAt);
   const { formatMessage } = useIntl();
 
   const viewDocument = () => setIsDocumentOpened(true);
   const closeDocument = () => setIsDocumentOpened(false);
   const onViewClickHandler = async () => {
-   await updateViewedDocument(documentNumber);
-   viewDocument();
+    const { openedAt } = await updateViewedDocument(documentId);
+    setOpenedAt(openedAt);
+    viewDocument();
   };
 
   const openedAtClassName = classNames(`table-row__column--${openedAt ? 'green' : 'red'}`);

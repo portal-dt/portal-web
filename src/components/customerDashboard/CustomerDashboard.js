@@ -8,6 +8,7 @@ import { userSelector } from '../../selectors';
 
 import Card from '../card/Card';
 import Table from '../dashboardTable/DashboardTable';
+import BootstrapTable from 'react-bootstrap/Table';
 import DocumentModal from '../documentModal/DocumentModal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -57,7 +58,7 @@ const CustomerDashboard = () => {
   const [pdfPreview, setPdfPreview] = useState('');
   const [isDocumentOpened, setIsDocumentOpened] = useState(false);
   const { firstName } = useSelector(userSelector);
-  const { formatMessage } = useIntl();
+  const { formatMessage, formatDate } = useIntl();
 
   useEffect(() => {
     const fetchLatestDocuments = async () => {
@@ -75,12 +76,15 @@ const CustomerDashboard = () => {
 
   const getMonthlyDocumentData = () => {
     const monthlyDocument = documents.length && documents[0];
-    const { document, documentType, creationDate } = monthlyDocument;
+    const { document, documentType, creationDate, referenceNumber, dueDate, isDirectDebit, dueDateAmount } = monthlyDocument;
     // const documentName = getDocumentName(creationDate, documentType, formatMessage);
 
     return {
       document,
-      // documentName
+      referenceNumber,
+      dueDate,
+      isDirectDebit,
+      dueDateAmount
     };
   };
 
@@ -98,11 +102,27 @@ const CustomerDashboard = () => {
       <Row>
         <Col xs="12" sm="6">
           {
-            !isAdmin && (
+            !isAdmin ? (
               <Card
                 cardHeaderText={formatMessage(messages.monthlyInvoiceTitle)}
                 classNames="text-center dashboard-card card-messages"
               >
+                <BootstrapTable striped bordered responsive>
+                  <thead>
+                  <tr>
+                    <th>Reference no</th>
+                    <th>Due Date</th>
+                    <th>Amount Due</th>
+                    <th>Method</th>
+                  </tr>
+                  </thead>
+                  <tr>
+                    <td>{getMonthlyDocumentData().referenceNumber}</td>
+                    <td>{formatDate(getMonthlyDocumentData().dueDate)}</td>
+                    <td>{getMonthlyDocumentData().dueDateAmount}</td>
+                    <td>{getMonthlyDocumentData().isDirectDebit ? 'Direct Debit' : 'Bank Transfer'}</td>
+                  </tr>
+                </BootstrapTable>
                 <Col xs="6" className="invoice-preview">
                   {/*{documents.length && getMonthlyDocumentData().documentName}*/}
                   <img
@@ -113,7 +133,7 @@ const CustomerDashboard = () => {
                   />
                 </Col>
               </Card>
-            )
+            ) : <h2>Welcome</h2>
           }
         </Col>
         <Col xs="12" sm="6">

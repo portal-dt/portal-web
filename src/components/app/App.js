@@ -30,7 +30,7 @@ const App = () => {
   const searchParams = new URLSearchParams(search);
   const transactionId = searchParams.get('transaction_id');
   const isAuthenticatedViaBankId = searchParams.get('success') === 'true';
-  const isAuthenticated = useSelector(isAuthenticatedSelector) || localStorage.getItem('token') || isAuthenticatedViaBankId;
+  const isAuthenticated = useSelector(isAuthenticatedSelector) || localStorage.getItem('userId') || isAuthenticatedViaBankId;
 
 
   const setUser = async () => {
