@@ -51,6 +51,8 @@ const Header = ({ isAuthenticated }) => {
                 <Nav className="mr-auto">
                   <NavLink to="/dashboard" className="nav-link header__link">Home</NavLink>
                   <NavLink to="/documents" className="nav-link header__link">{formatMessage(messages.documentsLink)}</NavLink>
+                  <NavLink to="/customers" className="nav-link header__link">Customers</NavLink>
+
                 </Nav>
                 <Nav>
                   <div className="header__user-settings">

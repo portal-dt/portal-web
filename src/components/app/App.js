@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import { IntlProvider } from 'react-intl';
-import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
+import { Switch, Route, Redirect, useLocation, useHistory } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 
 import SignInPage from '../signInPage/SignInPage';
 import CustomerDocuments from '../customerDocuments/CustomerDocuments';
 import CustomerDashboard from '../customerDashboard/CustomerDashboard';
+import CustomersList from '../customersList/CustomersList';
 import AccountSettings from '../accountSettings/AccountSettings';
 import NewPartnerDetails from '../newPartnerDetails/NewPartnerDetails';
 import CustomerMessages from '../customerMessages/CustomerMessages';
@@ -24,6 +25,7 @@ import './App.less';
 
 
 const App = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const { pathname, search = '' } = useLocation();
   const language = useSelector(languageSelector);
@@ -58,6 +60,13 @@ const App = () => {
           isAuthenticated ?
             <>
               <Route path="/documents">
+                <CustomerDocuments />
+              </Route>
+              <Route exact path="/customers">
+                <CustomersList />
+              </Route>
+              <Route path="/customers/:id">
+                <button className="btn btn-primary" onClick={() => history.goBack()}>Back</button>
                 <CustomerDocuments />
               </Route>
               <Route path="/account-settings">

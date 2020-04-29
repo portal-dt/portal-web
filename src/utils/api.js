@@ -66,7 +66,7 @@ export const getDocuments = async () => {
 
 export const getCustomers = async () => {
   try {
-    const { data: { customers } } = await axios.get('http://127.0.0.1:3000/customers', axiosConfig);
+    const { data: { customers } } = await axios.get(`${BASE_URL}/archive/customers`, axiosConfig);
     return customers;
   } catch (e) {
     console.log(e); // todo
