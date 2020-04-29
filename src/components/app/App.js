@@ -15,7 +15,7 @@ import Container from 'react-bootstrap/Container';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
 
-import { languageSelector, isAuthenticatedSelector } from '../../selectors';
+import { languageSelector, isAuthenticatedSelector, customersSelector } from '../../selectors';
 import { setUserAction } from '../../actions/actions';
 import { authenticateViaBankId } from '../../utils/auth';
 import { getUser } from '../../utils/api';
@@ -29,6 +29,8 @@ const App = () => {
   const dispatch = useDispatch();
   const { pathname, search = '' } = useLocation();
   const language = useSelector(languageSelector);
+  // todo
+  // const customers = useSelector(customersSelector);
   const searchParams = new URLSearchParams(search);
   const transactionId = searchParams.get('transaction_id');
   const isAuthenticatedViaBankId = searchParams.get('success') === 'true';

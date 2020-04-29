@@ -20,3 +20,8 @@ export const userSelector = createSelector(
   state => state.user.user,
   user => user
 );
+
+export const customersSelector = createSelector(
+  state => state.customers.customers,
+  (customers) => customers
+);
