@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import SignInPage from '../signInPage/SignInPage';
 import CustomerDocuments from '../customerDocuments/CustomerDocuments';
 import CustomerDashboard from '../customerDashboard/CustomerDashboard';
+import CustomersList from '../customersList/CustomersList';
 import AccountSettings from '../accountSettings/AccountSettings';
 import NewPartnerDetails from '../newPartnerDetails/NewPartnerDetails';
 import CustomerMessages from '../customerMessages/CustomerMessages';
@@ -59,6 +60,9 @@ const App = () => {
             <>
               <Route path="/documents">
                 <CustomerDocuments />
+              </Route>
+              <Route path="/customers">
+                <CustomersList />
               </Route>
               <Route path="/account-settings">
                 <AccountSettings />

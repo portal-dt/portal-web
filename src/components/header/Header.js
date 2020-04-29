@@ -50,7 +50,8 @@ const Header = ({ isAuthenticated }) => {
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                   <NavLink to="/documents" className="nav-link header__link">{formatMessage(messages.documentsLink)}</NavLink>
-                  <NavLink to="/messages" className="nav-link header__link">{formatMessage(messages.messagesLink)}</NavLink>
+                  {/* <NavLink to="/messages" className="nav-link header__link">{formatMessage(messages.messagesLink)}</NavLink> */}
+                  <NavLink to="/customers" className="nav-link header__link">Customers</NavLink>
                 </Nav>
                 <Nav>
                   <div className="header__user-settings">
