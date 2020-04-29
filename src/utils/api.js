@@ -11,7 +11,8 @@ export const getDocumentsByCustomerId = async (customerId) => {
   try {
     const { data: { documents } } = await axios.get(`${BASE_URL}/archive/documents/${customerId}?content=true`, axiosConfig);
 
-    return documents.map(({ type, openedAt, invoiceDate, invoiceNumber, file }) => ({
+    return documents.map(({ documentId, type, openedAt, invoiceDate, invoiceNumber, file }) => ({
+      documentId,
       documentNumber: invoiceNumber,
       documentType: type,
       creationDate: invoiceDate,
@@ -28,11 +29,14 @@ export const getLatestDocumentsByCustomerId = async (customerId) => {
   try {
     const { data: { documents } } = await axios.get(`${BASE_URL}/archive/documents/latest/${customerId}?content=true`, axiosConfig);
 
-    return documents.map(({ type, openedAt, invoiceDate, dueDate, file }) => ({
+    return documents.map(({ type, openedAt, invoiceDate, dueDate, file, referenceNumber, isDirectDebit, dueDateAmount }) => ({
       documentType: type,
       creationDate: invoiceDate,
       openedAt: openedAt,
       dueDate,
+      referenceNumber,
+      isDirectDebit,
+      dueDateAmount,
       document: file
     }));
   } catch (e) {
@@ -86,6 +90,7 @@ export const updateViewedDocument = async (documentId) => {
       { documentId, openedAt: new Date() },
       axiosConfig
     );
+    return { documentId, openedAt: new Date() };
   } catch (e) {
     console.log(e); // todo
   }
