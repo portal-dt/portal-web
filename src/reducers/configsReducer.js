@@ -1,14 +1,15 @@
-import { CHANGE_LANG } from '../constants';
+import { SET_LOADING } from '../constants';
 
 const initialState = {
-  language: 'en'
+  isLoading: false
 };
 
 export const configsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case CHANGE_LANG:
+    case SET_LOADING:
       return {
-        language: action.payload
+        ...state,
+        isLoading: action.payload
       };
     default:
       return state;

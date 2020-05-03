@@ -10,9 +10,11 @@ const sortColumnString = (data, column, isAsc) => isAsc
   ? sortColumnStringAsc(data, column)
   : sortColumnStringDesc(data, column);
 
-const sortColumnDate = (data, column, isAsc) => data.sort((a, b) => isAsc
-    ? new Date(a[column]) - new Date(b[column])
-    : new Date(b[column]) - new Date(a[column]));
+const sortColumnDate = (data, column, isAsc) => data.sort((a, b) => {
+  const first = a[column] ? new Date(a[column]) : new Date();
+  const second = b[column] ? new Date(b[column]) : new Date();
+  return isAsc ? first - second : second - first;
+});
 
 export const sortColumn = (data, column, isAsc) => {
   switch (column) {

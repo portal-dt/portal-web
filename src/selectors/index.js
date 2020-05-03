@@ -21,6 +21,11 @@ export const userSelector = createSelector(
   user => user
 );
 
+export const isLoadingSelector = createSelector(
+  state => state.configs.isLoading,
+  isLoading => isLoading
+);
+
 export const customersSelector = createSelector(
   state => state.customers.customers,
   (customers) => customers

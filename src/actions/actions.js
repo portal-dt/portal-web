@@ -1,4 +1,12 @@
-import { CHANGE_LANG, LOGIN, LOGOUT, UPDATE_USER, SET_USER, GET_CUSTOMERS } from '../constants';
+import {
+  CHANGE_LANG,
+  LOGIN,
+  LOGOUT,
+  UPDATE_USER,
+  SET_USER,
+  SET_LOADING,
+  GET_CUSTOMERS
+} from '../constants';
 
 export const changeLang = (language) => ({
   type: CHANGE_LANG,
@@ -27,4 +35,9 @@ export const setUserAction = (user) => ({
 export const getCustomersAction = (customers) => ({
   type: GET_CUSTOMERS,
   payload: customers
+});
+
+export const setLoadingAction = (isLoading) => ({
+  type: SET_LOADING,
+  payload: isLoading
 });

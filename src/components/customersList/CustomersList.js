@@ -56,16 +56,7 @@ const CustomersList = () => {
         <td>{customerName}</td>
         <td>{email}</td>
         <td>
-          <OverlayTrigger
-            placement='left'
-            overlay={
-              <Tooltip id={`tooltip-left`}>
-                {accountNumbers.map((number, i) => <p key={i}><strong>{number}</strong></p>)}
-              </Tooltip>
-            }
-          >
-            <Button variant="secondary">Numbers list</Button>
-          </OverlayTrigger>
+          {accountNumbers.map((number, i) => <p key={i}>{number}</p>)}
         </td>
         <td>{lastLogin || 'none'}</td>
         <td>

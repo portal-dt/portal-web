@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { logout } from './auth';
 
 const BASE_URL = 'http://127.0.0.1:5000/v3';
 const axiosConfig = {
@@ -107,6 +108,7 @@ export const getUser = async (isIdentifier = false) => {
     localStorage.setItem('userId', user.id);
     return user;
   } catch (e) {
-    console.log(e); // todo
+    logout();
+    window.location.replace('/login');
   }
 };

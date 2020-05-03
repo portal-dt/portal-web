@@ -1,11 +1,10 @@
 import React, { useReducer, useState, useEffect } from 'react';
-import axios from 'axios';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useIntl } from 'react-intl';
 
 import { messages } from './messages';
-import { login } from '../../utils/auth';
+import { login, getBankIdUrl } from '../../utils/auth';
 import { loginAction } from '../../actions/actions';
 
 import Button from '../button/Button';
@@ -27,7 +26,7 @@ const handleInputChangesReducer = (state, { field, value }) => ({
   [field]: value
 });
 
-const SignInPage = () => {
+const SignInPage = ({ isAuthenticated }) => {
   const { formatMessage } = useIntl();
   const [signInFields, changeField] = useReducer(handleInputChangesReducer, initialState);
   const [isSignInAsEmail, setIsSignInAsEmail] = useState(false);
@@ -39,23 +38,13 @@ const SignInPage = () => {
   const isAdmin = searchParams.get('adminAccess') === 'true';
 
   useEffect(() => {
-    const getBankIdUrl = async () => {
-     try {
-       const { data: { accessUrl } } = await axios.post('https://testbed-eid.scrive.com/api/v1/transaction/new', {
-           redirectUrl: "http://localhost:8080/dashboard",
-           provider: "noBankID",
-           method: "auth"
-         },
-         { headers: {
-             'Authorization': 'Bearer aa1c2854-6627-48b5-8efb-74ff0bfc5d3d.0440cdff-9602-43b6-9706-a9cb54b9614c'
-           } });
-
-       setBankIdUrl(accessUrl);
-     } catch (e) {
-       console.log(e);
-     }
+    const getBankIdUrlFromScrive = async () => {
+      const bankId = await getBankIdUrl();
+      setBankIdUrl(bankId);
     };
-    getBankIdUrl();
+
+    getBankIdUrlFromScrive();
+    isAuthenticated && history.push('/dashboard');
   }, []);
 
   const handleInputChange = ({ target }) => changeField({ field: target.name, value: target.value });
@@ -78,7 +67,7 @@ const SignInPage = () => {
     <>
       <Row className="sign-in-page__logo justify-content-center">
         <Col xs="4">
-          <p>Log In</p>
+          <h3>Log In</h3>
         </Col>
       </Row>
       <Form>

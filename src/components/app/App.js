@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { IntlProvider } from 'react-intl';
 import { Switch, Route, Redirect, useLocation, useHistory } from 'react-router-dom';
-// import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 
+import Header from '../header/Header';
+import Footer from '../footer/Footer';
 import SignInPage from '../signInPage/SignInPage';
 import CustomerDocuments from '../customerDocuments/CustomerDocuments';
 import CustomerDashboard from '../customerDashboard/CustomerDashboard';
@@ -12,14 +13,18 @@ import AccountSettings from '../accountSettings/AccountSettings';
 import NewPartnerDetails from '../newPartnerDetails/NewPartnerDetails';
 import CustomerMessages from '../customerMessages/CustomerMessages';
 import Container from 'react-bootstrap/Container';
-import Header from '../header/Header';
-import Footer from '../footer/Footer';
+import Spinner from 'react-bootstrap/Spinner';
 
-import { languageSelector, isAuthenticatedSelector, customersSelector } from '../../selectors';
-import { setUserAction } from '../../actions/actions';
-import { authenticateViaBankId } from '../../utils/auth';
+import { setUserAction, setLoadingAction } from '../../actions/actions';
+import { authenticateViaBankId, logout } from '../../utils/auth';
 import { getUser } from '../../utils/api';
 import { messages } from '../../translations';
+import {
+  languageSelector,
+  isAuthenticatedSelector,
+  isLoadingSelector,
+  customersSelector
+} from '../../selectors';
 
 import './App.less';
 
@@ -29,6 +34,7 @@ const App = () => {
   const dispatch = useDispatch();
   const { pathname, search = '' } = useLocation();
   const language = useSelector(languageSelector);
+  const isLoading = useSelector(isLoadingSelector);
   // todo
   // const customers = useSelector(customersSelector);
   const searchParams = new URLSearchParams(search);
@@ -38,56 +44,78 @@ const App = () => {
 
 
   const setUser = async () => {
-    isAuthenticatedViaBankId && await authenticateViaBankId(transactionId);
-    const user = await getUser(isAuthenticatedViaBankId);
-    dispatch(setUserAction(user));
+    try {
+      dispatch(setLoadingAction(true));
+      isAuthenticatedViaBankId && await authenticateViaBankId(transactionId);
+      const user = await getUser(isAuthenticatedViaBankId);
+      dispatch(setUserAction(user));
+      dispatch(setLoadingAction(false));
+    } catch (e) {
+      logout();
+    }
   };
 
   useEffect(() => {
     isAuthenticated && setUser();
-  });
+    !isAuthenticated && logout();
+  }, []);
+
+  const renderRoutes = () => (
+    <Switch>
+      <Route path="/login">
+        <SignInPage isAuthenticated={isAuthenticated} />
+      </Route>
+      <Route exact path="/">
+        {isAuthenticated ? <Redirect to="/dashboard" /> : <SignInPage isAuthenticated={isAuthenticated} />}
+      </Route>
+      {
+        isAuthenticated ?
+          <>
+            <Route path="/documents">
+              <CustomerDocuments />
+            </Route>
+            <Route exact path="/customers">
+              <CustomersList />
+            </Route>
+            <Route path="/customers/:id">
+              <button className="btn btn-primary" onClick={() => history.goBack()}>Back</button>
+              <CustomerDocuments />
+            </Route>
+            <Route path="/account-settings">
+              <AccountSettings />
+            </Route>
+            <Route path="/dashboard">
+              <CustomerDashboard />
+            </Route>
+            <Route path="/new-partner">
+              <NewPartnerDetails />
+            </Route>
+            <Route path="/messages">
+              <CustomerMessages />
+            </Route>
+          </> : <Redirect from={pathname} to="/login" />
+      }
+    </Switch>
+  );
+
+  const renderSpinner = () => (
+    <div className="page-content__spinner">
+      <Spinner variant="warning" animation="border" />
+    </div>
+  );
 
   return (
     <IntlProvider locale={language} messages={messages[language]} defaultLocale="en-gb">
-      <Header isAuthenticated={isAuthenticated} />
-      <Container className="page-content">
-        <Switch>
-          <Route path="/login">
-            <SignInPage />
-          </Route>
-          <Route exact path="/">
-            {isAuthenticated ? <Redirect to="/dashboard" /> : <SignInPage />}
-          </Route>
-        {
-          isAuthenticated ?
-            <>
-              <Route path="/documents">
-                <CustomerDocuments />
-              </Route>
-              <Route exact path="/customers">
-                <CustomersList />
-              </Route>
-              <Route path="/customers/:id">
-                <button className="btn btn-primary" onClick={() => history.goBack()}>Back</button>
-                <CustomerDocuments />
-              </Route>
-              <Route path="/account-settings">
-                <AccountSettings />
-              </Route>
-              <Route path="/dashboard">
-                <CustomerDashboard />
-              </Route>
-              <Route path="/new-partner">
-                <NewPartnerDetails />
-              </Route>
-              <Route path="/messages">
-                <CustomerMessages />
-              </Route>
-            </> : <Redirect from={pathname} to="/login" />
-        }
-        </Switch>
-      </Container>
-      <Footer />
+      {
+        isLoading ? renderSpinner() :
+          <>
+            <Header isAuthenticated={isAuthenticated} />
+            <Container className="page-content">
+              {renderRoutes()}
+            </Container>
+            <Footer />
+          </>
+      }
     </IntlProvider>
   );
 };

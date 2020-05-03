@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useIntl } from 'react-intl';
+
+import Card from '../card/Card';
+import Table from '../dashboardTable/DashboardTable';
+import DocumentModal from '../documentModal/DocumentModal';
+import BootstrapTable from 'react-bootstrap/Table';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 import { messages } from './messages';
 import { getLatestDocumentsByCustomerId } from '../../utils/api';
 import { userSelector } from '../../selectors';
-
-import Card from '../card/Card';
-import Table from '../dashboardTable/DashboardTable';
-import BootstrapTable from 'react-bootstrap/Table';
-import DocumentModal from '../documentModal/DocumentModal';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import { setLoadingAction } from '../../actions/actions';
 
 import './CustomerDashboard.less';
 
@@ -37,18 +38,25 @@ const renderTableHeader = () => {
   );
 };
 
-const renderTableRow = ({ documentType, creationDate, openedAt, dueDate }) => {
+const renderTableRow = ({ documentType, creationDate, openedAt, dueDate, document }) => {
   const { formatMessage, formatDate } = useIntl();
   // const month = new Date(creationDate).toLocaleString('default', { month: 'long' }).toLowerCase();
   const year = new Date(creationDate).getUTCFullYear();
   const documentName = `${formatMessage(messages.invoice)} ${formatMessage(messages.march)} ${year}`;
+  const [isDocumentActive, setIsDocumentActive] = useState(false);
 
+  const openDocument = () => setIsDocumentActive(true);
+  const closeDocument = (event) => {
+    event.stopPropagation();
+    setIsDocumentActive(false);
+  };
   return (
-    <tr>
+    <tr onClick={openDocument}>
       <td>{documentName}</td>
       <td>{formatDate(creationDate)}</td>
       <td>{formatDate(dueDate)}</td>
       <td>{openedAt ? formatDate(openedAt) : formatMessage(messages.unread)}</td>
+      <DocumentModal isActive={isDocumentActive} document={document} onClose={closeDocument} documentName={documentName} />
     </tr>
   );
 };
@@ -57,18 +65,21 @@ const CustomerDashboard = () => {
   const [documents, setDocuments] = useState([]);
   const [pdfPreview, setPdfPreview] = useState('');
   const [isDocumentOpened, setIsDocumentOpened] = useState(false);
-  const { firstName } = useSelector(userSelector);
+  const { isAdmin } = useSelector(userSelector);
+  const dispatch = useDispatch();
   const { formatMessage, formatDate } = useIntl();
 
   useEffect(() => {
     const fetchLatestDocuments = async () => {
+      // dispatch(setLoadingAction(true));
       const customerId = localStorage.getItem('userId');
       const latestDocuments = customerId && await getLatestDocumentsByCustomerId(customerId) || [];
 
       setDocuments(latestDocuments);
+      // dispatch(setLoadingAction(false));
     };
 
-    fetchLatestDocuments();
+    !isAdmin && fetchLatestDocuments();
   },[localStorage.getItem('userId')]);
 
   const viewDocument = () => setIsDocumentOpened(true);
@@ -93,9 +104,6 @@ const CustomerDashboard = () => {
     const pdfImage = canvas.toDataURL();
     setPdfPreview(pdfImage);
   };
-
-  const isAdmin = firstName === 'Admin';
-
 
   return (
     <>
