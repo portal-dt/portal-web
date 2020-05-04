@@ -5,7 +5,7 @@ import { messages } from './messages';
 import './CustomersListTableHeader.less';
 
 
-const CustomersListTableHeader = () => {
+const CustomersListTableHeader = ({ onInputChange, sort, sortState }) => {
   const { formatMessage } = useIntl();
   
   return (
@@ -15,7 +15,13 @@ const CustomersListTableHeader = () => {
         <th>{formatMessage(messages.email)}</th>
         <th>{formatMessage(messages.accountNumbers)}</th>
         <th>{formatMessage(messages.lastLogin)}</th>
-        <th>Action</th>
+        <th>
+          <input
+            type="text"
+            placeholder="Filter"
+            onChange={onInputChange}
+          />
+        </th>
       </tr>
     </thead>
   );
