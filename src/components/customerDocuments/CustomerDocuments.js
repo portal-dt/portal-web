@@ -43,7 +43,7 @@ const CustomerDocuments = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { isAdmin } = useSelector(userSelector);
-  const isLoading = useSelector(isLoadingSelector);
+  // const isLoading = useSelector(isLoadingSelector);
   const customers = useSelector(customersSelector);
   const { id } = useParams();
   const { formatMessage } = useIntl();
@@ -104,6 +104,7 @@ const CustomerDocuments = () => {
   );
 
   return (
+    isLoading ? renderSpinner() : (
     <>
       <div className="page-content__title">
         {
