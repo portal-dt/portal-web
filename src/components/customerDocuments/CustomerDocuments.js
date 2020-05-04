@@ -8,6 +8,7 @@ import TablePagination from '../tablePagination/TablePagination';
 import CustomerTableRow from '../customerTableRow/CustomerTableRow';
 import CustomerTableHeader from '../customerTableHeader/CustomerTableHeader';
 import Button from '../button/Button';
+import Spinner from 'react-bootstrap/Spinner';
 
 import { getDocuments, getDocumentsByCustomerId } from '../../utils/api';
 import { sortColumn } from '../../utils';
@@ -38,6 +39,7 @@ const CustomerDocuments = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [currentCustomer, setCurrentCustomer] = useState(null);
   const [filteredDocuments, setFilteredDocuments] = useState([]);
+  const [isLoading, setIsLoading] = useState([]);
   const dispatch = useDispatch();
   const history = useHistory();
   const { isAdmin } = useSelector(userSelector);
@@ -48,7 +50,7 @@ const CustomerDocuments = () => {
   const rowsPerPage = 5;
 
   const fetchDocuments = async () => {
-    // dispatch(setLoadingAction(true));
+    setIsLoading(true);
     const customerId = id ? id : localStorage.getItem('userId');
     const customerDocuments = await (isAdmin && !id ? getDocuments() : getDocumentsByCustomerId(customerId));
     if (id) {
@@ -57,7 +59,7 @@ const CustomerDocuments = () => {
 
     setDocuments(customerDocuments);
     setFilteredDocuments(customerDocuments);
-    // dispatch(setLoadingAction(false));
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -95,6 +97,12 @@ const CustomerDocuments = () => {
 
   const TableHeader = <CustomerTableHeader onInputChange={filterTable} sort={sort} sortState={sortState} isAdmin={isAdmin && !id} />;
 
+  const renderSpinner = () => (
+    <div className="page-content__spinner">
+      <Spinner variant="warning" animation="border" />
+    </div>
+  );
+
   return (
     <>
       <div className="page-content__title">
@@ -118,7 +126,7 @@ const CustomerDocuments = () => {
           TableRow={CustomerTableRow}
         />
         {
-          !!filteredDocuments.length &&
+          filteredDocuments.length > 5 &&
           <TablePagination
             rowsPerPage={rowsPerPage}
             totalRows={filteredDocuments.length}
@@ -126,7 +134,8 @@ const CustomerDocuments = () => {
             currentNumber={currentPage}
           />
         }
-    </>
+      </>
+    )
   );
 };
 

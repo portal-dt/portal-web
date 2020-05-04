@@ -1,6 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin =  require('html-webpack-plugin');
-
+console.log(process.env)
 module.exports = {
   entry : ['babel-polyfill',  './src/index.js'],
   output : {
@@ -35,7 +35,7 @@ module.exports = {
       }
     ]
   },
-  mode:'development',
+  mode: process.argv.length === 5 ? 'development' : 'production',
   devtool: 'eval-source-map',
   plugins : [
     new HtmlWebpackPlugin ({

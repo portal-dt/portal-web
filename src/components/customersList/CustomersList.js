@@ -42,7 +42,7 @@ const CustomersList = () => {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const history = useHistory();
-  const { formatMessage } = useIntl();
+  const { formatMessage, formatDate } = useIntl();
   const rowsPerPage = 5;
 
   useEffect(() => {
@@ -93,7 +93,7 @@ const CustomersList = () => {
         <td>
           {accountNumbers.map((number, i) => <p key={i}>{number}</p>)}
         </td>
-        <td>{lastLogin || 'none'}</td>
+        <td>{formatDate(lastLogin) || 'none'}</td>
         <td>
           <Button 
             classNames="theme-btn"
