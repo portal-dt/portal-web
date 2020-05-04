@@ -113,6 +113,7 @@ const CustomerDashboard = () => {
   };
 
   return (
+
    isLoading ? renderSpinner() :
      (
        <>
@@ -126,19 +127,21 @@ const CustomerDashboard = () => {
                  >
                    <BootstrapTable striped bordered responsive>
                      <thead>
-                     <tr>
-                       <th>Reference no</th>
-                       <th>Due Date</th>
-                       <th>Amount Due</th>
-                       <th>Method</th>
-                     </tr>
-                     </thead>
-                     <tr>
-                       <td>{getMonthlyDocumentData().referenceNumber}</td>
-                       <td>{formatDate(getMonthlyDocumentData().dueDate)}</td>
-                       <td>{getMonthlyDocumentData().dueDateAmount}</td>
-                       <td>{getMonthlyDocumentData().isDirectDebit ? 'Direct Debit' : 'Bank Transfer'}</td>
-                     </tr>
+                        <tr>
+                          <th>Reference no</th>
+                          <th>Due Date</th>
+                          <th>Amount Due</th>
+                          <th>Method</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>{getMonthlyDocumentData().referenceNumber}</td>
+                          <td>{formatDate(getMonthlyDocumentData().dueDate)}</td>
+                          <td>{getMonthlyDocumentData().dueDateAmount}</td>
+                          <td>{getMonthlyDocumentData().isDirectDebit ? 'Direct Debit' : 'Bank Transfer'}</td>
+                        </tr>
+                      </tbody>
                    </BootstrapTable>
                    <Col xs="6" className="invoice-preview">
                      {/*{documents.length && getMonthlyDocumentData().documentName}*/}

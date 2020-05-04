@@ -28,5 +28,5 @@ export const isLoadingSelector = createSelector(
 
 export const customersSelector = createSelector(
   state => state.customers.customers,
-  (customers) => customers
+  customers => customers
 );

@@ -12,6 +12,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
+import Alert from 'react-bootstrap/Alert';
 import { Person, Lock } from 'react-bootstrap-icons';
 
 import './SignInPage.less';
@@ -31,6 +32,7 @@ const SignInPage = ({ isAuthenticated }) => {
   const [signInFields, changeField] = useReducer(handleInputChangesReducer, initialState);
   const [isSignInAsEmail, setIsSignInAsEmail] = useState(false);
   const [bankIdUrl, setBankIdUrl] = useState('');
+  const [signInErrorStatus, setSignInErrorStatus] = useState(null);
   const dispatch = useDispatch();
   const history = useHistory();
   const { search } = useLocation();
@@ -55,9 +57,10 @@ const SignInPage = ({ isAuthenticated }) => {
     try {
       const user = await login(signInFields);
       dispatch(loginAction(user));
+      setSignInErrorStatus(null);
       history.push('/dashboard');
     } catch (error) {
-      console.log('not authorized')
+      setSignInErrorStatus('Permissions denied!');
     }
   };
 
@@ -106,6 +109,18 @@ const SignInPage = ({ isAuthenticated }) => {
             </InputGroup>
           </Col>
         </Form.Group>
+
+        {
+          signInErrorStatus ? (
+            <Row className="justify-content-center">
+              <Col xs="4">
+                <Alert variant="danger" onClose={() => setSignInErrorStatus(null)} dismissible>
+                  {signInErrorStatus}
+                </Alert>
+              </Col>
+            </Row>
+          ) : null
+        }
 
         <Form.Group as={Row} className="justify-content-center">
           <Col xs="2">

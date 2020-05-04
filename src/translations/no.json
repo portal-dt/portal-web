@@ -17,6 +17,7 @@
   "tableColumnCustomerName": "Kundenavn",
   "filter": "Filtrer...",
   "saveButton": "Lagre",
+  "backButton": "Tilbake",
   "unread": "Ulest",
   "viewButton": "Utsikt",
   "selectLanguage": "Velg språk",
@@ -37,5 +38,11 @@
   "september": "September",
   "october": "Oktober",
   "november": "November",
-  "december": "Desember"
+  "december": "Desember",
+  "home": "Hjem",
+  "customers": "Kunder",
+  "hello": "Hei",
+  "customerName": "Kundenavn",
+  "lastLogin": "Inlogg",
+  "accountNumbers": "Kontonr"
 }

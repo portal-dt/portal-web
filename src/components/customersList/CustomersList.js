@@ -10,20 +10,35 @@ import { messages } from './messages';
 import Table from '../dashboardTable/DashboardTable';
 import TablePagination from '../tablePagination/TablePagination';
 import CustomersListTableHeader from '../customersListTableHeader/CustomersListTableHeader';
-
+import Button from '../button/Button';
+import { sortColumn } from '../../utils';
 import { getCustomersAction } from '../../actions/actions';
+
 import BootstrapTable from 'react-bootstrap/Table';
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import Button from 'react-bootstrap/Button';
 
 import './CustomersList.less';
 
+const initialState = {
+  customerName: { isAsc: false },
+  accountNumbers: { isAsc: false },
+  email: { isAsc: false },
+  lastLogin: { isAsc: false }
+};
+
+const sortReducer = (state, { field }) => ({
+  ...state,
+  [field]: { isAsc: !state[field].isAsc }
+});
+
 const CustomersList = () => {
   const dispatch = useDispatch();
+  const [sortState, sortStateUpdater] = useReducer(sortReducer, initialState);
   const [customers, setCustomers] = useState([]);
+  const [filteredCustomers, setFilteredCustomers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const history = useHistory();
@@ -38,19 +53,39 @@ const CustomersList = () => {
       dispatch(getCustomersAction(customersList));
       setLoading(false);
       setCustomers(customersList);
+      setFilteredCustomers(customersList);
     };
-    fetchCustomers();
+    fetchCustomers();    
   }, []);
+
+  const filterTable = ({ target = {} }) => {
+    const filteredCustomers = customers.filter(({ lastLogin, customerName = '', email = '' }) => {
+      const filter = target.value.toLowerCase().trim();
+      return (
+        customerName.toLowerCase().trim().includes(filter) ||
+        lastLogin.includes(filter) ||
+        email.includes(filter)
+      );
+    });
+
+    setFilteredCustomers(filteredCustomers);
+  };
+
+  const sort = ({ target = {} }) => {
+    const tableDataSorted = sortColumn(filteredCustomers, target.id, sortState[target.id].isAsc);
+    sortStateUpdater({ field: target.id });
+    setCustomers(tableDataSorted);
+  };
 
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
-  const currentRows = customers.slice(indexOfFirstRow, indexOfLastRow);
+  const currentRows = filteredCustomers.slice(indexOfFirstRow, indexOfLastRow);
 
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
-  const TableHeader = <CustomersListTableHeader />;
+  const TableHeader = <CustomersListTableHeader onInputChange={filterTable} sort={sort} sortState={sortState} />;
 
-  const TableRow = ({customerName, accountNumbers, email, lastLogin, id}) => {    
+  const TableRow = ({customerName, accountNumbers, email, lastLogin, id}) => {
     return (
       <tr>
         <td>{customerName}</td>
@@ -60,9 +95,11 @@ const CustomersList = () => {
         </td>
         <td>{formatDate(lastLogin) || 'none'}</td>
         <td>
-          <Button className="header__link" onClick={() => history.push(`customers/${id}`)}>
-            Documents                    
-          </Button>
+          <Button 
+            classNames="theme-btn"
+            text={formatMessage(messages.documents)}
+            onClickHandler={() => history.push(`customers/${id}`)}
+          />
         </td>
       </tr>
     );
@@ -70,7 +107,7 @@ const CustomersList = () => {
 
   return (
     <>
-      <div className="page-content__title">Customers</div>
+      <div className="page-content__title">{formatMessage(messages.customersTitle)}</div>
       {loading ?
         <div className="page-content__spinner">
           <Spinner variant="primary" animation="border" />

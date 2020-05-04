@@ -5,5 +5,10 @@ export const messages = defineMessages({
     id: 'documents',
     description: 'Documents page title',
     defaultMessage: 'Documents',
+  },
+  backButton: {
+    id: 'backButton',
+    description: 'Back button',
+    defaultMessage: 'Back'
   }
 });

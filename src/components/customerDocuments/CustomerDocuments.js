@@ -1,18 +1,19 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useIntl } from 'react-intl';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 import Table from '../dashboardTable/DashboardTable';
 import TablePagination from '../tablePagination/TablePagination';
 import CustomerTableRow from '../customerTableRow/CustomerTableRow';
 import CustomerTableHeader from '../customerTableHeader/CustomerTableHeader';
+import Button from '../button/Button';
 import Spinner from 'react-bootstrap/Spinner';
 
 import { getDocuments, getDocumentsByCustomerId } from '../../utils/api';
 import { sortColumn } from '../../utils';
 import { messages } from './messages';
-import { userSelector, isLoadingSelector } from '../../selectors';
+import { userSelector, isLoadingSelector, customersSelector } from '../../selectors';
 import { setLoadingAction } from '../../actions/actions';
 
 import './CustomerDocuments.less';
@@ -36,10 +37,14 @@ const CustomerDocuments = () => {
   const [sortState, sortStateUpdater] = useReducer(sortReducer, initialState);
   const [documents, setDocuments] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [currentCustomer, setCurrentCustomer] = useState(null);
   const [filteredDocuments, setFilteredDocuments] = useState([]);
   const [isLoading, setIsLoading] = useState([]);
   const dispatch = useDispatch();
+  const history = useHistory();
   const { isAdmin } = useSelector(userSelector);
+  // const isLoading = useSelector(isLoadingSelector);
+  const customers = useSelector(customersSelector);
   const { id } = useParams();
   const { formatMessage } = useIntl();
   const rowsPerPage = 5;
@@ -47,7 +52,10 @@ const CustomerDocuments = () => {
   const fetchDocuments = async () => {
     setIsLoading(true);
     const customerId = id ? id : localStorage.getItem('userId');
-    const customerDocuments = await (isAdmin  ? getDocuments() : getDocumentsByCustomerId(customerId));
+    const customerDocuments = await (isAdmin && !id ? getDocuments() : getDocumentsByCustomerId(customerId));
+    if (id) {
+      setCurrentCustomer(customers.find(customer => customer.id === id));
+    }
 
     setDocuments(customerDocuments);
     setFilteredDocuments(customerDocuments);
@@ -97,8 +105,22 @@ const CustomerDocuments = () => {
 
   return (
     isLoading ? renderSpinner() : (
-      <>
-        <div className="page-content__title">{formatMessage(messages.documents)} - {filteredDocuments.length} of {documents.length}</div>
+    <>
+      <div className="page-content__title">
+        {
+          currentCustomer ? (
+            <>
+              <Button 
+                classNames="theme-btn"
+                text={formatMessage(messages.backButton)}
+                onClickHandler={() => history.goBack()}
+              />
+              <span>{currentCustomer.customerName} </span>
+            </> 
+          ) : null
+        }
+        {formatMessage(messages.documents)} - {filteredDocuments.length} of {documents.length}
+      </div>
         <Table
           tableData={currentRows}
           TableHeader={TableHeader}

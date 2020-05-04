@@ -17,6 +17,7 @@
   "tableColumnCustomerName": "Köparens namn",
   "filter": "Filtrera...",
   "saveButton": "Spara",
+  "backButton": "Tillbaka",
   "unread": "Oläst",
   "viewButton": "Se",
   "selectLanguage": "Välj språk",
@@ -37,5 +38,11 @@
   "september": "September",
   "october": "Oktober",
   "november": "November",
-  "december": "December"
+  "december": "December",
+  "home": "Hem",
+  "customers": "Kunder",
+  "hello": "Hej",
+  "customerName": "Köparens namn",
+  "lastLogin": "Inloggad",
+  "accountNumbers": "Kontonr"
 }

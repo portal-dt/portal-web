@@ -22,21 +22,17 @@ import { messages } from '../../translations';
 import {
   languageSelector,
   isAuthenticatedSelector,
-  isLoadingSelector,
-  customersSelector
+  isLoadingSelector
 } from '../../selectors';
 
 import './App.less';
 
 
 const App = () => {
-  const history = useHistory();
   const dispatch = useDispatch();
   const { pathname, search = '' } = useLocation();
   const language = useSelector(languageSelector);
   const isLoading = useSelector(isLoadingSelector);
-  // todo
-  // const customers = useSelector(customersSelector);
   const searchParams = new URLSearchParams(search);
   const transactionId = searchParams.get('transaction_id');
   const isAuthenticatedViaBankId = searchParams.get('success') === 'true';
@@ -78,7 +74,6 @@ const App = () => {
               <CustomersList />
             </Route>
             <Route path="/customers/:id">
-              <button className="btn btn-primary" onClick={() => history.goBack()}>Back</button>
               <CustomerDocuments />
             </Route>
             <Route path="/account-settings">
