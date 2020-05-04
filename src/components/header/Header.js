@@ -53,13 +53,13 @@ const Header = ({ isAuthenticated }) => {
             isAuthenticated && (
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                  <NavLink to="/dashboard" className="nav-link header__link">Home</NavLink>
+                  <NavLink to="/dashboard" className="nav-link header__link">{formatMessage(messages.homeLink)}</NavLink>
                   <NavLink to="/documents" className="nav-link header__link">{formatMessage(messages.documentsLink)}</NavLink>
-                  { isAdmin ? <NavLink to="/customers" className="nav-link header__link">Customers</NavLink> : null }
+                  { isAdmin ? <NavLink to="/customers" className="nav-link header__link">{formatMessage(messages.customersLink)}</NavLink> : null }
                 </Nav>
                 <Nav>
                   <div className="header__user-settings">
-                    <span>Hi, {userName}</span>
+                    <span>{formatMessage(messages.greating)}, {userName}</span>
                   </div>
                   <Button variant="link" className="header__link" onClick={handleLogOut}>
                     <BoxArrowRight size={45}/>{formatMessage(messages.logOut)}

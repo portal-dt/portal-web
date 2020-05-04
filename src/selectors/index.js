@@ -7,7 +7,13 @@ export const isAuthenticatedSelector = createSelector(
 
 export const languageSelector = createSelector(
   state => state.user.user.language,
-  (language) => language
+  (language) => {
+    // return language || (navigator.language || navigator.userLanguage);
+    console.log(language || (navigator.language || navigator.userLanguage));
+    console.log(language);
+    
+    return language;
+  }
 );
 
 export const userNameSelector = createSelector(
@@ -28,5 +34,5 @@ export const isLoadingSelector = createSelector(
 
 export const customersSelector = createSelector(
   state => state.customers.customers,
-  (customers) => customers
+  customers => customers
 );

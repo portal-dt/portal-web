@@ -115,21 +115,23 @@ const CustomerDashboard = () => {
                 cardHeaderText={formatMessage(messages.monthlyInvoiceTitle)}
                 classNames="text-center dashboard-card card-messages"
               >
-                <BootstrapTable striped bordered responsive>
+                <BootstrapTable className="dashboard-table" striped bordered responsive>
                   <thead>
-                  <tr>
-                    <th>Reference no</th>
-                    <th>Due Date</th>
-                    <th>Amount Due</th>
-                    <th>Method</th>
-                  </tr>
+                    <tr>
+                      <th>Reference no</th>
+                      <th>Due Date</th>
+                      <th>Amount Due</th>
+                      <th>Method</th>
+                    </tr>
                   </thead>
-                  <tr>
-                    <td>{getMonthlyDocumentData().referenceNumber}</td>
-                    <td>{formatDate(getMonthlyDocumentData().dueDate)}</td>
-                    <td>{getMonthlyDocumentData().dueDateAmount}</td>
-                    <td>{getMonthlyDocumentData().isDirectDebit ? 'Direct Debit' : 'Bank Transfer'}</td>
-                  </tr>
+                  <tbody>
+                    <tr>
+                      <td>{getMonthlyDocumentData().referenceNumber}</td>
+                      <td>{formatDate(getMonthlyDocumentData().dueDate)}</td>
+                      <td>{getMonthlyDocumentData().dueDateAmount}</td>
+                      <td>{getMonthlyDocumentData().isDirectDebit ? 'Direct Debit' : 'Bank Transfer'}</td>
+                    </tr>
+                  </tbody>
                 </BootstrapTable>
                 <Col xs="6" className="invoice-preview">
                   {/*{documents.length && getMonthlyDocumentData().documentName}*/}

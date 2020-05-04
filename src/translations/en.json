@@ -17,6 +17,7 @@
   "tableColumnCustomerName": "Customer Name",
   "filter": "Filter...",
   "saveButton": "Save",
+  "backButton": "Back",
   "unread": "Unread",
   "viewButton": "View",
   "selectLanguage": "Select language",
@@ -37,5 +38,11 @@
   "september": "September",
   "october": "October",
   "november": "November",
-  "december": "December"
+  "december": "December",
+  "home": "Home",
+  "customers": "Customers",
+  "hello": "Hi",
+  "customerName": "Customer Name",
+  "lastLogin": "Logged in",
+  "accountNumbers": "Account numbers"
 }

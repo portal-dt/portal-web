@@ -10,6 +10,7 @@ import { messages } from './messages';
 import Table from '../dashboardTable/DashboardTable';
 import TablePagination from '../tablePagination/TablePagination';
 import CustomersListTableHeader from '../customersListTableHeader/CustomersListTableHeader';
+import Button from '../button/Button';
 
 import { getCustomersAction } from '../../actions/actions';
 import BootstrapTable from 'react-bootstrap/Table';
@@ -17,7 +18,6 @@ import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import Button from 'react-bootstrap/Button';
 
 import './CustomersList.less';
 
@@ -60,9 +60,11 @@ const CustomersList = () => {
         </td>
         <td>{lastLogin || 'none'}</td>
         <td>
-          <Button className="header__link" onClick={() => history.push(`customers/${id}`)}>
-            Documents                    
-          </Button>
+          <Button 
+            classNames="theme-btn"
+            text={formatMessage(messages.documents)}
+            onClickHandler={() => history.push(`customers/${id}`)}
+          />
         </td>
       </tr>
     );
@@ -70,7 +72,7 @@ const CustomersList = () => {
 
   return (
     <>
-      <div className="page-content__title">Customers</div>
+      <div className="page-content__title">{formatMessage(messages.customersTitle)}</div>
       {loading ?
         <div className="page-content__spinner">
           <Spinner variant="primary" animation="border" />
