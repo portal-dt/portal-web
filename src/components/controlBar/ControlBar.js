@@ -5,8 +5,6 @@ import { Dash, Plus, EyeFill, EyeSlashFill } from 'react-bootstrap-icons';
 
 import ControlBarAction from '../controlBarAction/ControlBarAction';
 
-const actionIconSrc = '../../../assets/icons/enable-user.png';
-
 const ControlBar = () => (
   <Row>
     <ControlBarAction actionText={'Create'} actionIconSrc={<Plus />} />

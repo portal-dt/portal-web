@@ -6,13 +6,13 @@ import Card from '../card/Card';
 import Table from '../dashboardTable/DashboardTable';
 import DocumentModal from '../documentModal/DocumentModal';
 import BootstrapTable from 'react-bootstrap/Table';
+import Spinner from 'react-bootstrap/Spinner';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import { messages } from './messages';
 import { getLatestDocumentsByCustomerId } from '../../utils/api';
 import { userSelector } from '../../selectors';
-import { setLoadingAction } from '../../actions/actions';
 
 import './CustomerDashboard.less';
 
@@ -61,22 +61,29 @@ const renderTableRow = ({ documentType, creationDate, openedAt, dueDate, documen
   );
 };
 
+const renderSpinner = () => (
+  <div className="page-content__spinner">
+    <Spinner variant="warning" animation="border" />
+  </div>
+);
+
 const CustomerDashboard = () => {
   const [documents, setDocuments] = useState([]);
   const [pdfPreview, setPdfPreview] = useState('');
   const [isDocumentOpened, setIsDocumentOpened] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { isAdmin } = useSelector(userSelector);
   const dispatch = useDispatch();
   const { formatMessage, formatDate } = useIntl();
 
   useEffect(() => {
     const fetchLatestDocuments = async () => {
-      // dispatch(setLoadingAction(true));
+      setIsLoading(true);
       const customerId = localStorage.getItem('userId');
       const latestDocuments = customerId && await getLatestDocumentsByCustomerId(customerId) || [];
 
       setDocuments(latestDocuments);
-      // dispatch(setLoadingAction(false));
+      setIsLoading(false);
     };
 
     !isAdmin && fetchLatestDocuments();
@@ -106,68 +113,71 @@ const CustomerDashboard = () => {
   };
 
   return (
-    <>
-      <Row>
-        <Col xs="12" sm="6">
-          {
-            !isAdmin ? (
-              <Card
-                cardHeaderText={formatMessage(messages.monthlyInvoiceTitle)}
-                classNames="text-center dashboard-card card-messages"
-              >
-                <BootstrapTable striped bordered responsive>
-                  <thead>
-                  <tr>
-                    <th>Reference no</th>
-                    <th>Due Date</th>
-                    <th>Amount Due</th>
-                    <th>Method</th>
-                  </tr>
-                  </thead>
-                  <tr>
-                    <td>{getMonthlyDocumentData().referenceNumber}</td>
-                    <td>{formatDate(getMonthlyDocumentData().dueDate)}</td>
-                    <td>{getMonthlyDocumentData().dueDateAmount}</td>
-                    <td>{getMonthlyDocumentData().isDirectDebit ? 'Direct Debit' : 'Bank Transfer'}</td>
-                  </tr>
-                </BootstrapTable>
-                <Col xs="6" className="invoice-preview">
-                  {/*{documents.length && getMonthlyDocumentData().documentName}*/}
-                  <img
-                    className="invoice-preview__image"
-                    src="../../../assets/images/pdf_preview.png"
-                    alt="pdf-preview"
-                    onClick={viewDocument}
-                  />
-                </Col>
-              </Card>
-            ) : <h2>Welcome</h2>
-          }
-        </Col>
-        <Col xs="12" sm="6">
-          {
-            !isAdmin && (
-              <Card
-                cardHeaderText={formatMessage(messages.tableCardTitle)}
-                classNames="text-center dashboard-card card-documents"
-              >
-                <Table
-                  tableData={documents}
-                  TableHeader={renderTableHeader()}
-                  TableRow={renderTableRow}
-                />
-              </Card>
-            )
-          }
-        </Col>
-        <DocumentModal
-          isActive={isDocumentOpened}
-          document={getMonthlyDocumentData().document}
-          onClose={closeDocument}
-          onRender={onPdfRender}
-        />
-      </Row>
-    </>
+   isLoading ? renderSpinner() :
+     (
+       <>
+         <Row>
+           <Col xs="12" sm="6">
+             {
+               !isAdmin ? (
+                 <Card
+                   cardHeaderText={formatMessage(messages.monthlyInvoiceTitle)}
+                   classNames="text-center dashboard-card card-messages"
+                 >
+                   <BootstrapTable striped bordered responsive>
+                     <thead>
+                     <tr>
+                       <th>Reference no</th>
+                       <th>Due Date</th>
+                       <th>Amount Due</th>
+                       <th>Method</th>
+                     </tr>
+                     </thead>
+                     <tr>
+                       <td>{getMonthlyDocumentData().referenceNumber}</td>
+                       <td>{formatDate(getMonthlyDocumentData().dueDate)}</td>
+                       <td>{getMonthlyDocumentData().dueDateAmount}</td>
+                       <td>{getMonthlyDocumentData().isDirectDebit ? 'Direct Debit' : 'Bank Transfer'}</td>
+                     </tr>
+                   </BootstrapTable>
+                   <Col xs="6" className="invoice-preview">
+                     {/*{documents.length && getMonthlyDocumentData().documentName}*/}
+                     <img
+                       className="invoice-preview__image"
+                       src="../../../assets/images/pdf_preview.png"
+                       alt="pdf-preview"
+                       onClick={viewDocument}
+                     />
+                   </Col>
+                 </Card>
+               ) : <h2>Welcome</h2>
+             }
+           </Col>
+           <Col xs="12" sm="6">
+             {
+               !isAdmin && (
+                 <Card
+                   cardHeaderText={formatMessage(messages.tableCardTitle)}
+                   classNames="text-center dashboard-card card-documents"
+                 >
+                   <Table
+                     tableData={documents}
+                     TableHeader={renderTableHeader()}
+                     TableRow={renderTableRow}
+                   />
+                 </Card>
+               )
+             }
+           </Col>
+           <DocumentModal
+             isActive={isDocumentOpened}
+             document={getMonthlyDocumentData().document}
+             onClose={closeDocument}
+             onRender={onPdfRender}
+           />
+         </Row>
+       </>
+     )
   );
 };
 

@@ -7,6 +7,7 @@ import Table from '../dashboardTable/DashboardTable';
 import TablePagination from '../tablePagination/TablePagination';
 import CustomerTableRow from '../customerTableRow/CustomerTableRow';
 import CustomerTableHeader from '../customerTableHeader/CustomerTableHeader';
+import Spinner from 'react-bootstrap/Spinner';
 
 import { getDocuments, getDocumentsByCustomerId } from '../../utils/api';
 import { sortColumn } from '../../utils';
@@ -36,21 +37,21 @@ const CustomerDocuments = () => {
   const [documents, setDocuments] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [filteredDocuments, setFilteredDocuments] = useState([]);
+  const [isLoading, setIsLoading] = useState([]);
   const dispatch = useDispatch();
   const { isAdmin } = useSelector(userSelector);
-  const isLoading = useSelector(isLoadingSelector);
   const { id } = useParams();
   const { formatMessage } = useIntl();
   const rowsPerPage = 5;
 
   const fetchDocuments = async () => {
-    // dispatch(setLoadingAction(true));
+    setIsLoading(true);
     const customerId = id ? id : localStorage.getItem('userId');
     const customerDocuments = await (isAdmin  ? getDocuments() : getDocumentsByCustomerId(customerId));
 
     setDocuments(customerDocuments);
     setFilteredDocuments(customerDocuments);
-    // dispatch(setLoadingAction(false));
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -88,16 +89,23 @@ const CustomerDocuments = () => {
 
   const TableHeader = <CustomerTableHeader onInputChange={filterTable} sort={sort} sortState={sortState} isAdmin={isAdmin && !id} />;
 
+  const renderSpinner = () => (
+    <div className="page-content__spinner">
+      <Spinner variant="warning" animation="border" />
+    </div>
+  );
+
   return (
-    <>
-      <div className="page-content__title">{formatMessage(messages.documents)} - {filteredDocuments.length} of {documents.length}</div>
+    isLoading ? renderSpinner() : (
+      <>
+        <div className="page-content__title">{formatMessage(messages.documents)} - {filteredDocuments.length} of {documents.length}</div>
         <Table
           tableData={currentRows}
           TableHeader={TableHeader}
           TableRow={CustomerTableRow}
         />
         {
-          !!filteredDocuments.length &&
+          filteredDocuments.length > 5 &&
           <TablePagination
             rowsPerPage={rowsPerPage}
             totalRows={filteredDocuments.length}
@@ -105,7 +113,8 @@ const CustomerDocuments = () => {
             currentNumber={currentPage}
           />
         }
-    </>
+      </>
+    )
   );
 };
 
