@@ -11,8 +11,9 @@ import Table from '../dashboardTable/DashboardTable';
 import TablePagination from '../tablePagination/TablePagination';
 import CustomersListTableHeader from '../customersListTableHeader/CustomersListTableHeader';
 import Button from '../button/Button';
-
+import { sortColumn } from '../../utils';
 import { getCustomersAction } from '../../actions/actions';
+
 import BootstrapTable from 'react-bootstrap/Table';
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
@@ -73,7 +74,7 @@ const CustomersList = () => {
   const sort = ({ target = {} }) => {
     const tableDataSorted = sortColumn(filteredCustomers, target.id, sortState[target.id].isAsc);
     sortStateUpdater({ field: target.id });
-    setDocuments(tableDataSorted);
+    setCustomers(tableDataSorted);
   };
 
   const indexOfLastRow = currentPage * rowsPerPage;

@@ -7,12 +7,7 @@ export const isAuthenticatedSelector = createSelector(
 
 export const languageSelector = createSelector(
   state => state.user.user.language,
-  (language) => {
-    // return language || (navigator.language || navigator.userLanguage);
-    // console.log(language || (navigator.language || navigator.userLanguage));
-    // console.log(language);    
-    return language;
-  }
+  (language) => language
 );
 
 export const userNameSelector = createSelector(
