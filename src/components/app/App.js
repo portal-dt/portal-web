@@ -16,7 +16,7 @@ import Container from 'react-bootstrap/Container';
 import Spinner from 'react-bootstrap/Spinner';
 
 import { setUserAction, setLoadingAction } from '../../actions/actions';
-import { authenticateViaBankId, logout } from '../../utils/auth';
+import { logout, login } from '../../utils/auth';
 import { getUser } from '../../utils/api';
 import { messages } from '../../translations';
 import {
@@ -31,29 +31,31 @@ import './App.less';
 const App = () => {
   const dispatch = useDispatch();
   const { pathname, search = '' } = useLocation();
+  const history = useHistory();
   const language = useSelector(languageSelector);
   const isLoading = useSelector(isLoadingSelector);
   const searchParams = new URLSearchParams(search);
   const transactionId = searchParams.get('transaction_id');
   const isAuthenticatedViaBankId = searchParams.get('success') === 'true';
-  const isAuthenticated = useSelector(isAuthenticatedSelector) || localStorage.getItem('userId') || isAuthenticatedViaBankId;
+  const isAuthenticated = useSelector(isAuthenticatedSelector);
 
 
   const setUser = async () => {
     try {
       dispatch(setLoadingAction(true));
-      isAuthenticatedViaBankId && await authenticateViaBankId(transactionId);
-      const user = await getUser(isAuthenticatedViaBankId);
-      dispatch(setUserAction(user));
+      const user = await (isAuthenticatedViaBankId ? login({ transactionId }) : getUser());
+      user && dispatch(setUserAction(user));
       dispatch(setLoadingAction(false));
     } catch (e) {
       logout();
+      history.push('/login');
     }
   };
 
   useEffect(() => {
-    isAuthenticated && setUser();
-    !isAuthenticated && logout();
+    if (isAuthenticatedViaBankId || isAuthenticated) {
+      setUser();
+    }
   }, []);
 
   const renderRoutes = () => (

@@ -76,16 +76,16 @@ const CustomerDashboard = () => {
   const dispatch = useDispatch();
   const { formatMessage, formatDate } = useIntl();
 
+  const fetchLatestDocuments = async () => {
+    setIsLoading(true);
+    const customerId = localStorage.getItem('userId');
+    const latestDocuments = customerId && await getLatestDocumentsByCustomerId(customerId) || [];
+
+    setDocuments(latestDocuments);
+    setIsLoading(false);
+  };
+
   useEffect(() => {
-    const fetchLatestDocuments = async () => {
-      setIsLoading(true);
-      const customerId = localStorage.getItem('userId');
-      const latestDocuments = customerId && await getLatestDocumentsByCustomerId(customerId) || [];
-
-      setDocuments(latestDocuments);
-      setIsLoading(false);
-    };
-
     !isAdmin && fetchLatestDocuments();
   },[localStorage.getItem('userId')]);
 

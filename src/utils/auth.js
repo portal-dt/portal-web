@@ -18,55 +18,12 @@ export const login = async (userData) => {
       };
     }
   } catch (error) {
-    throw error;
+    window.location.search = '';
+    return;
   }
 };
 
 export const logout = () => {
   localStorage.removeItem('token');
   localStorage.removeItem('userId');
-};
-
-export const authenticateViaBankId = async (transactionId) => {
-  try {
-    const {
-      data: {
-        providerInfo: {
-          noBankIDAuth: {
-            completionData
-          }
-        }
-      }
-    } = await axios.get(
-      `https://testbed-eid.scrive.com/api/v1/transaction/${transactionId}`,
-      {
-        headers: {
-          'Authorization': 'Bearer aa1c2854-6627-48b5-8efb-74ff0bfc5d3d.0440cdff-9602-43b6-9706-a9cb54b9614c'
-        }
-      }
-    );
-
-    localStorage.setItem('userId', completionData.ssn);
-
-  } catch (e) {
-    logout();
-    window.location.replace('/login');
-  }
-};
-
-export const getBankIdUrl = async () => {
-  try {
-    const { data: { accessUrl } } = await axios.post('https://testbed-eid.scrive.com/api/v1/transaction/new', {
-        redirectUrl: "http://localhost:8080/dashboard",
-        provider: "noBankID",
-        method: "auth"
-      },
-      { headers: {
-          'Authorization': 'Bearer aa1c2854-6627-48b5-8efb-74ff0bfc5d3d.0440cdff-9602-43b6-9706-a9cb54b9614c'
-        } });
-
-    return accessUrl;
-  } catch (e) {
-    console.log(e);
-  }
 };

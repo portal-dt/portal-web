@@ -2,7 +2,7 @@ import { createSelector } from 'reselect'
 
 export const isAuthenticatedSelector = createSelector(
   state => state.user.isAuthenticated,
-  isAuthenticated => isAuthenticated
+  isAuthenticated => isAuthenticated || localStorage.getItem('token')
 );
 
 export const languageSelector = createSelector(

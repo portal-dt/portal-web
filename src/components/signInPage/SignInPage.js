@@ -4,7 +4,8 @@ import { useDispatch } from 'react-redux';
 import { useIntl } from 'react-intl';
 
 import { messages } from './messages';
-import { login, getBankIdUrl } from '../../utils/auth';
+import { login } from '../../utils/auth';
+import { getBankIdUrl } from '../../utils/api';
 import { loginAction } from '../../actions/actions';
 
 import Button from '../button/Button';

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { logout } from './auth';
 
 const BASE_URL = 'http://127.0.0.1:5000/v3';
 const axiosConfig = {
@@ -78,9 +77,8 @@ export const getCustomers = async () => {
 
 export const updateUser = async (userId, userData) => {
   try {
-    return await axios.put(`http://127.0.0.1:5000/v3/users/${userId}`, userData, axiosConfig);
+    return await axios.put(`${BASE_URL}/v3/users/${userId}`, userData, axiosConfig);
   } catch (e) {
-    console.log(e.response); // todo
     return e.response;
   }
 };
@@ -98,17 +96,18 @@ export const updateViewedDocument = async (documentId) => {
   }
 };
 
-export const getUser = async (isIdentifier = false) => {
+export const getUser = async () => {
   try {
     const userId = localStorage.getItem('userId');
-    const { data: { user } } = await axios.get(
-      `${BASE_URL}/users/${userId}${isIdentifier ? '?ssn=true' : ''}`,
-      axiosConfig
-    );
-    localStorage.setItem('userId', user.id);
+    const { data: { user } } = await axios.get(`${BASE_URL}/users/${userId}`, axiosConfig);
     return user;
   } catch (e) {
-    logout();
-    window.location.replace('/login');
+    return;
   }
+};
+
+export const getBankIdUrl = async () => {
+  const { data: { bankIdUrl } } = await axios.get(`${BASE_URL}/bankIdUrl`, axiosConfig);
+
+  return bankIdUrl;
 };
