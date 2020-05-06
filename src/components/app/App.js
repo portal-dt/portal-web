@@ -78,17 +78,8 @@ const App = () => {
             <Route path="/customers/:id">
               <CustomerDocuments />
             </Route>
-            <Route path="/account-settings">
-              <AccountSettings />
-            </Route>
             <Route path="/dashboard">
               <CustomerDashboard />
-            </Route>
-            <Route path="/new-partner">
-              <NewPartnerDetails />
-            </Route>
-            <Route path="/messages">
-              <CustomerMessages />
             </Route>
           </> : <Redirect from={pathname} to="/login" />
       }

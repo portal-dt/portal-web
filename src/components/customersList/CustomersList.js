@@ -47,7 +47,6 @@ const CustomersList = () => {
 
   useEffect(() => {
     const fetchCustomers = async () => {
-      const customerId = localStorage.getItem('userId');
       setLoading(true);
       const customersList = await getCustomers();
       dispatch(getCustomersAction(customersList));
@@ -110,7 +109,7 @@ const CustomersList = () => {
       <div className="page-content__title">{formatMessage(messages.customersTitle)}</div>
       {loading ?
         <div className="page-content__spinner">
-          <Spinner variant="primary" animation="border" />
+          <Spinner variant="warning" animation="border" />
         </div> :
         <>
           <Table
