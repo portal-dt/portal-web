@@ -18,7 +18,7 @@ export const userNameSelector = createSelector(
 
 export const userSelector = createSelector(
   state => state.user.user,
-  user => user
+  user => user || {}
 );
 
 export const isLoadingSelector = createSelector(

@@ -9,13 +9,10 @@ import SignInPage from '../signInPage/SignInPage';
 import CustomerDocuments from '../customerDocuments/CustomerDocuments';
 import CustomerDashboard from '../customerDashboard/CustomerDashboard';
 import CustomersList from '../customersList/CustomersList';
-import AccountSettings from '../accountSettings/AccountSettings';
-import NewPartnerDetails from '../newPartnerDetails/NewPartnerDetails';
-import CustomerMessages from '../customerMessages/CustomerMessages';
 import Container from 'react-bootstrap/Container';
 import Spinner from 'react-bootstrap/Spinner';
 
-import { setUserAction, setLoadingAction } from '../../actions/actions';
+import { setUserAction, setLoadingAction, loginAction } from '../../actions/actions';
 import { logout, login } from '../../utils/auth';
 import { getUser } from '../../utils/api';
 import { messages } from '../../translations';
@@ -45,6 +42,7 @@ const App = () => {
       dispatch(setLoadingAction(true));
       const user = await (isAuthenticatedViaBankId ? login({ transactionId }) : getUser());
       user && dispatch(setUserAction(user));
+      (isAuthenticatedViaBankId && user) && dispatch(loginAction(user));
       dispatch(setLoadingAction(false));
     } catch (e) {
       logout();

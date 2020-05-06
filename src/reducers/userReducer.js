@@ -8,11 +8,11 @@ const initialState = {
 export const userReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case LOGIN:
-      const { user, isAuthenticated } = payload;
+    case SET_USER:
       return {
         ...state,
-        user,
-        isAuthenticated
+        user: payload,
+        isAuthenticated: true
       };
     case LOGOUT:
       return initialState;
@@ -23,12 +23,6 @@ export const userReducer = (state = initialState, { type, payload }) => {
           ...state.user,
           ...payload
         }
-      };
-    case SET_USER:
-      return {
-        ...state,
-        user: payload,
-        isAuthenticated: true
       };
     default:
       return state;

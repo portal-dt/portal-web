@@ -6,10 +6,9 @@ import { messages } from './messages';
 
 import { logout } from '../../utils/auth';
 import { logoutAction } from '../../actions/actions';
-import { userNameSelector } from '../../selectors';
 import { userSelector } from '../../selectors';
 
-import { BoxArrowRight, GearFill } from 'react-bootstrap-icons';
+import { BoxArrowRight } from 'react-bootstrap-icons';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
@@ -23,9 +22,7 @@ const Header = ({ isAuthenticated }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { formatMessage } = useIntl();
-  const userName = useSelector(userNameSelector);
-  const { firstName } = useSelector(userSelector);
-  const isAdmin = firstName === 'Admin';
+  const { isAdmin, firstName, lastName } = useSelector(userSelector);
 
 
   const handleLogOut = () => {
@@ -59,7 +56,7 @@ const Header = ({ isAuthenticated }) => {
                 </Nav>
                 <Nav>
                   <div className="header__user-settings">
-                    <span>{formatMessage(messages.greating)}, {userName}</span>
+                    <span>{formatMessage(messages.greating)}, {firstName} {lastName}</span>
                   </div>
                   <Button variant="link" className="header__link" onClick={handleLogOut}>
                     <BoxArrowRight size={45}/>{formatMessage(messages.logOut)}

@@ -7,15 +7,12 @@ export const login = async (userData) => {
   const LOGIN_ENDPOINT = `${SERVER_URL}/v3/login`;
 
   try {
-    const { status, data: { accessToken, auth, user } } = await axios.post(LOGIN_ENDPOINT, userData);
+    const { status, data: { accessToken, user } } = await axios.post(LOGIN_ENDPOINT, userData);
 
     if (status === 200 && accessToken) {
       localStorage.setItem('token', accessToken);
       localStorage.setItem('userId', user.id);
-      return {
-        user,
-        isAuthenticated: auth
-      };
+      return user;
     }
   } catch (error) {
     window.location.search = '';
