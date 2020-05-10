@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useIntl } from 'react-intl';
 
 import { messages } from './messages';
-import { login } from '../../utils/auth';
+import { login, getEligibility } from '../../utils/auth';
 import { getBankIdUrl } from '../../utils/api';
 import { loginAction } from '../../actions/actions';
 
@@ -20,7 +20,8 @@ import './SignInPage.less';
 
 const initialState = {
   email: '',
-  password: ''
+  password: '',
+  otp: ''
 };
 
 const handleInputChangesReducer = (state, { field, value }) => ({
@@ -32,6 +33,8 @@ const SignInPage = ({ isAuthenticated }) => {
   const { formatMessage } = useIntl();
   const [signInFields, changeField] = useReducer(handleInputChangesReducer, initialState);
   const [isSignInAsEmail, setIsSignInAsEmail] = useState(false);
+  const [isOtpForm, setIsOtpForm] = useState(false);
+  const [eligibilityData, setEligibilityData] = useState({});
   const [bankIdUrl, setBankIdUrl] = useState('');
   const [signInErrorStatus, setSignInErrorStatus] = useState(null);
   const dispatch = useDispatch();
@@ -41,26 +44,46 @@ const SignInPage = ({ isAuthenticated }) => {
   const isAdmin = searchParams.get('adminAccess') === 'true';
 
   useEffect(() => {
-    const getBankIdUrlFromScrive = async () => {
-      const bankId = await getBankIdUrl();
-      setBankIdUrl(bankId);
-    };
-
-    getBankIdUrlFromScrive();
+    !isAdmin && getBankIdUrlFromScrive();
     isAuthenticated && history.push('/dashboard');
   }, []);
 
+  const getBankIdUrlFromScrive = async () => {
+    const bankId = await getBankIdUrl();
+    setBankIdUrl(bankId);
+  };
+
   const handleInputChange = ({ target }) => changeField({ field: target.name, value: target.value });
 
-  const handleSignIn = async (event) => {
+  const handleOtp = async (event) => {
     event.preventDefault();
 
     try {
-      const user = await login(signInFields);
+      const userData = {
+        email: signInFields.email,
+        otp: signInFields.otp.trim()
+      };
+      const user = await login(userData);
       dispatch(loginAction(user));
       setSignInErrorStatus(null);
       history.push('/dashboard');
     } catch (error) {
+      setSignInErrorStatus('Password Invalid or Expired!');
+    }
+  };
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
+
+    try {
+      const userData = {
+        email: signInFields.email,
+        password: signInFields.password
+      };
+      setSignInErrorStatus(null);
+      setEligibilityData(await getEligibility(userData));
+      setIsOtpForm(true);
+    } catch (e) {
       setSignInErrorStatus('Permissions denied!');
     }
   };
@@ -111,24 +134,12 @@ const SignInPage = ({ isAuthenticated }) => {
           </Col>
         </Form.Group>
 
-        {
-          signInErrorStatus ? (
-            <Row className="justify-content-center">
-              <Col xs="4">
-                <Alert variant="danger" onClose={() => setSignInErrorStatus(null)} dismissible>
-                  {signInErrorStatus}
-                </Alert>
-              </Col>
-            </Row>
-          ) : null
-        }
-
         <Form.Group as={Row} className="justify-content-center">
           <Col xs="2">
             <Button
               text={formatMessage(messages.submitButton)}
               classNames="sign-in-page__button"
-              onClickHandler={handleSignIn}
+              onClickHandler={handleLogin}
               type="submit"
             />
           </Col>
@@ -161,9 +172,66 @@ const SignInPage = ({ isAuthenticated }) => {
     </div>
   );
 
+  const renderOTPForm = () => {
+    return (
+      <>
+        <h2>Welcome to login</h2>
+        {eligibilityData && eligibilityData.qrCode && <img alt="QR Code" src={eligibilityData.qrCode} />}
+        <p>Provide One Time Password (OTP) in the field below to complete Sign In</p>
+        <Form>
+          <Form.Group as={Row} controlId="email">
+            <Form.Label column sm="2">
+              Your Email Address:
+            </Form.Label>
+            <Col sm="3">
+              <Form.Control plaintext readOnly defaultValue={signInFields.email} />
+            </Col>
+          </Form.Group>
+
+          <Form.Group as={Row} controlId="otp">
+            <Form.Label column sm="2">
+              Authentication Code:
+            </Form.Label>
+            <Col sm="3">
+              <Form.Control type="text" name="otp" onChange={handleInputChange}/>
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row}>
+            <Col xs="2">
+              <Button
+                text={formatMessage(messages.submitButton)}
+                classNames="sign-in-page__button"
+                onClickHandler={handleOtp}
+                type="submit"
+              />
+            </Col>
+          </Form.Group>
+        </Form>
+      </>
+    );
+  };
+
   return (
     <div className="sign-in-page">
-      {isSignInAsEmail ? renderLoginForm() : renderWelcomePage()}
+      {
+        isSignInAsEmail
+        ? ( isOtpForm
+            ? renderOTPForm()
+            : renderLoginForm()
+          )
+        : renderWelcomePage()
+      }
+      {
+        signInErrorStatus ? (
+          <Row className="justify-content-center">
+            <Col xs="4">
+              <Alert variant="danger" onClose={() => setSignInErrorStatus(null)} dismissible>
+                {signInErrorStatus}
+              </Alert>
+            </Col>
+          </Row>
+        ) : null
+      }
     </div>
   );
 };

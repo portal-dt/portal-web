@@ -47,13 +47,16 @@ const App = () => {
     } catch (e) {
       logout();
       history.push('/login');
+      dispatch(setLoadingAction(false));
     }
   };
 
   useEffect(() => {
+    dispatch(setLoadingAction(true));
     if (isAuthenticatedViaBankId || isAuthenticated) {
       setUser();
     }
+    dispatch(setLoadingAction(false));
   }, []);
 
   const renderRoutes = () => (

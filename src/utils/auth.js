@@ -15,12 +15,22 @@ export const login = async (userData) => {
       return user;
     }
   } catch (error) {
-    window.location.search = '';
-    return;
+    throw error;
   }
 };
 
 export const logout = () => {
   localStorage.removeItem('token');
   localStorage.removeItem('userId');
+};
+
+export const getEligibility = async (userData) => {
+  const ELIGIBILITY_ENDPOINT = `${SERVER_URL}/v3/eligibility`;
+
+  try {
+    const { data } = await axios.post(ELIGIBILITY_ENDPOINT, userData);
+    return data;
+  } catch (error) {
+    throw error;
+  }
 };

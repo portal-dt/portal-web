@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { logout } from './auth';
 
 const BASE_URL = 'http://127.0.0.1:5000/v3';
 const axiosConfig = {
@@ -102,6 +103,8 @@ export const getUser = async () => {
     const { data: { user } } = await axios.get(`${BASE_URL}/users/${userId}`, axiosConfig);
     return user;
   } catch (e) {
+    window.location.search = '';
+    logout();
     return;
   }
 };

@@ -50,7 +50,6 @@ const CustomerDocuments = () => {
   const rowsPerPage = 5;
 
   const fetchDocuments = async () => {
-    setIsLoading(true);
     const customerId = id ? id : localStorage.getItem('userId');
     const customerDocuments = await (isAdmin && !id ? getDocuments() : getDocumentsByCustomerId(customerId));
     if (id) {
