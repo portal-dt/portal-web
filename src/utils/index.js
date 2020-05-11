@@ -26,6 +26,7 @@ export const sortColumn = (data, column, isAsc) => {
       return sortColumnString(data, column, isAsc);
     case 'creationDate':
     case 'openedAt':
+    case 'lastLogin':
       return sortColumnDate(data, column, isAsc);
   }
 };

@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl';
 import { NavLink, useHistory } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
 
-import { getDocumentsByCustomerId, getCustomers } from '../../utils/api';
+import { getCustomers } from '../../utils/api';
 import { messages } from './messages';
 
 import Table from '../dashboardTable/DashboardTable';
@@ -13,12 +13,6 @@ import CustomersListTableHeader from '../customersListTableHeader/CustomersListT
 import Button from '../button/Button';
 import { sortColumn } from '../../utils';
 import { getCustomersAction } from '../../actions/actions';
-
-import BootstrapTable from 'react-bootstrap/Table';
-import Accordion from 'react-bootstrap/Accordion';
-import Card from 'react-bootstrap/Card';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
 
 import './CustomersList.less';
 
@@ -54,16 +48,17 @@ const CustomersList = () => {
       setCustomers(customersList);
       setFilteredCustomers(customersList);
     };
-    fetchCustomers();    
+    fetchCustomers();
   }, []);
 
   const filterTable = ({ target = {} }) => {
-    const filteredCustomers = customers.filter(({ lastLogin, customerName = '', email = '' }) => {
+    const filteredCustomers = customers.filter(({ lastLogin, accountNumbers = [], customerName = '', email = '' }) => {
       const filter = target.value.toLowerCase().trim();
       return (
         customerName.toLowerCase().trim().includes(filter) ||
-        lastLogin.includes(filter) ||
-        email.includes(filter)
+        lastLogin.toString().includes(filter) ||
+        email.includes(filter) ||
+        accountNumbers.join(',').includes(filter)
       );
     });
 
@@ -106,7 +101,9 @@ const CustomersList = () => {
 
   return (
     <>
-      <div className="page-content__title">{formatMessage(messages.customersTitle)}</div>
+      <div className="page-content__title">
+        {formatMessage(messages.customersTitle)} - {filteredCustomers.length} {formatMessage(messages.of)} {customers.length}
+      </div>
       {loading ?
         <div className="page-content__spinner">
           <Spinner variant="warning" animation="border" />
@@ -117,12 +114,15 @@ const CustomersList = () => {
             TableHeader={TableHeader}
             TableRow={TableRow}
           />
-          <TablePagination
-            rowsPerPage={rowsPerPage}
-            totalRows={customers.length}
-            paginate={paginate}
-            currentNumber={currentPage}
-          />
+          {
+            filteredCustomers.length > 5 &&
+            <TablePagination
+              rowsPerPage={rowsPerPage}
+              totalRows={customers.length}
+              paginate={paginate}
+              currentNumber={currentPage}
+            />
+          }
         </>
       }
     </>

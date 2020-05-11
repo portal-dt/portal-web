@@ -44,5 +44,6 @@
   "hello": "Hi",
   "customerName": "Customer Name",
   "lastLogin": "Logged in",
-  "accountNumbers": "Account numbers"
+  "accountNumbers": "Account numbers",
+  "of": "of"
 }

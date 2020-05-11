@@ -10,5 +10,10 @@ export const messages = defineMessages({
     id: 'backButton',
     description: 'Back button',
     defaultMessage: 'Back'
+  },
+  of: {
+    id: 'of',
+    description: 'Of seperator',
+    defaultMessage: 'of'
   }
 });

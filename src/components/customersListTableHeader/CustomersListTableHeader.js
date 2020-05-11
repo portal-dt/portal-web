@@ -21,7 +21,9 @@ const CustomersListTableHeader = ({ onInputChange, sort, sortState }) => {
           {formatMessage(messages.email)} {getSortArrow(sortState['email'].isAsc)}
         </th>
         <th>{formatMessage(messages.accountNumbers)}</th>
-        <th>{formatMessage(messages.lastLogin)}</th>
+        <th id="lastLogin" onClick={sort}>
+          {formatMessage(messages.lastLogin)} {getSortArrow(sortState['lastLogin'].isAsc)}
+        </th>
         <th>
           <input
             type="text"
