@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useIntl } from 'react-intl';
 import { NavLink, useHistory } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
+import Collapse from 'react-bootstrap/Collapse';
 
 import { getCustomers } from '../../utils/api';
 import { messages } from './messages';
@@ -35,6 +36,7 @@ const CustomersList = () => {
   const [filteredCustomers, setFilteredCustomers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [showNumbers, setShowNumbers] = useState(false);
   const history = useHistory();
   const { formatMessage, formatDate } = useIntl();
   const rowsPerPage = 5;
@@ -84,8 +86,23 @@ const CustomersList = () => {
       <tr>
         <td>{customerName}</td>
         <td>{email}</td>
-        <td>
-          {accountNumbers.map((number, i) => <p key={i}>{number}</p>)}
+        <td className="account-numbers">
+          {
+            accountNumbers.length > 1 ? (
+              <>
+                <button
+                  className="account-numbers__btn"
+                  onClick={() => setShowNumbers(!showNumbers)}
+                  aria-controls="collapse-numbers"
+                  aria-expanded={showNumbers}>{!showNumbers ? `${accountNumbers[0]}... more` : 'hide'}</button>
+                <Collapse in={showNumbers}>
+                  <div id="collapse-numbers">
+                    {accountNumbers.map((number, i) => <p className="account-numbers__item" key={i}>{number}</p>)}
+                  </div>
+                </Collapse>
+              </>
+            ) : <div>{accountNumbers.map((number, i) => <p className="account-numbers__item" key={i}>{number}</p>)}</div>
+          }
         </td>
         <td>{formatDate(lastLogin) || 'none'}</td>
         <td>
