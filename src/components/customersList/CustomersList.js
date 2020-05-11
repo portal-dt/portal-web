@@ -3,8 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useIntl } from 'react-intl';
 import { NavLink, useHistory } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
+import Collapse from 'react-bootstrap/Collapse';
 
-import { getDocumentsByCustomerId, getCustomers } from '../../utils/api';
+import { getCustomers } from '../../utils/api';
 import { messages } from './messages';
 
 import Table from '../dashboardTable/DashboardTable';
@@ -13,12 +14,6 @@ import CustomersListTableHeader from '../customersListTableHeader/CustomersListT
 import Button from '../button/Button';
 import { sortColumn } from '../../utils';
 import { getCustomersAction } from '../../actions/actions';
-
-import BootstrapTable from 'react-bootstrap/Table';
-import Accordion from 'react-bootstrap/Accordion';
-import Card from 'react-bootstrap/Card';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
 
 import './CustomersList.less';
 
@@ -41,6 +36,7 @@ const CustomersList = () => {
   const [filteredCustomers, setFilteredCustomers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [showNumbers, setShowNumbers] = useState(false);
   const history = useHistory();
   const { formatMessage, formatDate } = useIntl();
   const rowsPerPage = 5;
@@ -54,16 +50,17 @@ const CustomersList = () => {
       setCustomers(customersList);
       setFilteredCustomers(customersList);
     };
-    fetchCustomers();    
+    fetchCustomers();
   }, []);
 
   const filterTable = ({ target = {} }) => {
-    const filteredCustomers = customers.filter(({ lastLogin, customerName = '', email = '' }) => {
+    const filteredCustomers = customers.filter(({ lastLogin, accountNumbers = [], customerName = '', email = '' }) => {
       const filter = target.value.toLowerCase().trim();
       return (
         customerName.toLowerCase().trim().includes(filter) ||
-        lastLogin.includes(filter) ||
-        email.includes(filter)
+        lastLogin.toString().includes(filter) ||
+        email.includes(filter) ||
+        accountNumbers.join(',').includes(filter)
       );
     });
 
@@ -89,8 +86,23 @@ const CustomersList = () => {
       <tr>
         <td>{customerName}</td>
         <td>{email}</td>
-        <td>
-          {accountNumbers.map((number, i) => <p key={i}>{number}</p>)}
+        <td className="account-numbers">
+          {
+            accountNumbers.length > 1 ? (
+              <>
+                <button
+                  className="account-numbers__btn"
+                  onClick={() => setShowNumbers(!showNumbers)}
+                  aria-controls="collapse-numbers"
+                  aria-expanded={showNumbers}>{!showNumbers ? `${accountNumbers[0]}... more` : 'hide'}</button>
+                <Collapse in={showNumbers}>
+                  <div id="collapse-numbers">
+                    {accountNumbers.map((number, i) => <p className="account-numbers__item" key={i}>{number}</p>)}
+                  </div>
+                </Collapse>
+              </>
+            ) : <div>{accountNumbers.map((number, i) => <p className="account-numbers__item" key={i}>{number}</p>)}</div>
+          }
         </td>
         <td>{formatDate(lastLogin) || 'none'}</td>
         <td>
@@ -106,7 +118,9 @@ const CustomersList = () => {
 
   return (
     <>
-      <div className="page-content__title">{formatMessage(messages.customersTitle)}</div>
+      <div className="page-content__title">
+        {formatMessage(messages.customersTitle)} - {filteredCustomers.length} {formatMessage(messages.of)} {customers.length}
+      </div>
       {loading ?
         <div className="page-content__spinner">
           <Spinner variant="warning" animation="border" />
@@ -117,12 +131,15 @@ const CustomersList = () => {
             TableHeader={TableHeader}
             TableRow={TableRow}
           />
-          <TablePagination
-            rowsPerPage={rowsPerPage}
-            totalRows={customers.length}
-            paginate={paginate}
-            currentNumber={currentPage}
-          />
+          {
+            filteredCustomers.length > 5 &&
+            <TablePagination
+              rowsPerPage={rowsPerPage}
+              totalRows={customers.length}
+              paginate={paginate}
+              currentNumber={currentPage}
+            />
+          }
         </>
       }
     </>

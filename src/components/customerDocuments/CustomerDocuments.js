@@ -114,11 +114,11 @@ const CustomerDocuments = () => {
                 text={formatMessage(messages.backButton)}
                 onClickHandler={() => history.goBack()}
               />
-              <span>{currentCustomer.customerName} </span>
+              <span>{currentCustomer.customerName} - </span>
             </> 
           ) : null
         }
-        {formatMessage(messages.documents)} - {filteredDocuments.length} of {documents.length}
+        {formatMessage(messages.documents)} - {filteredDocuments.length} {formatMessage(messages.of)} {documents.length}
       </div>
         <Table
           tableData={currentRows}

@@ -10,5 +10,10 @@ export const messages = defineMessages({
     id: 'documents',
     description: 'Documents button',
     defaultMessage: 'Documents',
+  },
+  of: {
+    id: 'of',
+    description: 'Of seperator',
+    defaultMessage: 'of'
   }
 });

@@ -44,5 +44,6 @@
   "hello": "Hei",
   "customerName": "Kundenavn",
   "lastLogin": "Inlogg",
-  "accountNumbers": "Kontonr"
+  "accountNumbers": "Kontonr",
+  "of": "av"
 }

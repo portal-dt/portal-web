@@ -44,5 +44,6 @@
   "hello": "Hej",
   "customerName": "Köparens namn",
   "lastLogin": "Inloggad",
-  "accountNumbers": "Kontonr"
+  "accountNumbers": "Kontonr",
+  "of": "av"
 }
