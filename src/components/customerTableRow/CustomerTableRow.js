@@ -9,6 +9,7 @@ import Button from '../button/Button';
 import DocumentModal from '../documentModal/DocumentModal';
 
 import { updateViewedDocument } from '../../utils/api';
+import { getDocumentName } from '../../utils';
 import { userSelector } from '../../selectors';
 import { messages } from './messages';
 
@@ -18,7 +19,6 @@ import './CustomerTableRow.less';
 const CustomerTableRow = ({ documentId, documentNumber, documentType, creationDate, openedAt, document, customerName, email }) => {
   const { formatMessage, formatDate } = useIntl();
   const [isDocumentOpened, setIsDocumentOpened] = useState(false);
-  // const [openedAt, setOpenedAt] = useState(documentOpenedAt);
   const { isAdmin } = useSelector(userSelector);
   const { id } = useParams();
 
@@ -35,14 +35,14 @@ const CustomerTableRow = ({ documentId, documentNumber, documentType, creationDa
   const openedAtClassName = classNames(`table-row__column--${openedAt ? 'green' : 'red'}`);
   const lastOpenedAtText = openedAt ? formatDate(openedAt) : formatMessage(messages.unread);
 
-  const getPdfName = () => `${documentType} ${new Date(creationDate).toLocaleString('default', { month: 'long' })} ${new Date(creationDate).getUTCFullYear()}`;
+  const getPdfName = () => getDocumentName(creationDate, documentType, formatMessage, messages);
 
   return (
     <tr>
       <td>{documentNumber}</td>
       {customerName && !id && <td>{customerName}</td>}
       {email && !id && <td>{email}</td>}
-      <td>{documentType}</td>
+      <td>{formatMessage(messages[documentType ? documentType : 'invoice'])}</td>
       <td>{formatDate(creationDate)}</td>
       <td className={openedAtClassName}>{lastOpenedAtText}</td>
       <td>

@@ -45,5 +45,20 @@
   "customerName": "Köparens namn",
   "lastLogin": "Inloggad",
   "accountNumbers": "Kontonr",
-  "of": "av"
+  "of": "av",
+  "referenceNumber": "Referensnummer",
+  "amountDue": "Belopp",
+  "method": "Metod",
+  "directDebit": "Autogirering",
+  "bankTransfer": "Banköverföring",
+  "welcome": "Välkommen.",
+  "continueToLogin": "Fortsätt att logga in",
+  "welcomeToPortal": "Välkommen till dtPortal",
+  "welcomeToDocuments": "Välkommen till era dokument",
+  "welcomeToLogin": "Välkommen till Login",
+  "invalidPassword": "Lösenordet är giltigt eller förpigt!",
+  "permissionsDenied": "Tillstånd nekas!",
+  "otp": "Ge ett Time-lösenord (OTP) på fältet nedanför för att fullborda tecknet In",
+  "yourEmail": "Din e-postadress:",
+  "authCode": "Autentiseringskod:"
 }

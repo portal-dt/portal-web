@@ -6,15 +6,14 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
 import './DocumentModal.less';
-import {messages} from "../customerTableRow/messages";
 
-const DocumentModal = ({ isActive, onClose, document, onRender, documentName }) => {
+const DocumentModal = ({ isActive, onClose, document, onRender, documentName, classNames = '' }) => {
   const [pageNumber, setPageNumber] = useState(1);
 
   const onDocumentLoadSuccess = ({ numPages }) => setPageNumber(numPages);
 
   return (
-    <Modal show={isActive} onHide={onClose} className="document-modal">
+    <Modal show={isActive} onHide={onClose} className={`document-modal ${classNames}`}>
       <Document file={document} onLoadSuccess={onDocumentLoadSuccess} onRenderSuccess={onRender}>
         <Page className="pdf-page" pageNumber={pageNumber} onRenderSuccess={onRender}/>
       </Document>

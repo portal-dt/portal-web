@@ -45,5 +45,20 @@
   "customerName": "Customer Name",
   "lastLogin": "Logged in",
   "accountNumbers": "Account numbers",
-  "of": "of"
+  "of": "of",
+  "referenceNumber": "Reference no",
+  "amountDue": "Amount Due",
+  "method": "Method",
+  "directDebit": "Direct Debit",
+  "bankTransfer": "Bank Transfer",
+  "welcome": "Welcome",
+  "continueToLogin": "Continue to login",
+  "welcomeToPortal": "Welcome to dtPortal",
+  "welcomeToDocuments": "Welcome to your documents",
+  "welcomeToLogin": "Welcome to Login",
+  "invalidPassword": "Password Invalid or Expired!",
+  "permissionsDenied": "Permissions denied!",
+  "otp": "Provide One Time Password (OTP) in the field below to complete Sign In",
+  "yourEmail": "Your Email Address:",
+  "authCode": "Authentication Code:"
 }

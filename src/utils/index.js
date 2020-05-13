@@ -1,3 +1,5 @@
+import {messages} from "../components/customerDashboard/messages";
+
 export const formatDateToLocalString = (date) => new Date(date).toLocaleDateString('no-NO', { timeZone: 'UTC' });
 
 const sortColumnNumber = (data, column, isAsc) => data.sort((a, b) => isAsc
@@ -29,4 +31,10 @@ export const sortColumn = (data, column, isAsc) => {
     case 'lastLogin':
       return sortColumnDate(data, column, isAsc);
   }
+};
+
+export const getDocumentName = (creationDate, documentType, formatMessage = {}, messages) => {
+  const month = new Date(creationDate).toLocaleString('default', { month: 'long' }).toLowerCase();
+  const year = new Date(creationDate).getUTCFullYear();
+  return `${formatMessage(messages[documentType ? documentType : 'invoice'])} ${formatMessage(messages[month])} ${year}`;
 };

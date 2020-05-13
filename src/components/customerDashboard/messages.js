@@ -46,9 +46,94 @@ export const messages = defineMessages({
     description: 'Document type invoice',
     defaultMessage: 'Invoice',
   },
+  referenceNumber: {
+    id: 'referenceNumber',
+    description: 'Document reference number',
+    defaultMessage: 'Reference no',
+  },
+  amountDue: {
+    id: 'amountDue',
+    description: 'Amount Due Date',
+    defaultMessage: 'Amount Due',
+  },
+  directDebitMethod: {
+    id: 'directDebit',
+    description: 'Payment Method',
+    defaultMessage: 'Direct Debit',
+  },
+  bankTransferMethod: {
+    id: 'bankTransfer',
+    description: 'Payment Method',
+    defaultMessage: 'Bank Transfer',
+  },
+  method: {
+    id: 'method',
+    description: 'Payment Method',
+    defaultMessage: 'Method',
+  },
+  welcome: {
+    id: 'welcome',
+    description: 'Welcome message',
+    defaultMessage: 'Welcome',
+  },
+  january: {
+    id: 'january',
+    description: 'January month',
+    defaultMessage: 'January',
+  },
+  february: {
+    id: 'february',
+    description: 'February month',
+    defaultMessage: 'February',
+  },
   march: {
     id: 'march',
     description: 'March month',
     defaultMessage: 'March',
+  },
+  april: {
+    id: 'april',
+    description: 'April month',
+    defaultMessage: 'April',
+  },
+  may: {
+    id: 'may',
+    description: 'May month',
+    defaultMessage: 'May',
+  },
+  june: {
+    id: 'june',
+    description: 'June month',
+    defaultMessage: 'June',
+  },
+  july: {
+    id: 'july',
+    description: 'July month',
+    defaultMessage: 'July',
+  },
+  august: {
+    id: 'august',
+    description: 'August month',
+    defaultMessage: 'August',
+  },
+  september: {
+    id: 'september',
+    description: 'September month',
+    defaultMessage: 'September',
+  },
+  october: {
+    id: 'october',
+    description: 'October month',
+    defaultMessage: 'October',
+  },
+  november: {
+    id: 'november',
+    description: 'November month',
+    defaultMessage: 'November',
+  },
+  december: {
+    id: 'december',
+    description: 'December month',
+    defaultMessage: 'December',
   }
 });

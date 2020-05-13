@@ -68,7 +68,7 @@ const SignInPage = ({ isAuthenticated }) => {
       setSignInErrorStatus(null);
       history.push('/dashboard');
     } catch (error) {
-      setSignInErrorStatus('Password Invalid or Expired!');
+      setSignInErrorStatus(formatMessage(messages.invalidPassword));
     }
   };
 
@@ -84,7 +84,7 @@ const SignInPage = ({ isAuthenticated }) => {
       setEligibilityData(await getEligibility(userData));
       setIsOtpForm(true);
     } catch (e) {
-      setSignInErrorStatus('Permissions denied!');
+      setSignInErrorStatus(formatMessage(messages.permissionsDenied));
     }
   };
 
@@ -94,7 +94,7 @@ const SignInPage = ({ isAuthenticated }) => {
     <>
       <Row className="sign-in-page__logo justify-content-center">
         <Col xs="4">
-          <h3>Log In</h3>
+          <h3>{formatMessage(messages.submitButton)}</h3>
         </Col>
       </Row>
       <Form>
@@ -152,7 +152,7 @@ const SignInPage = ({ isAuthenticated }) => {
     <div>
       <Row className="justify-content-center welcome-page__title">
         <Col xs="6">
-          {isAdmin ? 'Welcome to dtPortal' : 'Welcome to your documents'}
+          {formatMessage(messages[isAdmin ? 'welcomeToPortal' : 'welcomeToDocuments'])}
         </Col>
       </Row>
       <Row className="justify-content-center">
@@ -161,7 +161,7 @@ const SignInPage = ({ isAuthenticated }) => {
             text={
               <>
                 <img src="../../../assets/images/kraft-bank-logo-small.png" alt=""/>
-                <span>Continue to login</span>
+                <span>{formatMessage(messages.continueToLogin)}</span>
               </>
             }
             classNames="welcome-page__button"
@@ -175,13 +175,13 @@ const SignInPage = ({ isAuthenticated }) => {
   const renderOTPForm = () => {
     return (
       <>
-        <h2>Welcome to login</h2>
+        <h2>{formatMessage(messages.welcomeToLogin)}</h2>
         {eligibilityData && eligibilityData.qrCode && <img alt="QR Code" src={eligibilityData.qrCode} />}
-        <p>Provide One Time Password (OTP) in the field below to complete Sign In</p>
+        <p>{formatMessage(messages.otp)}</p>
         <Form>
           <Form.Group as={Row} controlId="email">
             <Form.Label column sm="2">
-              Your Email Address:
+              {formatMessage(messages.yourEmail)}
             </Form.Label>
             <Col sm="3">
               <Form.Control plaintext readOnly defaultValue={signInFields.email} />
@@ -190,7 +190,7 @@ const SignInPage = ({ isAuthenticated }) => {
 
           <Form.Group as={Row} controlId="otp">
             <Form.Label column sm="2">
-              Authentication Code:
+              {formatMessage(messages.authCode)}
             </Form.Label>
             <Col sm="3">
               <Form.Control type="text" name="otp" onChange={handleInputChange}/>

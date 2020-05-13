@@ -45,5 +45,20 @@
   "customerName": "Kundenavn",
   "lastLogin": "Inlogg",
   "accountNumbers": "Kontonr",
-  "of": "av"
+  "of": "av",
+  "referenceNumber": "Referanse Nei",
+  "amountDue": "Skyldig beløp",
+  "method": "Metode",
+  "directDebit": "Direkte Debet",
+  "bankTransfer": "Bank-overføring",
+  "welcome": "Velkommen",
+  "continueToLogin": "Fortsett å logge inn",
+  "welcomeToPortal": "Velkommen til dtPortal",
+  "welcomeToDocuments": "Velkommen til dokumentene",
+  "welcomeToLogin": "Velkommen til innlogging",
+  "invalidPassword": "Passord Ingyldige eller utvisket!",
+  "permissionsDenied": "Rettigheter avvist!",
+  "otp": "Gi én gang passord (OTP) på feltet under for å fullføre tegnet",
+  "yourEmail": "E-postadressen din:",
+  "authCode": "Autentiseringskode:"
 }
