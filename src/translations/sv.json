@@ -60,5 +60,10 @@
   "permissionsDenied": "Tillstånd nekas!",
   "otp": "Ge ett Time-lösenord (OTP) på fältet nedanför för att fullborda tecknet In",
   "yourEmail": "Din e-postadress:",
-  "authCode": "Autentiseringskod:"
+  "authCode": "Autentiseringskod:",
+  "dateRange": "Datumintervall",
+  "selectRange": "Välj datumintervall",
+  "edit": "Redigera",
+  "more": "mer",
+  "allTime": "Hela tiden"
 }

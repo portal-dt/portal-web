@@ -60,5 +60,10 @@
   "permissionsDenied": "Rettigheter avvist!",
   "otp": "Gi én gang passord (OTP) på feltet under for å fullføre tegnet",
   "yourEmail": "E-postadressen din:",
-  "authCode": "Autentiseringskode:"
+  "authCode": "Autentiseringskode:",
+  "dateRange": "Datointervall",
+  "selectRange": "Velg datointervall",
+  "edit": "Redigere",
+  "more": "mer",
+  "allTime": "Hele tiden"
 }

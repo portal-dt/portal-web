@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useReducer } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useIntl } from 'react-intl';
-import { NavLink, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
 import Collapse from 'react-bootstrap/Collapse';
 
@@ -12,6 +12,7 @@ import Table from '../dashboardTable/DashboardTable';
 import TablePagination from '../tablePagination/TablePagination';
 import CustomersListTableHeader from '../customersListTableHeader/CustomersListTableHeader';
 import Button from '../button/Button';
+import DateRangeModal from '../dateRangeModal/DateRangeModal';
 import { sortColumn } from '../../utils';
 import { getCustomersAction } from '../../actions/actions';
 
@@ -31,15 +32,27 @@ const sortReducer = (state, { field }) => ({
 
 const CustomersList = () => {
   const dispatch = useDispatch();
+  const [dateRange, setDateRange] = useState([
+    {
+      startDate: null,
+      endDate: null,
+      key: 'selection'
+    }
+  ]);
+  const [showDateRangeModal, setShowDateRangeModal] = useState(false);
   const [sortState, sortStateUpdater] = useReducer(sortReducer, initialState);
   const [customers, setCustomers] = useState([]);
   const [filteredCustomers, setFilteredCustomers] = useState([]);
+  const [rangedCustomers, setRangedCustomers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [showNumbers, setShowNumbers] = useState(false);
   const history = useHistory();
   const { formatMessage, formatDate } = useIntl();
   const rowsPerPage = 5;
+
+  const handleClose = () => setShowDateRangeModal(false);
+  const handleShow = () => setShowDateRangeModal(true);
 
   useEffect(() => {
     const fetchCustomers = async () => {
@@ -49,9 +62,22 @@ const CustomersList = () => {
       setLoading(false);
       setCustomers(customersList);
       setFilteredCustomers(customersList);
+      setRangedCustomers(customersList);
     };
     fetchCustomers();
   }, []);
+
+  const filterByDateRange = (item) => {
+    const filteredCustomers = customers.filter(({ lastLogin }) => {
+      const lastLoginNum = Date.parse(lastLogin);
+      const startDateNum = item.selection.startDate.getTime();
+      const endDateNum = item.selection.endDate.getTime();      
+      return lastLoginNum >= startDateNum && lastLoginNum <= endDateNum;
+    });
+    setFilteredCustomers(filteredCustomers)
+    setRangedCustomers(filteredCustomers)
+    setDateRange([item.selection]);
+  };
 
   const filterTable = ({ target = {} }) => {
     const filteredCustomers = customers.filter(({ lastLogin, accountNumbers = [], customerName = '', email = '' }) => {
@@ -94,7 +120,7 @@ const CustomersList = () => {
                   className="account-numbers__btn"
                   onClick={() => setShowNumbers(!showNumbers)}
                   aria-controls="collapse-numbers"
-                  aria-expanded={showNumbers}>{!showNumbers ? `${accountNumbers[0]}... more` : 'hide'}</button>
+                  aria-expanded={showNumbers}>{!showNumbers ? `${accountNumbers[0]}... ${formatMessage(messages.more)}` : 'hide'}</button>
                 <Collapse in={showNumbers}>
                   <div id="collapse-numbers">
                     {accountNumbers.map((number, i) => <p className="account-numbers__item" key={i}>{number}</p>)}
@@ -126,6 +152,19 @@ const CustomersList = () => {
           <Spinner variant="warning" animation="border" />
         </div> :
         <>
+          <div className="page-content__range-wrapper">
+            <span className="range-title">{formatMessage(messages.dateRange)}:</span> {
+              dateRange[0].startDate && dateRange[0].endDate ?
+                `${formatDate(dateRange[0].startDate)} - ${formatDate(dateRange[0].endDate)}` : `${formatMessage(messages.allTime)}`
+            }
+            <Button classNames="theme-btn" text={formatMessage(messages.edit)} onClickHandler={handleShow} />
+          </div>
+          <DateRangeModal
+            isActive={showDateRangeModal}
+            onClose={handleClose}
+            dateRange={dateRange}
+            onDateChange={filterByDateRange}
+          />
           <Table
             tableData={currentRows}
             TableHeader={TableHeader}
