@@ -2,11 +2,9 @@ import React, { useState, useEffect, useReducer } from 'react';
 import { useDispatch } from 'react-redux';
 import { useIntl } from 'react-intl';
 import { useHistory } from 'react-router-dom';
-import { DateRange } from 'react-date-range';
 
 import Spinner from 'react-bootstrap/Spinner';
 import Collapse from 'react-bootstrap/Collapse';
-import Modal from 'react-bootstrap/Modal';
 
 import { getCustomers } from '../../utils/api';
 import { messages } from './messages';
@@ -15,11 +13,10 @@ import Table from '../dashboardTable/DashboardTable';
 import TablePagination from '../tablePagination/TablePagination';
 import CustomersListTableHeader from '../customersListTableHeader/CustomersListTableHeader';
 import Button from '../button/Button';
+import DateRangeModal from '../dateRangeModal/DateRangeModal';
 import { sortColumn } from '../../utils';
 import { getCustomersAction } from '../../actions/actions';
 
-import 'react-date-range/dist/styles.css';
-import 'react-date-range/dist/theme/default.css';
 import './CustomersList.less';
 
 const initialState = {
@@ -158,17 +155,15 @@ const CustomersList = () => {
           <Spinner variant="warning" animation="border" />
         </div> :
         <>
-          <Button classNames="theme-btn" text={'Date range'} onClickHandler={handleShow} />
-          <Modal size="sm" className="message-modal" show={showDateRangeModal} onHide={handleClose} animation={false}>
-            <Modal.Body className="message-modal__body">
-              <DateRange
-                editableDateInputs={true}
-                onChange={item => filterByDateRange(item)}
-                moveRangeOnFirstSelection={false}
-                ranges={dateRange}
-              />
-            </Modal.Body>
-          </Modal>
+          <div className="page-content__range-wrapper">
+            <Button classNames="theme-btn" text={'Date range'} onClickHandler={handleShow} />
+          </div>
+          <DateRangeModal
+            isActive={showDateRangeModal}
+            onClose={handleClose}
+            dateRange={dateRange}
+            onDateChange={filterByDateRange}
+          />
           <Table
             tableData={currentRows}
             TableHeader={TableHeader}
