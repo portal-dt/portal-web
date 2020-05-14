@@ -6,6 +6,16 @@ export const messages = defineMessages({
     description: 'Documents column number text',
     defaultMessage: 'Document',
   },
+  columnDocumentCustomerName: {
+    id: 'tableColumnCustomerName',
+    description: 'Documents table column customer name',
+    defaultMessage: 'Customer Name',
+  },
+  columnDocumentEmail: {
+    id: 'signInEmail',
+    description: 'Documents table column email',
+    defaultMessage: 'Email',
+  },
   columnDocumentType: {
     id: 'tableColumnDocumentType',
     description: 'Documents table column text',

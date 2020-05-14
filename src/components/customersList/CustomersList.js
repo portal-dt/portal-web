@@ -4,6 +4,8 @@ import { useIntl } from 'react-intl';
 import { useHistory } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
 import Collapse from 'react-bootstrap/Collapse';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 import { getCustomers } from '../../utils/api';
 import { messages } from './messages';
@@ -144,14 +146,13 @@ const CustomersList = () => {
 
   return (
     <>
-      <div className="page-content__title">
-        {formatMessage(messages.customersTitle)} - {filteredCustomers.length} {formatMessage(messages.of)} {customers.length}
-      </div>
-      {loading ?
-        <div className="page-content__spinner">
-          <Spinner variant="warning" animation="border" />
-        </div> :
-        <>
+      <Row>
+        <Col md="6" className="align-self-center">
+          <div className="page-content__title">
+            {formatMessage(messages.customersTitle)} - {filteredCustomers.length} {formatMessage(messages.of)} {customers.length}
+          </div>
+        </Col>
+        <Col md="6">
           <div className="page-content__range-wrapper">
             <span className="range-title">{formatMessage(messages.dateRange)}:</span> {
               dateRange[0].startDate && dateRange[0].endDate ?
@@ -159,6 +160,13 @@ const CustomersList = () => {
             }
             <Button classNames="theme-btn" text={formatMessage(messages.edit)} onClickHandler={handleShow} />
           </div>
+        </Col>
+      </Row>
+      {loading ?
+        <div className="page-content__spinner">
+          <Spinner variant="warning" animation="border" />
+        </div> :
+        <>
           <DateRangeModal
             isActive={showDateRangeModal}
             onClose={handleClose}

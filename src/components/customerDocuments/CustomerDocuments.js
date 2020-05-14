@@ -10,6 +10,8 @@ import CustomerTableHeader from '../customerTableHeader/CustomerTableHeader';
 import DateRangeModal from '../dateRangeModal/DateRangeModal';
 import Button from '../button/Button';
 import Spinner from 'react-bootstrap/Spinner';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 import { getDocuments, getDocumentsByCustomerId } from '../../utils/api';
 import { sortColumn } from '../../utils';
@@ -129,28 +131,34 @@ const CustomerDocuments = () => {
   return (
     isLoading ? renderSpinner() : (
     <>
-      <div className="page-content__title">
-        {
-          currentCustomer ? (
-            <>
-              <Button 
-                classNames="theme-btn"
-                text={formatMessage(messages.backButton)}
-                onClickHandler={() => history.goBack()}
-              />
-              <span>{currentCustomer.customerName} - </span>
-            </> 
-          ) : null
-        }
-        {formatMessage(messages.documents)} - {filteredDocuments.length} {formatMessage(messages.of)} {documents.length}
-      </div>
-        <div className="page-content__range-wrapper">
-          <span className="range-title">{formatMessage(messages.dateRange)}:</span> {
-            dateRange[0].startDate && dateRange[0].endDate ?
-              `${formatDate(dateRange[0].startDate)} - ${formatDate(dateRange[0].endDate)}` : `${formatMessage(messages.allTime)}`
-          }
-          <Button classNames="theme-btn" text={formatMessage(messages.edit)} onClickHandler={handleShow} />
-        </div>
+      <Row>
+        <Col md="6" className="align-self-center">
+          <div className="page-content__title">
+            {
+              currentCustomer ? (
+                <>
+                  <Button 
+                    classNames="theme-btn"
+                    text={formatMessage(messages.backButton)}
+                    onClickHandler={() => history.goBack()}
+                  />
+                  <span>{currentCustomer.customerName} - </span>
+                </> 
+              ) : null
+            }
+            {formatMessage(messages.documents)} - {filteredDocuments.length} {formatMessage(messages.of)} {documents.length}
+          </div>
+        </Col>
+        <Col md="6">
+          <div className="page-content__range-wrapper">
+            <span className="range-title">{formatMessage(messages.dateRange)}:</span> {
+              dateRange[0].startDate && dateRange[0].endDate ?
+                `${formatDate(dateRange[0].startDate)} - ${formatDate(dateRange[0].endDate)}` : `${formatMessage(messages.allTime)}`
+            }
+            <Button classNames="theme-btn" text={formatMessage(messages.edit)} onClickHandler={handleShow} />
+          </div>
+        </Col>
+      </Row>
         <DateRangeModal 
           isActive={showDateRangeModal}
           onClose={handleClose}

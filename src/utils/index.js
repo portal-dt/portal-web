@@ -34,7 +34,7 @@ export const sortColumn = (data, column, isAsc) => {
 };
 
 export const getDocumentName = (creationDate, documentType, formatMessage = {}, messages) => {
-  const month = new Date(creationDate).toLocaleString('default', { month: 'long' }).toLowerCase();
+  const month = new Date(creationDate).toLocaleString('en', { month: 'long' }).toLowerCase();
   const year = new Date(creationDate).getUTCFullYear();
   return `${formatMessage(messages[documentType ? documentType : 'invoice'])} ${formatMessage(messages[month])} ${year}`;
 };

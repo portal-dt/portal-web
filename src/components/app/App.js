@@ -36,7 +36,6 @@ const App = () => {
   const isAuthenticatedViaBankId = searchParams.get('success') === 'true';
   const isAuthenticated = useSelector(isAuthenticatedSelector);
 
-
   const setUser = async () => {
     try {
       dispatch(setLoadingAction(true));

@@ -20,14 +20,14 @@ const CustomerTableHeader = ({ onInputChange, sort, sortState, isAdmin }) => {
       {
         isAdmin && (
           <th id="customerName" onClick={sort}>
-            Customer Name {getSortArrow(sortState['customerName'].isAsc)}
+            {formatMessage(messages.columnDocumentCustomerName)} {getSortArrow(sortState['customerName'].isAsc)}
           </th>
         )
       }
       {
         isAdmin && (
           <th id="email" onClick={sort}>
-            Email {getSortArrow(sortState['email'].isAsc)}
+            {formatMessage(messages.columnDocumentEmail)} {getSortArrow(sortState['email'].isAsc)}
           </th>
         )
       }
