@@ -176,10 +176,10 @@ const SignInPage = ({ isAuthenticated }) => {
     return (
       <>
         <h2>{formatMessage(messages.welcomeToLogin)}</h2>
-        {eligibilityData && eligibilityData.qrCode && <img alt="QR Code" src={eligibilityData.qrCode} />}
+        {eligibilityData && eligibilityData.qrCode && <div className="img-wrapper"><img alt="QR Code" src={eligibilityData.qrCode} /></div>}
         <p>{formatMessage(messages.otp)}</p>
         <Form>
-          <Form.Group as={Row} controlId="email">
+          <Form.Group as={Row} controlId="email" className="justify-content-center">
             <Form.Label column sm="2">
               {formatMessage(messages.yourEmail)}
             </Form.Label>
@@ -188,7 +188,7 @@ const SignInPage = ({ isAuthenticated }) => {
             </Col>
           </Form.Group>
 
-          <Form.Group as={Row} controlId="otp">
+          <Form.Group as={Row} controlId="otp" className="justify-content-center">
             <Form.Label column sm="2">
               {formatMessage(messages.authCode)}
             </Form.Label>
@@ -196,7 +196,7 @@ const SignInPage = ({ isAuthenticated }) => {
               <Form.Control type="text" name="otp" onChange={handleInputChange}/>
             </Col>
           </Form.Group>
-          <Form.Group as={Row}>
+          <Form.Group as={Row} className="justify-content-center">
             <Col xs="2">
               <Button
                 text={formatMessage(messages.submitButton)}
