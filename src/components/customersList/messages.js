@@ -15,5 +15,25 @@ export const messages = defineMessages({
     id: 'of',
     description: 'Of seperator',
     defaultMessage: 'of'
+  },
+  dateRange: {
+    id: 'dateRange',
+    description: 'Date range title',
+    defaultMessage: 'Date range'
+  },
+  edit: {
+    id: 'edit',
+    description: 'Edit button',
+    defaultMessage: 'Edit'
+  },
+  allTime: {
+    id: 'allTime',
+    description: 'All time label',
+    defaultMessage: 'All time'
+  },
+  more: {
+    id: 'more',
+    description: 'more label',
+    defaultMessage: 'more'
   }
 });

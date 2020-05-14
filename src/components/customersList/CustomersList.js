@@ -121,7 +121,7 @@ const CustomersList = () => {
                   className="account-numbers__btn"
                   onClick={() => setShowNumbers(!showNumbers)}
                   aria-controls="collapse-numbers"
-                  aria-expanded={showNumbers}>{!showNumbers ? `${accountNumbers[0]}... more` : 'hide'}</button>
+                  aria-expanded={showNumbers}>{!showNumbers ? `${accountNumbers[0]}... ${formatMessage(messages.more)}` : 'hide'}</button>
                 <Collapse in={showNumbers}>
                   <div id="collapse-numbers">
                     {accountNumbers.map((number, i) => <p className="account-numbers__item" key={i}>{number}</p>)}
@@ -154,12 +154,11 @@ const CustomersList = () => {
         </div> :
         <>
           <div className="page-content__range-wrapper">
-            <span className="range-title">Date range:</span> {
+            <span className="range-title">{formatMessage(messages.dateRange)}:</span> {
               dateRange[0].startDate && dateRange[0].endDate ?
-                `${formatDate(dateRange[0].startDate)} - ${formatDate(dateRange[0].endDate)}` :
-                'All time'
-              }
-            <Button classNames="theme-btn" text={'Edit'} onClickHandler={handleShow} />
+                `${formatDate(dateRange[0].startDate)} - ${formatDate(dateRange[0].endDate)}` : `${formatMessage(messages.allTime)}`
+            }
+            <Button classNames="theme-btn" text={formatMessage(messages.edit)} onClickHandler={handleShow} />
           </div>
           <DateRangeModal
             isActive={showDateRangeModal}

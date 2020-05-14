@@ -94,7 +94,7 @@ const App = () => {
   );
 
   return (
-    <IntlProvider locale={'en'} messages={messages['en']} defaultLocale="en-gb">
+    <IntlProvider locale={'no'} messages={messages['no']} defaultLocale="en-gb">
       {
         isLoading ? renderSpinner() :
           <>

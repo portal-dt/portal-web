@@ -145,12 +145,11 @@ const CustomerDocuments = () => {
         {formatMessage(messages.documents)} - {filteredDocuments.length} {formatMessage(messages.of)} {documents.length}
       </div>
         <div className="page-content__range-wrapper">
-          <span className="range-title">Date range:</span> {
+          <span className="range-title">{formatMessage(messages.dateRange)}:</span> {
             dateRange[0].startDate && dateRange[0].endDate ?
-              `${formatDate(dateRange[0].startDate)} - ${formatDate(dateRange[0].endDate)}` :
-              'All time'
+              `${formatDate(dateRange[0].startDate)} - ${formatDate(dateRange[0].endDate)}` : `${formatMessage(messages.allTime)}`
           }
-          <Button classNames="theme-btn" text={'Edit'} onClickHandler={handleShow} />
+          <Button classNames="theme-btn" text={formatMessage(messages.edit)} onClickHandler={handleShow} />
         </div>
         <DateRangeModal 
           isActive={showDateRangeModal}

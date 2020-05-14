@@ -18,7 +18,7 @@ const DateRangeModal = ({ isActive, onClose, dateRange, onDateChange }) => {
         <>
             <Modal size="sm" className="message-modal" show={isActive} onHide={onClose} animation={false}>
                 <Modal.Header className="message-modal__header" closeButton>
-                    <Modal.Title>Select range</Modal.Title>
+                    <Modal.Title>{formatMessage(messages.selectRange)}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="message-modal__body">
                     <DateRange
