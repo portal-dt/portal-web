@@ -54,7 +54,7 @@ const CustomerDocuments = () => {
   // const isLoading = useSelector(isLoadingSelector);
   const customers = useSelector(customersSelector);
   const { id } = useParams();
-  const { formatMessage } = useIntl();
+  const { formatMessage, formatDate } = useIntl();
   const rowsPerPage = 5;
 
   const handleClose = () => setShowDateRangeModal(false);
@@ -84,8 +84,6 @@ const CustomerDocuments = () => {
       const endDateNum = item.selection.endDate.getTime();      
       return creationDateNum >= startDateNum && creationDateNum <= endDateNum;
     });
-    console.log(documents, filteredDocuments);
-    
     setFilteredDocuments(filteredDocuments)
     setRangedDocuments(filteredDocuments)
     setDateRange([item.selection]);
@@ -147,7 +145,12 @@ const CustomerDocuments = () => {
         {formatMessage(messages.documents)} - {filteredDocuments.length} {formatMessage(messages.of)} {documents.length}
       </div>
         <div className="page-content__range-wrapper">
-          <Button classNames="theme-btn" text={'Date range'} onClickHandler={handleShow} />
+          <span className="range-title">Date range:</span> {
+            dateRange[0].startDate && dateRange[0].endDate ?
+              `${formatDate(dateRange[0].startDate)} - ${formatDate(dateRange[0].endDate)}` :
+              'All time'
+          }
+          <Button classNames="theme-btn" text={'Edit'} onClickHandler={handleShow} />
         </div>
         <DateRangeModal 
           isActive={showDateRangeModal}

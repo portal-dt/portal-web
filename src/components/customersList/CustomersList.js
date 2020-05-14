@@ -75,8 +75,6 @@ const CustomersList = () => {
       const endDateNum = item.selection.endDate.getTime();      
       return lastLoginNum >= startDateNum && lastLoginNum <= endDateNum;
     });
-    console.log(customers, filteredCustomers);
-    
     setFilteredCustomers(filteredCustomers)
     setRangedCustomers(filteredCustomers)
     setDateRange([item.selection]);
@@ -156,7 +154,12 @@ const CustomersList = () => {
         </div> :
         <>
           <div className="page-content__range-wrapper">
-            <Button classNames="theme-btn" text={'Date range'} onClickHandler={handleShow} />
+            <span className="range-title">Date range:</span> {
+              dateRange[0].startDate && dateRange[0].endDate ?
+                `${formatDate(dateRange[0].startDate)} - ${formatDate(dateRange[0].endDate)}` :
+                'All time'
+              }
+            <Button classNames="theme-btn" text={'Edit'} onClickHandler={handleShow} />
           </div>
           <DateRangeModal
             isActive={showDateRangeModal}

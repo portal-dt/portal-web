@@ -17,6 +17,9 @@ const DateRangeModal = ({ isActive, onClose, dateRange, onDateChange }) => {
     return (
         <>
             <Modal size="sm" className="message-modal" show={isActive} onHide={onClose} animation={false}>
+                <Modal.Header className="message-modal__header" closeButton>
+                    <Modal.Title>Select range</Modal.Title>
+                </Modal.Header>
                 <Modal.Body className="message-modal__body">
                     <DateRange
                         editableDateInputs={true}
@@ -25,9 +28,6 @@ const DateRangeModal = ({ isActive, onClose, dateRange, onDateChange }) => {
                         ranges={dateRange}
                     />
                 </Modal.Body>
-                <Modal.Footer className="message-modal__footer">
-                    <Button classNames="theme-btn" text="Edit" onClickHandler={onClose} />
-                </Modal.Footer>
             </Modal>
         </>
     );
