@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useReducer } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useIntl } from 'react-intl';
-import { NavLink, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { DateRange } from 'react-date-range';
+
 import Spinner from 'react-bootstrap/Spinner';
 import Collapse from 'react-bootstrap/Collapse';
+import Modal from 'react-bootstrap/Modal';
 
 import { getCustomers } from '../../utils/api';
 import { messages } from './messages';
@@ -15,6 +18,8 @@ import Button from '../button/Button';
 import { sortColumn } from '../../utils';
 import { getCustomersAction } from '../../actions/actions';
 
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
 import './CustomersList.less';
 
 const initialState = {
@@ -31,15 +36,27 @@ const sortReducer = (state, { field }) => ({
 
 const CustomersList = () => {
   const dispatch = useDispatch();
+  const [dateRange, setDateRange] = useState([
+    {
+      startDate: null,
+      endDate: null,
+      key: 'selection'
+    }
+  ]);
+  const [showDateRangeModal, setShowDateRangeModal] = useState(false);
   const [sortState, sortStateUpdater] = useReducer(sortReducer, initialState);
   const [customers, setCustomers] = useState([]);
   const [filteredCustomers, setFilteredCustomers] = useState([]);
+  const [rangedCustomers, setRangedCustomers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [showNumbers, setShowNumbers] = useState(false);
   const history = useHistory();
   const { formatMessage, formatDate } = useIntl();
   const rowsPerPage = 5;
+
+  const handleClose = () => setShowDateRangeModal(false);
+  const handleShow = () => setShowDateRangeModal(true);
 
   useEffect(() => {
     const fetchCustomers = async () => {
@@ -49,9 +66,24 @@ const CustomersList = () => {
       setLoading(false);
       setCustomers(customersList);
       setFilteredCustomers(customersList);
+      setRangedCustomers(customersList);
     };
     fetchCustomers();
   }, []);
+
+  const filterByDateRange = (item) => {
+    const filteredCustomers = customers.filter(({ lastLogin }) => {
+      const lastLoginNum = Date.parse(lastLogin);
+      const startDateNum = item.selection.startDate.getTime();
+      const endDateNum = item.selection.endDate.getTime();      
+      return lastLoginNum >= startDateNum && lastLoginNum <= endDateNum;
+    });
+    console.log(customers, filteredCustomers);
+    
+    setFilteredCustomers(filteredCustomers)
+    setRangedCustomers(filteredCustomers)
+    setDateRange([item.selection]);
+  };
 
   const filterTable = ({ target = {} }) => {
     const filteredCustomers = customers.filter(({ lastLogin, accountNumbers = [], customerName = '', email = '' }) => {
@@ -126,6 +158,17 @@ const CustomersList = () => {
           <Spinner variant="warning" animation="border" />
         </div> :
         <>
+          <Button classNames="theme-btn" text={'Date range'} onClickHandler={handleShow} />
+          <Modal size="sm" className="message-modal" show={showDateRangeModal} onHide={handleClose} animation={false}>
+            <Modal.Body className="message-modal__body">
+              <DateRange
+                editableDateInputs={true}
+                onChange={item => filterByDateRange(item)}
+                moveRangeOnFirstSelection={false}
+                ranges={dateRange}
+              />
+            </Modal.Body>
+          </Modal>
           <Table
             tableData={currentRows}
             TableHeader={TableHeader}

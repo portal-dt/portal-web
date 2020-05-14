@@ -35,7 +35,9 @@ const CustomerTableRow = ({ documentId, documentNumber, documentType, creationDa
   const openedAtClassName = classNames(`table-row__column--${openedAt ? 'green' : 'red'}`);
   const lastOpenedAtText = openedAt ? formatDate(openedAt) : formatMessage(messages.unread);
 
-  const getPdfName = () => getDocumentName(creationDate, documentType, formatMessage, messages);
+  // const getPdfName = () => getDocumentName(creationDate, documentType, formatMessage, messages);
+  const getPdfName = () => `${documentType} ${new Date(creationDate).toLocaleString('default', { month: 'long' })} ${new Date(creationDate).getUTCFullYear()}`;
+  
 
   return (
     <tr>
