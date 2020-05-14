@@ -2,7 +2,6 @@ import React, { useState, useEffect, useReducer } from 'react';
 import { useDispatch } from 'react-redux';
 import { useIntl } from 'react-intl';
 import { useHistory } from 'react-router-dom';
-
 import Spinner from 'react-bootstrap/Spinner';
 import Collapse from 'react-bootstrap/Collapse';
 

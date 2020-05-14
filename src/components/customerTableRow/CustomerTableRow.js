@@ -36,7 +36,6 @@ const CustomerTableRow = ({ documentId, documentNumber, documentType, creationDa
   const lastOpenedAtText = openedAt ? formatDate(openedAt) : formatMessage(messages.unread);
 
   const getPdfName = () => getDocumentName(creationDate, documentType, formatMessage, messages);
-  
 
   return (
     <tr>
