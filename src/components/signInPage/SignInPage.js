@@ -39,9 +39,7 @@ const SignInPage = ({ isAuthenticated }) => {
   const [signInErrorStatus, setSignInErrorStatus] = useState(null);
   const dispatch = useDispatch();
   const history = useHistory();
-  const { search } = useLocation();
-  const searchParams = new URLSearchParams(search);
-  const isAdmin = searchParams.get('adminAccess') === 'true';
+  const isAdmin = window.location.hostname === 'dtportal-kraft.doctricks.net';
 
   useEffect(() => {
     !isAdmin && getBankIdUrlFromScrive();

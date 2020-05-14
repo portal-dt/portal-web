@@ -10,15 +10,14 @@ export const languageSelector = createSelector(
   (language) => language || navigator.languages[0].split('-')[0]
 );
 
-export const userNameSelector = createSelector(
-  state => state.user.user.firstName,
-  state => state.user.user.lastName,
-  (firstName, lastName) => `${firstName} ${lastName}`
-);
-
 export const userSelector = createSelector(
   state => state.user.user,
   user => user || {}
+);
+
+export const isAdminSelector = createSelector(
+  state => state.user.user.isAdmin,
+  isAdmin => isAdmin || window.location.hostname === 'dtportal-kraft.doctricks.net'
 );
 
 export const isLoadingSelector = createSelector(

@@ -13,7 +13,7 @@ import Col from 'react-bootstrap/Col';
 import { messages } from './messages';
 import { getLatestDocumentsByCustomerId, updateViewedDocument } from '../../utils/api';
 import { getDocumentName } from '../../utils';
-import { userSelector } from '../../selectors';
+import { isAdminSelector } from '../../selectors';
 
 import './CustomerDashboard.less';
 
@@ -67,7 +67,7 @@ const CustomerDashboard = () => {
   const [pdfPreview, setPdfPreview] = useState('');
   const [isDocumentOpened, setIsDocumentOpened] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { isAdmin } = useSelector(userSelector);
+  const isAdmin = useSelector(isAdminSelector);
   const { formatMessage, formatDate } = useIntl();
 
   const fetchLatestDocuments = async () => {

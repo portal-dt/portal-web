@@ -16,7 +16,7 @@ import Col from 'react-bootstrap/Col';
 import { getDocuments, getDocumentsByCustomerId } from '../../utils/api';
 import { sortColumn } from '../../utils';
 import { messages } from './messages';
-import { userSelector, customersSelector } from '../../selectors';
+import { customersSelector, isAdminSelector } from '../../selectors';
 
 import './CustomerDocuments.less';
 
@@ -52,7 +52,7 @@ const CustomerDocuments = () => {
   const [rangedDocuments, setRangedDocuments] = useState([]);
   const [isLoading, setIsLoading] = useState([]);
   const history = useHistory();
-  const { isAdmin } = useSelector(userSelector);
+  const isAdmin = useSelector(isAdminSelector);
   // const isLoading = useSelector(isLoadingSelector);
   const customers = useSelector(customersSelector);
   const { id } = useParams();

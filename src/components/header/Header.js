@@ -6,7 +6,7 @@ import { messages } from './messages';
 
 import { logout } from '../../utils/auth';
 import { logoutAction } from '../../actions/actions';
-import { userSelector } from '../../selectors';
+import { userSelector, isAdminSelector } from '../../selectors';
 
 import { BoxArrowRight } from 'react-bootstrap-icons';
 import Nav from 'react-bootstrap/Nav';
@@ -22,7 +22,8 @@ const Header = ({ isAuthenticated }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { formatMessage } = useIntl();
-  const { isAdmin, firstName, lastName } = useSelector(userSelector);
+  const { firstName, lastName } = useSelector(userSelector);
+  const isAdmin = useSelector(isAdminSelector);
 
 
   const handleLogOut = () => {

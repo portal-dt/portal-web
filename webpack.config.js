@@ -1,12 +1,12 @@
 const path = require('path');
 const HtmlWebpackPlugin =  require('html-webpack-plugin');
 
-module.exports = {
+module.exports = (env) => ({
   entry : ['babel-polyfill',  './src/index.js'],
   output : {
     path : path.resolve(__dirname , 'dist'),
     filename: 'index_bundle.js',
-    publicPath: '/'
+    publicPath: './'
   },
   module : {
     rules : [
@@ -36,7 +36,7 @@ module.exports = {
       }
     ]
   },
-  mode: process.argv.length === 5 ? 'development' : 'production',
+  mode: env.NODE_ENV,
   devtool: 'eval-source-map',
   plugins : [
     new HtmlWebpackPlugin ({
@@ -44,6 +44,7 @@ module.exports = {
     })
   ],
   devServer: {
-    historyApiFallback: true
+    historyApiFallback: true,
+    host: 'brev.kraftbank.no'
   }
-};
+});

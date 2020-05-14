@@ -1,7 +1,9 @@
 import { LOGIN, LOGOUT, UPDATE_USER, SET_USER } from '../constants';
 
 const initialState = {
-  user: {},
+  user: {
+    isAdmin: false
+  },
   isAuthenticated: false
 };
 

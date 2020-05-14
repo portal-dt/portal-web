@@ -10,7 +10,7 @@ import DocumentModal from '../documentModal/DocumentModal';
 
 import { updateViewedDocument } from '../../utils/api';
 import { getDocumentName } from '../../utils';
-import { userSelector } from '../../selectors';
+import { isAdminSelector } from '../../selectors';
 import { messages } from './messages';
 
 import './CustomerTableRow.less';
@@ -19,7 +19,7 @@ import './CustomerTableRow.less';
 const CustomerTableRow = ({ documentId, documentNumber, documentType, creationDate, openedAt, document, customerName, email }) => {
   const { formatMessage, formatDate } = useIntl();
   const [isDocumentOpened, setIsDocumentOpened] = useState(false);
-  const { isAdmin } = useSelector(userSelector);
+  const isAdmin = useSelector(isAdminSelector);
   const { id } = useParams();
 
 
